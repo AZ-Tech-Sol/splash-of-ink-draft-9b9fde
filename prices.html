@@ -1,0 +1,31 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>Request prices · Splash of Ink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&family=Pirata+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<div class="draft">DRAFT for Splash of Ink · samples, links and hours are placeholders · forms send nothing</div>
+<header><div class="wrap"><a class="brand" href="index.html">Splash <span>of</span> Ink</a>
+<nav><a href="index.html">Home</a><a href="artists.html">Artists</a><a href="prices.html" class=on>Request prices</a><a href="apprentice.html">Apprentices</a><a href="visit.html">Visit</a></nav></div></header>
+
+<section class="hero" style="padding:60px 0 24px"><div class="wrap"><div class="eyebrow">Request prices</div><h1 style="font-size:clamp(46px,8vw,80px)">Tell us your idea</h1>
+<p class="lead">Price depends on size and placement. Send the details and we’ll get back to you with prices.</p></div></section>
+<section style="padding-top:10px"><div class="wrap">
+<form class="f card" id="pf" novalidate>
+  <div class="two"><label>Your name<input name="name" autocomplete="name" required></label><label>Phone<input name="phone" type="tel" autocomplete="tel" required></label></div>
+  <label>Email<input name="email" type="email" autocomplete="email" required></label>
+  <div class="two"><label>Which artist?<select name="artist" id="artist"><option value="magic">Magic</option><option value="angel-perez">Angel Perez</option><option value="artist">Artist name</option><option value="any">Any artist</option></select></label><label>Placement<input name="placement" placeholder="Forearm, back, ankle…" required></label></div>
+  <label>Size <small>(roughly, in inches)</small><input name="size" placeholder="About 3 × 4 in"></label>
+  <fieldset><legend>Style</legend><div class="chk"><label><input type="radio" name="style" value="black-gray" checked> Black and gray</label><label><input type="radio" name="style" value="color"> Color</label><label><input type="radio" name="style" value="fine-line"> Fine line</label></div></fieldset>
+  <label>Tell us about it <small>(optional)</small><textarea name="notes" rows="4"></textarea></label>
+  <label>Reference image <small>(optional)</small><input name="image" type="file" accept="image/*"></label>
+  <p class="err note" id="perr" hidden></p>
+  <button class="btn" type="submit">Request prices</button>
+  <p class="note">Draft: this form doesn’t send anything yet.</p>
+</form></div></section><footer><div class="wrap"><span>© 2026 Splash of Ink · Tucson, Arizona</span>
+<span class="credit">Website by <a href="https://aztechsol.com/" target="_blank" rel="noopener">AZ Tech Solutions</a></span></div></footer>
+<script>
+(function(){var q=new URLSearchParams(location.search).get('artist');if(q){var s=document.getElementById('artist');if([].some.call(s.options,function(o){return o.value===q}))s.value=q;}
+var f=document.getElementById('pf');f.addEventListener('submit',function(e){e.preventDefault();var bad=[];['name','phone','email','placement'].forEach(function(n){if(!f[n].value.trim())bad.push(n)});
+var er=document.getElementById('perr');if(bad.length){er.hidden=false;er.textContent='Still needed: '+bad.join(', ')+'.';return}
+f.outerHTML='<div class="done"><h3>Thanks, we’ve got it.</h3><p>We’ll be in touch with prices. (Draft: nothing was sent.)</p></div>';});})();
+</script></body></html>
