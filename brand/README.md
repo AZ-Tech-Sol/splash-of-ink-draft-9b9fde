@@ -59,12 +59,6 @@ The S is the heart of the brand. Three things make it ours:
 - The drip is always purple. The letter changes between light and dark to suit the background; the drip doesn't.
 - Smallest size: 28 px tall on screen, 8 mm in print. Below that, the drip and the needle disappear.
 
-### Ideas still on the table
-
-Recraft concepts for an S built around a **tattoo machine** (1 to 3, with the current S marked *now*). Pick one, mix two, or keep the current S:
-
-![Tattoo machine S concepts](concepts-tattoo-machine-s.png)
-
 ---
 
 ## The signature
@@ -186,8 +180,7 @@ The S does three jobs at once. It's the first letter of the name, it's a splash 
 
 Things to decide together:
 
-1. **The S:** keep the current S, or move to one of the tattoo machine concepts (1, 2 or 3).
-2. **Colours:** whether the purple, the grays and the drip feel right. Try them on the Brand Bench.
-3. **Social channels:** which one or two the website should push (Instagram, TikTok or both). The website's main call to action becomes *follow us* there.
-4. **Merch:** shirts and hats with the S, for the shelf (Annie's idea).
-5. **Redraw it yourselves:** if the crew wants to hand-draw the S or the lettering, send it over and it gets turned into these files.
+1. **Colours:** whether the purple, the grays and the drip feel right. Try them on the Brand Bench.
+2. **Social channels:** which one or two the website should push (Instagram, TikTok or both). The website's main call to action becomes *follow us* there.
+3. **Merch:** shirts and hats with the S, for the shelf (Annie's idea).
+4. **Redraw it yourselves:** if the crew wants to hand-draw the S or the lettering, send it over and it gets turned into these files.
