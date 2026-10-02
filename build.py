@@ -71,6 +71,7 @@ section{padding:56px 0}section.alt{background:var(--ink2)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
 .acard{text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px;transition:border-color .2s;height:100%}
 .acard:hover{border-color:var(--purple)}
+.portrait{aspect-ratio:1/1;width:100%;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
 .ph{aspect-ratio:1/1;border-radius:12px;border:1px dashed #4a3d63;background:repeating-linear-gradient(45deg,#1f1830 0 12px,#1b1526 12px 24px);display:flex;align-items:center;justify-content:center;text-align:center;color:var(--mute);font:600 13px Inter,sans-serif;padding:12px}
 .tags{display:flex;gap:6px;flex-wrap:wrap}.tags span{font-size:12.5px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--purple2)}
 .samples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
@@ -121,9 +122,12 @@ def page(fn, title, body, extra=''):
     (R / fn).write_text(HEAD.format(title=html.escape(title), nav=nav) + body + FOOT.replace('</body>', extra + '</body>'))
 
 def ph(label): return f'<div class="ph">{html.escape(label)}<br>photo coming</div>'
+def portrait(a):  # a real photo when the shop has sent one (assets/artists/<slug>.jpg), else the labelled placeholder
+    f = R / 'assets' / 'artists' / f"{a['slug']}.jpg"
+    return f'<img class="portrait" src="assets/artists/{a["slug"]}.jpg" alt="{html.escape(a["name"])}" width="900" height="900" loading="lazy">' if f.exists() else ph(a['name'] + ' · portrait')
 
 def acard(a):
-    return f'''<a class="card acard" href="artist-{a['slug']}.html">{ph(a['name'] + ' · portrait')}
+    return f'''<a class="card acard" href="artist-{a['slug']}.html">{portrait(a)}
       <h3 style="margin:4px 0 0">{a['name']}</h3><div class="note">{a['role']} · {SHOPNAME[a['shop']]}</div>
       <div class="tags">{''.join(f'<span>{s}</span>' for s in a['styles'])}</div><span class="btn ghost" style="text-align:center;margin-top:auto">See {a['name'].split()[0]}’s page</span></a>'''
 
@@ -201,7 +205,7 @@ for a in ARTISTS:
     minimum = f'<p><b style="color:var(--fog)">{a["minimum"]}</b></p>' if a['minimum'] else ''
     page(f'artist-{a["slug"]}.html', f'{a["name"]} · Splash of Ink', f'''
 <section><div class="wrap prof">
-  <div>{ph(a['name'] + ' · portrait')}</div>
+  <div>{portrait(a)}</div>
   <div><div class="eyebrow"><a href="artists.html" style="text-decoration:none">Artists</a> › <a href="index.html#{a['shop']}" style="text-decoration:none">{SHOPNAME[a['shop']]}</a></div>
     <h1 style="font-size:52px">{a['name']}</h1><p class="note" style="margin-top:-8px">{a['role']}</p>
     <p>{a['bio']}</p>{minimum}
