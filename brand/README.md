@@ -22,7 +22,7 @@ There are three pieces, and each has a job.
 
 ![Splash of Ink signature on dark](splash-of-ink-signature-dark.svg)
 
-**The signature, on light (paper, receipts, light walls):**
+**The signature, on light (paper, receipts, light walls).** The S stays white on its splash; *plash* goes black and *of Ink* deep purple:
 
 ![Splash of Ink signature on light](splash-of-ink-signature-light.svg)
 
@@ -57,7 +57,7 @@ The S is the heart of the brand. Two things make it ours:
 
 - Always use the S from these files. Don't retype it in a font: the blackletter font's own S reads like a G or a T (Magic's note, 1 Oct), which is why the drawn S replaced it.
 - Keep it upright. Don't stretch, slant or outline it.
-- The splash is always Ink Purple. The letter changes between light and dark to suit the background; the splash doesn't.
+- The splash is always Ink Purple. On its splash the S is always white, on dark grounds and light ones; only the S alone, without a splash, switches to black on light backgrounds.
 - Smallest size: 28 px tall on screen, 8 mm in print. Below that, the splash's drops disappear.
 
 ---

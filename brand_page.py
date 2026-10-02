@@ -104,7 +104,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   </div>
   <div class="grid2" style="margin-top:16px">
     <div><div class="stage dark"><img src="splash-of-ink-signature-dark.svg" alt="Signature on dark"></div><p class="cap">On dark: the main version, and the one the website uses.</p></div>
-    <div><div class="stage light"><img src="splash-of-ink-signature-light.svg" alt="Signature on light"></div><p class="cap">On light: paper, receipts and light walls.</p></div>
+    <div><div class="stage light"><img src="splash-of-ink-signature-light.svg" alt="Signature on light"></div><p class="cap">On light: paper, receipts and light walls. The S stays white on its splash; <i>plash</i> goes black and <i>of Ink</i> deep purple.</p></div>
   </div>
   <h3 style="margin-top:34px">The files</h3>
   <div class="tbl"><table><tr><th>File</th><th>What it’s for</th></tr>
@@ -135,7 +135,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <ul class="rules dont">
         <li>Always use the S from these files. Don’t retype it in a font: the blackletter font’s own S reads like a G or a T (Magic’s note, 1 October), which is why the drawn S replaced it.</li>
         <li>Keep it upright. Don’t stretch, slant or outline it.</li>
-        <li>The splash is always Ink Purple. The letter changes between light and dark to suit the background; the splash doesn’t.</li>
+        <li>The splash is always Ink Purple. On its splash the S is always white, on dark grounds and light ones; only the S alone, without a splash, switches to black on light backgrounds.</li>
         <li>Smallest size: 28 px tall on screen, 8 mm in print. Smaller than that, the splash’s drops disappear.</li>
       </ul>
     </div>
