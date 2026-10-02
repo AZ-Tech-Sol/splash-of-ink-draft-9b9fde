@@ -116,7 +116,7 @@ HEAD = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name=
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&family=UnifrakturMaguntia&family=Mr+Dafoe&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css"></head><body>
 <div class="draft">DRAFT for Splash of Ink · samples, links and hours are placeholders · forms send nothing</div>
-<header><div class="wrap"><a class="brand" href="index.html"><img src="assets/brand/lockup-dark.svg?v=22417cc6" alt="Splash of Ink" height="46"></a>
+<header><div class="wrap"><a class="brand" href="index.html"><img src="assets/brand/lockup-dark.svg?v=10eb4ea9" alt="Splash of Ink" height="46"></a>
 <nav>{nav}</nav></div></header>
 '''
 NAV = [('index.html', 'Home'), ('artists.html', 'Artists'), ('prices.html', 'Prices'), ('apprentice.html', 'Apprentices'), ('visit.html', 'Visit')]
@@ -198,7 +198,7 @@ HOURSCARD = '<div class="card"><h3>Hours</h3><p style="font-size:18px;color:var(
 page('index.html', 'Splash of Ink · Tattoo and piercing in Tucson', f'''
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Tattoo and piercing · two shops in Tucson</div>
-  <h1 class="lockup"><img src="assets/brand/lockup-dark.svg?v=22417cc6" alt="Splash of Ink"></h1>
+  <h1 class="lockup"><img src="assets/brand/lockup-dark.svg?v=10eb4ea9" alt="Splash of Ink"></h1>
   <p class="lead">Good art, good people, good vibes. Find your shop, pick your artist, and ask them for prices.</p>
   <div class="row"><a class="btn" href="#shops">Find your shop</a><a class="btn ghost" href="artists.html">Meet the artists</a></div>
   {callbar()}
@@ -246,7 +246,7 @@ for a in ARTISTS:
 
 # Prices: a list of artists, each with their own request
 rows = ''.join(f'''<div class="card prow"><div><h3 style="margin:0">{a['name']}</h3><div class="note">{a['role']} · {SHOPNAME[a['shop']]}</div></div>
-  <div class="row" style="justify-content:flex-end"><a class="btn ghost" href="artist-{a['slug']}.html">Their page</a><a class="btn" href="#" data-ask="{a['slug']}">Request prices</a></div></div>''' for a in ARTISTS)
+  <div class="row" style="justify-content:flex-end"><a class="btn ghost" href="artist-{a['slug']}.html">Learn more</a><a class="btn" href="#" data-ask="{a['slug']}">Request prices</a></div></div>''' for a in ARTISTS)
 page('prices.html', 'Request prices · Splash of Ink', f'''
 <section class="hero" style="padding:60px 0 24px"><div class="wrap"><div class="eyebrow">Request prices</div><h1 style="font-size:clamp(46px,8vw,80px)">Ask your artist</h1>
 <p class="lead">Each artist sets their own prices, and price depends on size and placement. Pick the artist you want and they’ll send you a range.</p></div></section>
