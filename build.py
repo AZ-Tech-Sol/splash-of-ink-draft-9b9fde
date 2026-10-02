@@ -116,7 +116,7 @@ HEAD = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name=
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&family=UnifrakturMaguntia&family=Mr+Dafoe&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css"></head><body>
 <div class="draft">DRAFT for Splash of Ink · samples, links and hours are placeholders · forms send nothing</div>
-<header><div class="wrap"><a class="brand" href="index.html"><img src="assets/brand/lockup-dark.svg?v=951cf401" alt="Splash of Ink" height="58"></a>
+<header><div class="wrap"><a class="brand" href="index.html"><img src="assets/brand/lockup-dark.svg?v=8b2a029c" alt="Splash of Ink" height="58"></a>
 <nav>{nav}</nav></div></header>
 '''
 NAV = [('index.html', 'Home'), ('artists.html', 'Artists'), ('prices.html', 'Prices'), ('apprentice.html', 'Apprentices'), ('visit.html', 'Visit')]
@@ -198,7 +198,7 @@ HOURSCARD = '<div class="card"><h3>Hours</h3><p style="font-size:18px;color:var(
 page('index.html', 'Splash of Ink · Tattoo and piercing in Tucson', f'''
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Tattoo and piercing · two shops in Tucson</div>
-  <h1 class="lockup"><img src="assets/brand/lockup-dark.svg?v=951cf401" alt="Splash of Ink"></h1>
+  <h1 class="lockup"><img src="assets/brand/lockup-dark.svg?v=8b2a029c" alt="Splash of Ink"></h1>
   <p class="lead">Good art, good people, good vibes. Find your shop, pick your artist, and ask them for prices.</p>
   <div class="row"><a class="btn" href="#shops">Find your shop</a><a class="btn ghost" href="artists.html">Meet the artists</a></div>
   {callbar()}
