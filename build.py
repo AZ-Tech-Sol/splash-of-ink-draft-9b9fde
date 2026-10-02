@@ -26,7 +26,7 @@ ARTISTS = [
        minimum='', book=('Book with Annie', '#', 'Booking link coming'),
        socials=[('Instagram', 'https://www.instagram.com/annie_splash_of_ink/'), ('TikTok', 'https://www.tiktok.com/@anniesplashofink')]),
   dict(slug='master-d', name='Master D', shop='stone-avenue', role='Owner and artist',
-       bio='Master D owns Splash of Ink and tattoos at the Stone and Fort Lowell shop.',
+       bio='Master D owns Splash of Ink and tattoos at the Stone Avenue shop.',
        styles=['Styles coming'],
        minimum='', book=('Book with Master D', '#', 'Booking link coming'),
        socials=[('Instagram', '#')]),
