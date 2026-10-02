@@ -29,11 +29,6 @@ ARTISTS = [
        styles=['Anime', 'Comic', 'Color', 'Black and gray'],
        minimum='', book=('Book with Angel on Setmore', '#', 'Setmore link coming'),
        socials=[('Instagram', 'https://www.instagram.com/thegreatsagetattoosandtarot/'), ('TikTok', 'https://www.tiktok.com/@greatsagetattooandtarot')]),
-  dict(slug='potter', name='Potter', shop='stone-fort-lowell', role='Artist',
-       bio='Potter tattoos at the Stone and Fort Lowell shop.',
-       styles=['Styles coming'],
-       minimum='', book=('Book with Potter', '#', 'Booking link coming'),
-       socials=[('Instagram', '#')]),
 ]
 SHOPNAME = {s['slug']: s['name'] for s in SHOPS}
 
