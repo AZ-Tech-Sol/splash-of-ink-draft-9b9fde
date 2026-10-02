@@ -130,7 +130,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .call:hover{box-shadow:0 0 24px rgba(168,85,247,.45)}
 .pay{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:14px}@media (max-width:760px){.pay{grid-template-columns:1fr 1fr}}.pay h3{margin:0 0 4px}.pay p{margin:0}
 .artistline{margin:14px 0 0;font-size:15px}.artistline a{font-weight:600}
-.sizes{margin-top:18px}.ico{width:60px;height:60px;display:block;margin-bottom:10px}.size h3{margin:0 0 4px}.size p{margin:0}.size .range{margin-top:8px;font:600 22px Oswald,sans-serif;color:var(--purple2)}
+.sizes{margin-top:18px}.ico{width:60px;height:60px;display:block;margin-bottom:10px}@media (max-width:860px){.ico{margin-inline:auto}}.size h3{margin:0 0 4px}.size p{margin:0}.size .range{margin-top:8px;font:600 22px Oswald,sans-serif;color:var(--purple2)}
 .pnotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}@media (max-width:860px){.pnotes{grid-template-columns:1fr}}
 .pnotes h3{margin:0 0 6px}.pnotes p{margin:0}
 .plist{display:grid;gap:10px}
