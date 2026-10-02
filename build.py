@@ -12,6 +12,31 @@ def callbar():  # D's number first, Magic's right beside it and just as big
     return '<div class="callbar">' + ''.join(f'<a class="call{" alt" if n else ""}" href="tel:{e}"><span class="cl">{lab} · {who}</span><span class="cn">{num}</span></a>' for n, (who, num, e, lab) in enumerate(PHONES)) + '</div>'
 def phones_inline():
     return ' · '.join(f'<a href="tel:{e}">{num}</a> ({who})' for who, num, e, _ in PHONES)
+SIZES = [('Small', 'up to about palm size'), ('Medium', 'about the size of your hand'), ('Large', 'bigger than your hand, or a full piece')]
+HARD_SPOTS = 'ribs, stomach, neck, hands and feet'
+def short(a): return a['name'] if a['name'].startswith('Master') else a['name'].split()[0]
+def avatar(a, size=52):
+    f = R / 'assets' / 'artists' / f"{a['slug']}.jpg"
+    src = f"assets/artists/{a['slug']}.jpg" if f.exists() else 'assets/brand/mark-dark.svg'
+    return f'<img class="bubble" src="{src}" alt="" width="{size}" height="{size}" loading="lazy">'
+def pricing_section():
+    rows = ''.join(f'''<div class="prow2">{avatar(a)}<div class="pmeta"><b>{a['name']}</b><span>{a['role']} · {SHOPNAME[a['shop']]}</span></div>
+      <div class="pmin">{a['minimum'] or '<span class="note">Minimum coming</span>'}</div>
+      <a class="btn" href="#" data-ask="{a['slug']}">Get {short(a)}’s price</a></div>''' for a in ARTISTS)
+    sizes = ''.join(f'<div class="card size"><h3>{n}</h3><p>{d}</p><p class="range">Range coming</p></div>' for n, d in SIZES)
+    return f'''<section id="pricing"><div class="wrap">
+  <div class="eyebrow">Pricing</div><h2 style="font-size:40px">What a tattoo costs</h2>
+  <p style="max-width:680px">Every artist at Splash of Ink sets their own prices. Your price depends on three things: the size of the piece, where it goes on your body, and how much detail it has. Tell your artist about your idea and they’ll send you a price range.</p>
+  <div class="grid3 sizes">{sizes}</div>
+  <div class="pnotes">
+    <div class="card"><h3>Placement</h3><p>The same design costs more on the {HARD_SPOTS}. Those spots take longer and need a steadier hand.</p></div>
+    <div class="card"><h3>Big pieces</h3><p>Larger work can be split into sessions to fit your budget. Your artist will plan it with you.</p></div>
+    <div class="card"><h3>Credit for coming back</h3><p>Spend over $150 and you build a $100 tattoo credit, to use that day or on your next visit.</p></div>
+  </div>
+  <h3 style="margin:30px 0 12px">Get your artist’s price</h3>
+  <div class="plist">{rows}</div>
+  <p class="note" style="margin-top:12px">Payment is due before the tattoo or piercing is done: Venmo, Cash App, Zelle or cash (there’s an ATM inside).</p>
+</div></section>'''
 HOURS = 'Open 24/7 by appointment. Walk-ins: Monday to Thursday 11 AM to about 10 PM; Friday to Sunday 11 AM to 5 AM.'
 WALKIN = [('Monday', '11 AM – about 10 PM'), ('Tuesday', '11 AM – about 10 PM'), ('Wednesday', '11 AM – about 10 PM'), ('Thursday', '11 AM – about 10 PM'), ('Friday', '11 AM – 5 AM'), ('Saturday', '11 AM – 5 AM'), ('Sunday', '11 AM – 5 AM')]
 ARTISTS = [
@@ -104,6 +129,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .call.alt{border-color:var(--purple2)}
 .call:hover{box-shadow:0 0 24px rgba(168,85,247,.45)}
 .pay{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:14px}@media (max-width:760px){.pay{grid-template-columns:1fr 1fr}}.pay h3{margin:0 0 4px}.pay p{margin:0}
+.artistline{margin:14px 0 0;font-size:15px}.artistline a{font-weight:600}
+.sizes{margin-top:18px}.size h3{margin:0 0 4px}.size p{margin:0}.size .range{margin-top:8px;font:600 22px Oswald,sans-serif;color:var(--purple2)}
+.pnotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}@media (max-width:860px){.pnotes{grid-template-columns:1fr}}
+.pnotes h3{margin:0 0 6px}.pnotes p{margin:0}
+.plist{display:grid;gap:10px}
+.prow2{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+@media (max-width:640px){.prow2{grid-template-columns:auto minmax(0,1fr)}.prow2 .pmin{grid-column:2}.prow2 .btn{grid-column:1 / -1;text-align:center}}
+.bubble{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--purple);display:block;background:#0b0910}
+.pmeta{display:grid}.pmeta b{color:var(--fog);font:600 17px Oswald,sans-serif;letter-spacing:.03em}.pmeta span{font-size:13px;color:var(--mute)}
+.pmin{font-weight:600;color:var(--fog);font-size:14px}
 .prow{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
 .askd{border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--body);padding:0;max-width:600px;width:calc(100% - 28px)}
 .askd::backdrop{background:rgba(5,3,9,.75)}.askd form{padding:26px 24px;position:relative;max-width:none}
@@ -149,13 +184,13 @@ def acard(a):
       <h3 style="margin:4px 0 0">{a['name']}</h3><div class="note">{a['role']} · {SHOPNAME[a['shop']]}</div>
       <div class="tags">{''.join(f'<span>{s}</span>' for s in a['styles'])}</div><span class="btn ghost" style="text-align:center;margin-top:auto">See {a['name'].split()[0]}’s page</span></a>'''
 
-def shop_block(s, heading='h2'):
+def shop_block(s, heading='h2', compact=False):
     arts = [a for a in ARTISTS if a['shop'] == s['slug']]
     maplink = f'<a href="{s["map"]}" target="_blank" rel="noopener">Open in Google Maps →</a>' if s['map'] else f'<span class="note">{s.get("pending","")}</span>'
     phone = phones_inline()
     return f'''<div class="shop" id="{s['slug']}"><div class="shophead"><div><div class="eyebrow">Shop</div><{heading} style="font-size:34px;margin-bottom:6px">{s['name']}</{heading}><p style="margin:0">{s['blurb']}</p></div>
       <div class="card shopinfo"><p style="margin:0 0 6px">{s['addr']}</p><p style="margin:0 0 6px">{phone}</p><p style="margin:0">{maplink}</p></div></div>
-      <div class="grid3" style="margin-top:18px">{''.join(acard(a) for a in arts)}</div></div>'''
+      {('<p class="artistline">Artists: ' + ' · '.join(f'<a href="artist-{a["slug"]}.html">{a["name"]}</a>' for a in arts) + '</p>') if compact else ('<div class="grid3" style="margin-top:18px">' + ''.join(acard(a) for a in arts) + '</div>')}</div>'''
 
 STYLES = ['Black and gray', 'Color', 'Fine line', 'Piercing']
 def ask_modal():
@@ -204,9 +239,10 @@ page('index.html', 'Splash of Ink · Tattoo and piercing in Tucson', f'''
   {callbar()}
   <p class="note" style="margin-top:14px">{HOURS}</p>
 </div></section>
-<section class="alt" id="shops"><div class="wrap">{''.join(shop_block(s) for s in SHOPS)}</div></section>
+<section class="alt" id="shops"><div class="wrap">{''.join(shop_block(s, compact=True) for s in SHOPS)}</div></section>
+{pricing_section()}
 <section><div class="wrap"><div class="info">
-  <div class="card"><h3>Pricing</h3><p>Every artist sets their own prices, and price depends on size and placement. Ask the artist you want and they’ll send a range.</p><a href="prices.html">Request prices →</a></div>
+  <div class="card"><h3>Pricing</h3><p>Every artist sets their own prices, and price depends on size and placement. Ask the artist you want and they’ll send a range.</p><a href="#pricing">See pricing →</a></div>
   <div class="card"><h3>Piercing</h3><p>Magic and Annie pierce at the Fourth Avenue shop.</p><a href="artist-annie.html">See Annie’s page →</a></div>
   <div class="card"><h3>Apprentices</h3><p>Want to learn? Our apprentice application is always open.</p><a href="apprentice.html">Apply →</a></div>
 </div></div></section>''', ask_modal())
