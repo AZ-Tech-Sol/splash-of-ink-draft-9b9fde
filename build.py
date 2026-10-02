@@ -71,7 +71,7 @@ section{padding:56px 0}section.alt{background:var(--ink2)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
 .acard{text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px;transition:border-color .2s;height:100%}
 .acard:hover{border-color:var(--purple)}
-.portrait{aspect-ratio:1/1;width:100%;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+.portrait{aspect-ratio:1/1;width:100%;height:auto;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
 .ph{aspect-ratio:1/1;border-radius:12px;border:1px dashed #4a3d63;background:repeating-linear-gradient(45deg,#1f1830 0 12px,#1b1526 12px 24px);display:flex;align-items:center;justify-content:center;text-align:center;color:var(--mute);font:600 13px Inter,sans-serif;padding:12px}
 .tags{display:flex;gap:6px;flex-wrap:wrap}.tags span{font-size:12.5px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--purple2)}
 .samples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
@@ -212,7 +212,7 @@ for a in ARTISTS:
     <p>{a['bio']}</p>{minimum}
     <div class="tags" style="margin:12px 0 18px">{''.join(f'<span>{s}</span>' for s in a['styles'])}</div>
     <div class="row" style="justify-content:flex-start"><a class="btn" href="#" data-ask="{a['slug']}">Request prices from {a['name'].split()[0]}</a><a class="btn ghost" href="{a['book'][1]}">{a['book'][0]}</a></div>
-    <p class="note">{a['book'][2]}. Booking and payment happen in the artist’s booking tool, not on this site.</p>
+    <p class="note">{a['book'][2]}. How to pay is at the bottom of this page.</p>
     <div class="soc" style="margin-top:12px">{soc}</div>
   </div></div></section>
 <section class="alt"><div class="wrap"><div class="eyebrow">Best work</div><h2 style="font-size:30px">One best piece per style</h2>
