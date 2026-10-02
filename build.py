@@ -241,7 +241,7 @@ for a in ARTISTS:
 <div class="pay">
   <div class="card"><h3>Venmo</h3><p>(520) 651-1910</p></div>
   <div class="card"><h3>Cash App</h3><p><a href="https://cash.app/$TattdGlassyy" target="_blank" rel="noopener">$TattdGlassyy</a></p></div>
-  <div class="card"><h3>Zelle</h3><p>(520) 900-3492<br><span class="note">Under the business, name “Zyaniece”</span></p></div>
+  <div class="card"><h3>Zelle</h3><p>(520) 651-1910</p></div>
   <div class="card"><h3>Cash</h3><p>ATM inside the shop</p></div>
 </div></div></section>''', ask_modal())
 
