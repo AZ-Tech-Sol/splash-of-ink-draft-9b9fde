@@ -26,7 +26,7 @@ There are three pieces, and each has a job.
 
 ![Splash of Ink signature on light](splash-of-ink-signature-light.svg)
 
-**The brand mark as an avatar:**
+**The brand mark (the shop's pick, 2 October): the clean S on spilled ink:**
 
 <img src="splash-of-ink-avatar.svg" width="160" alt="Splash of Ink avatar">
 
@@ -38,7 +38,8 @@ There are three pieces, and each has a job.
 | `splash-of-ink-signature-light.svg` | The signature on light backgrounds. |
 | `splash-of-ink-mark-dark.svg` | The S on its own, light letter for dark backgrounds. See-through background. |
 | `splash-of-ink-mark-light.svg` | The S on its own, black letter for light backgrounds. See-through background. |
-| `splash-of-ink-avatar.svg` | The S in a dark circle with a purple glow, ready for Instagram, TikTok and Google. |
+| `splash-of-ink-avatar.svg` | **The brand mark as the shop chose it (2 Oct):** the clean S on a spilled-ink splash in Ink Purple, with a deep purple shadow. Instagram, TikTok, Google, stickers and merch. |
+| `splash-of-ink-mark-clean-dark.svg` / `-light.svg` | The S with no drip, see-through background, for when the S sits on its own ink. |
 
 All of them are true vector files, so they print crisp at any size, from a sticker to a wall.
 
@@ -136,8 +137,8 @@ All four are free Google Fonts under open licences, so they're safe for the webs
 
 The S has a see-through background, so it can sit on anything. These are the ones that work best:
 
-- **Night circle with a purple glow** (the avatar above, and the website). The default for social media.
-- **Spilled ink:** a purple ink splash with drops around it, behind the S. Good for stickers and merch.
+- **Spilled ink (the default):** the clean S, with no drip of its own, on a splash of Ink Purple with drops and runs around it. The splash is the ink, so the letter doesn't need to drip. Social media, stickers and merch.
+- **Night circle with a purple glow:** the S with its drip, in a dark circle. The website's small avatars.
 - **Light ground:** the black S on white or light gray, for paper and receipts.
 
 The Brand Bench (a private tool Angel can share) lets you try colours and backgrounds on the S and save your favourite.
