@@ -1,0 +1,20 @@
+<!doctype html><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>html,body{margin:0;width:900px;height:900px;overflow:hidden;background:#0b0910}</style>
+<svg width="900" height="900" viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <radialGradient id="bg" cx="64%" cy="30%" r="75%"><stop offset="0" stop-color="#341a58"/><stop offset=".5" stop-color="#150d24"/><stop offset="1" stop-color="#08070c"/></radialGradient>
+ <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset=".55" stop-color="#08070c" stop-opacity="0"/><stop offset="1" stop-color="#08070c" stop-opacity="1"/></linearGradient>
+ <linearGradient id="rimg" x1="1" y1="0" x2="0" y2=".6"><stop offset="0" stop-color="#b98cff"/><stop offset=".45" stop-color="#8b3dff" stop-opacity=".6"/><stop offset=".8" stop-color="#8b3dff" stop-opacity="0"/></linearGradient>
+ <filter id="soft"><feGaussianBlur stdDeviation="5"/></filter>
+ <filter id="smoke"><feTurbulence type="fractalNoise" baseFrequency=".006" numOctaves="4" seed="9"/><feColorMatrix values="0 0 0 0 .55  0 0 0 0 .24  0 0 0 0 1  0 0 0 .28 0"/><feGaussianBlur stdDeviation="3"/></filter>
+ <path id="s" d="M462 170c-84 0-140 64-140 154 0 62 26 114 64 144l-4 46c-108 24-190 92-214 286v100h600v-100c-22-194-104-262-212-286l-4-46c38-30 64-82 64-144 0-90-56-154-140-154z"/>
+</defs>
+<rect width="900" height="900" fill="url(#bg)"/>
+<rect width="900" height="900" filter="url(#smoke)"/>
+<use href="#s" fill="none" stroke="url(#rimg)" stroke-width="9" filter="url(#soft)"/>
+<use href="#s" fill="#07060b"/>
+<use href="#s" fill="none" stroke="url(#rimg)" stroke-width="2.5" opacity=".9"/>
+<text x="462" y="372" text-anchor="middle" font-family="UnifrakturMaguntia" font-size="120" fill="#8b3dff" opacity=".22">?</text>
+<rect width="900" height="900" fill="url(#fade)"/>
+</svg>
