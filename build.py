@@ -239,13 +239,13 @@ page('index.html', 'Splash of Ink · Tattoo and piercing in Tucson', f'''
   {callbar()}
   <p class="note" style="margin-top:14px">{HOURS}</p>
 </div></section>
-<section class="alt" id="shops"><div class="wrap">{''.join(shop_block(s, compact=True) for s in SHOPS)}</div></section>
 {pricing_section()}
 <section><div class="wrap"><div class="info">
   <div class="card"><h3>Pricing</h3><p>Every artist sets their own prices, and price depends on size and placement. Ask the artist you want and they’ll send a range.</p><a href="#pricing">See pricing →</a></div>
   <div class="card"><h3>Piercing</h3><p>Magic and Annie pierce at the Fourth Avenue shop.</p><a href="artist-annie.html">See Annie’s page →</a></div>
   <div class="card"><h3>Apprentices</h3><p>Want to learn? Our apprentice application is always open.</p><a href="apprentice.html">Apply →</a></div>
-</div></div></section>''', ask_modal())
+</div></div></section>
+<section class="alt" id="shops"><div class="wrap">{''.join(shop_block(s, compact=True) for s in SHOPS)}</div></section>''', ask_modal())
 
 # Artists directory, by shop
 page('artists.html', 'Artists · Splash of Ink', f'''
