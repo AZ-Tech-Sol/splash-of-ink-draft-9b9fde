@@ -12,7 +12,8 @@ def callbar():  # D's number first, Magic's right beside it and just as big
     return '<div class="callbar">' + ''.join(f'<a class="call{" alt" if n else ""}" href="tel:{e}"><span class="cl">{lab} · {who}</span><span class="cn">{num}</span></a>' for n, (who, num, e, lab) in enumerate(PHONES)) + '</div>'
 def phones_inline():
     return ' · '.join(f'<a href="tel:{e}">{num}</a> ({who})' for who, num, e, _ in PHONES)
-HOURS = 'Open 24/7 by appointment. Walk-ins daily, usually from about 10 AM until 3 to 5 AM.'
+HOURS = 'Open 24/7 by appointment. Walk-ins: Monday to Thursday 11 AM to about 10 PM; Friday to Sunday 11 AM to 5 AM.'
+WALKIN = [('Monday', '11 AM – about 10 PM'), ('Tuesday', '11 AM – about 10 PM'), ('Wednesday', '11 AM – about 10 PM'), ('Thursday', '11 AM – about 10 PM'), ('Friday', '11 AM – 5 AM'), ('Saturday', '11 AM – 5 AM'), ('Sunday', '11 AM – 5 AM')]
 ARTISTS = [
   dict(slug='magic', name='Magic', shop='fourth-avenue', role='Head artist · tattoo and piercing',
        bio='The last of the shop\u2019s original artists. There\u2019s very little Magic doesn\u2019t do, from delicate fine line to full realism, and he pierces too.',
@@ -181,7 +182,7 @@ f.addEventListener('submit',function(e){{e.preventDefault();var bad=[];['name','
 }})();
 </script>'''
 
-HOURSCARD = f'<div class="card"><h3>Hours</h3><p style="font-size:18px;color:var(--fog);margin:0 0 8px">{HOURS.split(". ")[0]}.</p><p style="margin:0">{HOURS.split(". ",1)[1]}</p></div>'
+HOURSCARD = '<div class="card"><h3>Hours</h3><p style="font-size:18px;color:var(--fog);margin:0 0 10px">Open 24/7 by appointment.</p><p class="note" style="margin:0 0 6px">Walk-in hours</p><table class="hours">' + ''.join(f'<tr><td>{d}</td><td>{h}</td></tr>' for d, h in WALKIN) + '</table><p class="note" style="margin:8px 0 0">Late nights can run longer or shorter with how busy it is. Call ahead to be sure.</p></div>'
 
 # Home
 page('index.html', 'Splash of Ink · Tattoo and piercing in Tucson', f'''
