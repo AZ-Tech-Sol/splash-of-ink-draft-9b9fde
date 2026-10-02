@@ -7,6 +7,11 @@ SHOPS = [
   dict(slug='fourth-avenue', name='Fourth Avenue', addr='532 N 4th Ave<br>Tucson, AZ 85705', map='https://maps.google.com/?cid=3162480668975808258', phone=('(520) 651-1910','+15206511910'), blurb='The original shop, on Tucson\u2019s historic Fourth Avenue.'),
   dict(slug='stone-fort-lowell', name='Stone & Fort Lowell', addr='3050 N Stone Ave<br>Tucson, AZ 85705', map='https://maps.google.com/?cid=18396497486358483027', phone=('(520) 651-1910','+15206511910'), blurb='Our second shop, on Stone just south of Fort Lowell.'),
 ]
+PHONES = [('Master D', '(520) 651-1910', '+15206511910', 'Main line'), ('Magic', '(520) 392-3594', '+15203923594', 'Second line')]
+def callbar():  # D's number first, Magic's right beside it and just as big
+    return '<div class="callbar">' + ''.join(f'<a class="call{" alt" if n else ""}" href="tel:{e}"><span class="cl">{lab} · {who}</span><span class="cn">{num}</span></a>' for n, (who, num, e, lab) in enumerate(PHONES)) + '</div>'
+def phones_inline():
+    return ' · '.join(f'<a href="tel:{e}">{num}</a> ({who})' for who, num, e, _ in PHONES)
 HOURS = 'Open 24/7 by appointment. Walk-ins daily, usually from about 10 AM until 3 to 5 AM.'
 ARTISTS = [
   dict(slug='magic', name='Magic', shop='fourth-avenue', role='Head artist · tattoo and piercing',
@@ -91,6 +96,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .credit{font-size:12.5px;color:var(--mute)}.credit a{color:var(--mute)}
 .shop{padding:10px 0 34px}.shop+.shop{border-top:1px solid var(--line);padding-top:40px}
 .shophead{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:end}@media (max-width:760px){.shophead{grid-template-columns:1fr}}
+.callbar{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.call{display:grid;gap:2px;min-width:250px;padding:12px 22px;border-radius:14px;border:2px solid var(--purple);background:rgba(139,61,255,.14);text-decoration:none;text-align:center}
+.call .cl{font:600 12px Oswald,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--purple2)}
+.call .cn{font:600 28px Oswald,sans-serif;color:var(--fog);letter-spacing:.02em}
+.call.alt{border-color:var(--purple2)}
+.call:hover{box-shadow:0 0 24px rgba(168,85,247,.45)}
 .pay{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:14px}@media (max-width:760px){.pay{grid-template-columns:1fr 1fr}}.pay h3{margin:0 0 4px}.pay p{margin:0}
 .prow{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
 .askd{border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--body);padding:0;max-width:600px;width:calc(100% - 28px)}
@@ -109,7 +120,7 @@ HEAD = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name=
 <div class="drip" aria-hidden="true"></div>
 '''
 NAV = [('index.html', 'Home'), ('artists.html', 'Artists'), ('prices.html', 'Prices'), ('apprentice.html', 'Apprentices'), ('visit.html', 'Visit')]
-FOOT = '''<footer><div class="wrap"><span>© 2026 Splash of Ink · Fourth Avenue and Stone &amp; Fort Lowell, Tucson · <a href="tel:+15206511910">(520) 651-1910</a></span>
+FOOT = '''<footer><div class="wrap"><span>© 2026 Splash of Ink · Fourth Avenue and Stone &amp; Fort Lowell, Tucson · <a href="tel:+15206511910">(520) 651-1910</a> · <a href="tel:+15203923594">(520) 392-3594</a></span>
 <span class="credit">Website by <a href="https://aztechsol.com/" target="_blank" rel="noopener">AZ Tech Solutions</a></span></div></footer>
 </body></html>'''
 
@@ -130,7 +141,7 @@ def acard(a):
 def shop_block(s, heading='h2'):
     arts = [a for a in ARTISTS if a['shop'] == s['slug']]
     maplink = f'<a href="{s["map"]}" target="_blank" rel="noopener">Open in Google Maps →</a>' if s['map'] else f'<span class="note">{s.get("pending","")}</span>'
-    phone = f'<a href="tel:{s["phone"][1]}">{s["phone"][0]}</a>' if s['phone'] else '<span class="note">Phone coming</span>'
+    phone = phones_inline()
     return f'''<div class="shop" id="{s['slug']}"><div class="shophead"><div><div class="eyebrow">Shop</div><{heading} style="font-size:34px;margin-bottom:6px">{s['name']}</{heading}><p style="margin:0">{s['blurb']}</p></div>
       <div class="card shopinfo"><p style="margin:0 0 6px">{s['addr']}</p><p style="margin:0 0 6px">{phone}</p><p style="margin:0">{maplink}</p></div></div>
       <div class="grid3" style="margin-top:18px">{''.join(acard(a) for a in arts)}</div></div>'''
@@ -179,7 +190,8 @@ page('index.html', 'Splash of Ink · Tattoo and piercing in Tucson', f'''
   <h1 class="lockup"><img src="assets/brand/lockup-dark.svg" alt="Splash of Ink"></h1>
   <p class="lead">Good art, good people, good vibes. Find your shop, pick your artist, and ask them for prices.</p>
   <div class="row"><a class="btn" href="#shops">Find your shop</a><a class="btn ghost" href="artists.html">Meet the artists</a></div>
-  <p class="note" style="margin-top:18px">{HOURS}</p>
+  {callbar()}
+  <p class="note" style="margin-top:14px">{HOURS}</p>
 </div></section>
 <section class="alt" id="shops"><div class="wrap">{''.join(shop_block(s) for s in SHOPS)}</div></section>
 <section><div class="wrap"><div class="info">
@@ -213,7 +225,7 @@ for a in ARTISTS:
 <section class="alt"><div class="wrap"><div class="eyebrow">Best work</div><h2 style="font-size:30px">One best piece per style</h2>
 <div class="samples" style="margin-top:16px">{samples}</div></div></section>
 <section><div class="wrap"><div class="eyebrow">Paying</div><h2 style="font-size:30px">How to pay</h2>
-<p>All payments are due before the tattoo or piercing is done. Questions? Call <a href="tel:+15206511910">(520) 651-1910</a>.</p>
+<p>All payments are due before the tattoo or piercing is done. Questions? Call Master D at <a href="tel:+15206511910">(520) 651-1910</a> or Magic at <a href="tel:+15203923594">(520) 392-3594</a>.</p>
 <div class="pay">
   <div class="card"><h3>Venmo</h3><p>(520) 651-1910</p></div>
   <div class="card"><h3>Cash App</h3><p><a href="https://cash.app/$TattdGlassyy" target="_blank" rel="noopener">$TattdGlassyy</a></p></div>
@@ -247,10 +259,10 @@ page('apprentice.html', 'Apprentice applications · Splash of Ink', '''
 </form></div></section>''', '''<script>document.getElementById('af').addEventListener('submit',function(e){e.preventDefault();this.outerHTML='<div class="done"><h3>Thanks for applying.</h3><p>We’ll look at your work and reach out. (Draft: nothing was sent.)</p></div>';});</script>''')
 
 # Visit
-shopcards = ''.join(f'''<div class="card"><h3>{s['name']}</h3><p>{s['addr']}</p><p>{f'<a href="tel:{s["phone"][1]}">{s["phone"][0]}</a>' if s['phone'] else '<span class="note">Phone coming</span>'}</p><p>{f'<a href="{s["map"]}" target="_blank" rel="noopener">Open in Google Maps →</a>' if s['map'] else f'<span class="note">{s.get("pending","")}</span>'}</p></div>''' for s in SHOPS)
+shopcards = ''.join(f'''<div class="card"><h3>{s['name']}</h3><p>{s['addr']}</p><p>{phones_inline()}</p><p>{f'<a href="{s["map"]}" target="_blank" rel="noopener">Open in Google Maps →</a>' if s['map'] else f'<span class="note">{s.get("pending","")}</span>'}</p></div>''' for s in SHOPS)
 page('visit.html', 'Visit · Splash of Ink', f'''
 <section class="hero" style="padding:60px 0 24px"><div class="wrap"><div class="eyebrow">Visit</div><h1 style="font-size:clamp(46px,8vw,80px)">Come say hi</h1>
-<p class="lead">There’s always someone close enough to open the door. Book ahead to get the artist you want.</p></div></section>
+<p class="lead">There’s always someone close enough to open the door. Book ahead to get the artist you want.</p>{callbar()}</div></section>
 <section style="padding-top:10px"><div class="wrap"><div class="info">{shopcards}{HOURSCARD}</div></div></section>''')
 
 (R / 'style.css').write_text(CSS)
