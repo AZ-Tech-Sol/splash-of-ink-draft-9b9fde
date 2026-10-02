@@ -1,0 +1,236 @@
+"""The brand guidelines as a branded page: brand/index.html (served at /brand/). Edit the words here and in brand/README.md together."""
+import pathlib, html
+R = pathlib.Path(__file__).parent
+SW = [  # (group, name, hex, use, text colour on the swatch)
+ ('Purple · the ink','Ink Purple','#8B3DFF','Buttons, the menu line, call buttons, links','#fff'),
+ ('Purple · the ink','Drip Purple','#8323E8','The drip on the S, and nowhere else','#fff'),
+ ('Purple · the ink','Lilac','#B98CFF','“of Ink” on dark, highlights, hover','#0b0910'),
+ ('Purple · the ink','Glow','#A855F7','Soft glow behind buttons and the logo','#fff'),
+ ('Night · the shop at 2 AM','Night','#0B0910','The main background','#f3eefb'),
+ ('Night · the shop at 2 AM','Night 2','#15111D','Alternate sections','#f3eefb'),
+ ('Night · the shop at 2 AM','Card','#1B1526','Cards and panels','#f3eefb'),
+ ('Night · the shop at 2 AM','Line','#2E2540','Borders and dividers','#f3eefb'),
+ ('Light','Fog','#F3EEFB','Headings, and the letter of the S on dark','#0b0910'),
+ ('Light','Body','#CFC6DE','Paragraph text on dark','#0b0910'),
+ ('Light','Mute','#968BAB','Captions and small print','#0b0910'),
+ ('The S’s grays','Shadow Gray','#B3B2B2','The S’s drop shadow','#0b0910'),
+ ('The S’s grays','Shading Gray','#86878A','Shading inside the S’s strokes','#0b0910'),
+]
+groups = {}
+for g, *rest in SW: groups.setdefault(g, []).append(rest)
+swatches = ''.join(f'<div class="swg"><h3>{html.escape(g)}</h3><div class="sws">' + ''.join(
+    f'<div class="sw"><div class="chip" style="background:{h};color:{tc}"><span>{h}</span></div><b>{n}</b><span>{html.escape(u)}</span></div>' for n, h, u, tc in items) + '</div></div>' for g, items in groups.items())
+
+PAGE = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>Splash of Ink · Brand Guidelines</title>
+<meta property="og:title" content="Splash of Ink · Brand Guidelines"><meta property="og:image" content="https://az-tech-sol.github.io/splash-of-ink-draft-9b9fde/assets/og/og-site.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&family=UnifrakturMaguntia&family=Mr+Dafoe&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0b0910;--ink2:#15111d;--card:#1b1526;--line:#2e2540;--purple:#8b3dff;--drip:#8323e8;--lilac:#b98cff;--glow:#a855f7;--fog:#f3eefb;--body:#cfc6de;--mute:#968bab}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--body);font:16px/1.7 Inter,system-ui,sans-serif}
+a{color:var(--lilac)}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:20px}
+.topbar{border-bottom:3px solid var(--purple);box-shadow:0 2px 18px rgba(139,61,255,.35);background:rgba(11,9,16,.94);position:sticky;top:0;z-index:5;backdrop-filter:blur(6px)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-block:12px;flex-wrap:wrap}
+.topbar img{height:42px;width:auto;display:block}
+.topbar nav{display:flex;gap:16px;flex-wrap:wrap}.topbar nav a{color:var(--body);text-decoration:none;font:600 13px Oswald,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.topbar nav a:hover{color:var(--lilac)}
+.cover{padding-block:76px 64px;text-align:center;background:radial-gradient(900px 440px at 50% -10%,rgba(139,61,255,.33),transparent 70%)}
+.eyebrow{font:600 13px Oswald,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--lilac)}
+.cover img{width:min(620px,100%);height:auto;margin:22px auto 18px;display:block;filter:drop-shadow(0 8px 40px rgba(139,61,255,.35))}
+.cover h1{font:400 clamp(44px,8vw,74px)/1 UnifrakturMaguntia,serif;color:var(--fog);text-shadow:4px 4px 0 #3b3150;margin:0 0 12px}
+.cover .ver{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13.5px;color:var(--mute)}
+.cover p.lead{max-width:640px;margin:18px auto 0;font-size:17.5px}
+section{padding-block:60px;border-top:1px solid var(--line)}
+section:nth-of-type(even){background:var(--ink2)}
+h2{font:400 clamp(34px,5vw,46px)/1.1 UnifrakturMaguntia,serif;color:var(--fog);text-shadow:3px 3px 0 #3b3150;margin:6px 0 18px;text-wrap:balance}
+h3{font:600 17px Oswald,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--fog);margin:0 0 8px}
+p{max-width:68ch}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:820px){.grid3,.grid2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.stage{border-radius:14px;padding:28px;display:grid;place-items:center;min-height:200px}
+.stage img{max-width:100%;height:auto;max-height:260px}
+.dark{background:var(--ink);border:1px solid var(--line)}.light{background:#f4f2f7}.purple{background:#5a1fb0}
+.check{background:repeating-conic-gradient(#1a1424 0 25%,#120e1a 0 50%) 0 0/22px 22px}
+.cap{font-size:13.5px;color:var(--mute);margin-top:10px}
+ul.rules{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+ul.rules li{position:relative;padding-left:28px}
+ul.rules li:before{content:"";position:absolute;left:4px;top:.62em;width:11px;height:14px;background:var(--drip);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;transform:rotate(180deg)}
+ul.dont li:before{background:none;border:2px solid #e05b7a;border-radius:3px;width:12px;height:12px;transform:rotate(45deg)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td,th{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 12.5px Oswald,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--lilac)}
+.tbl{overflow-x:auto}
+code{font:13px ui-monospace,Menlo,monospace;color:var(--fog);background:var(--card);border:1px solid var(--line);padding:1px 6px;border-radius:6px}
+.swg{margin-bottom:26px}.sws{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:820px){.sws{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.sw{display:grid;gap:2px;font-size:13.5px}.sw b{color:var(--fog);font:600 15px Inter}
+.chip{aspect-ratio:3/2;border-radius:12px;border:1px solid var(--line);display:flex;align-items:flex-end;padding:10px;margin-bottom:6px;font:600 12.5px ui-monospace,Menlo,monospace}
+.spec{display:grid;gap:4px}.spec .s1{font:400 64px/1.05 UnifrakturMaguntia,serif;color:var(--fog);text-shadow:4px 4px 0 #3b3150}
+.spec .s2{font:400 58px/1 "Mr Dafoe",cursive;color:var(--lilac)}
+.spec .s3{font:600 26px Oswald,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--fog)}
+.spec .s4{font:400 17px Inter,sans-serif}
+.btns{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-block;padding:12px 22px;border-radius:999px;font:600 14px Oswald,sans-serif;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:2px solid var(--purple);color:#fff;background:var(--purple)}
+.btn.ghost{background:transparent;color:var(--lilac)}
+.callt{display:grid;gap:2px;padding:12px 20px;border-radius:14px;border:2px solid var(--purple);background:rgba(139,61,255,.14);text-align:center}
+.callt small{font:600 11.5px Oswald;letter-spacing:.14em;text-transform:uppercase;color:var(--lilac)}.callt b{font:600 24px Oswald;color:var(--fog)}
+.quote{font:400 clamp(30px,5vw,44px)/1.2 "Mr Dafoe",cursive;color:var(--lilac);margin:0 0 6px}
+ol.open{display:grid;gap:12px;padding-left:22px;margin:0}
+footer{border-top:3px solid var(--purple);padding-block:26px 34px;font-size:14px;color:var(--mute)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style></head><body>
+<header class="topbar"><div class="wrap"><img src="../assets/brand/lockup-dark.svg" alt="Splash of Ink">
+<nav><a href="#marks">Marks</a><a href="#s">The S</a><a href="#signature">Signature</a><a href="#type">Type</a><a href="#colour">Colour</a><a href="#voice">Voice</a><a href="#open">Open</a></nav></div></header>
+
+<div class="cover"><div class="wrap">
+  <div class="eyebrow">Brand guidelines</div>
+  <img src="../assets/brand/lockup-dark.svg" alt="Splash of Ink">
+  <span class="ver">Draft v0.1 · 2 October 2026 · for the shop to review and change</span>
+  <p class="lead">A starting point, not a locked identity. Magic, Master D and the crew are the artists here; anything on this page can be redrawn, recoloured or thrown out. When something changes, the brand files get rebuilt to match.</p>
+</div></div>
+
+<section id="marks"><div class="wrap">
+  <div class="eyebrow">01 · The marks</div><h2>Three pieces, three jobs</h2>
+  <div class="grid3">
+    <div class="card"><div class="stage check"><img src="splash-of-ink-mark-dark.svg" alt="The brand mark"></div><h3 style="margin-top:14px">Brand mark</h3><p>The blackletter S, with ink dripping off the letter and from the point of its spike. Avatars, stickers, favicons, the shop window, merch: anywhere the name can’t fit.</p></div>
+    <div class="card"><div class="stage dark"><span style="font:400 64px/1 UnifrakturMaguntia,serif;color:var(--fog);text-shadow:4px 4px 0 #3b3150">plash</span><span style="font:400 44px 'Mr Dafoe',cursive;color:var(--lilac);margin-top:-14px">of Ink</span></div><h3 style="margin-top:14px">Wordmark</h3><p><i>plash</i> in blackletter and <i>of Ink</i> in script. Never on its own: it always follows the S.</p></div>
+    <div class="card"><div class="stage dark"><img src="splash-of-ink-signature-dark.svg" alt="The signature"></div><h3 style="margin-top:14px">Signature</h3><p>The brand mark as the S of <i>Splash</i>, then the wordmark. The website header, signs, flyers and cards.</p></div>
+  </div>
+  <div class="grid2" style="margin-top:16px">
+    <div><div class="stage dark"><img src="splash-of-ink-signature-dark.svg" alt="Signature on dark"></div><p class="cap">On dark: the main version, and the one the website uses.</p></div>
+    <div><div class="stage light"><img src="splash-of-ink-signature-light.svg" alt="Signature on light"></div><p class="cap">On light: paper, receipts and light walls.</p></div>
+  </div>
+  <h3 style="margin-top:34px">The files</h3>
+  <div class="tbl"><table><tr><th>File</th><th>What it’s for</th></tr>
+  <tr><td><a href="splash-of-ink-signature-dark.svg"><code>splash-of-ink-signature-dark.svg</code></a></td><td>The signature on dark backgrounds. The website uses this one.</td></tr>
+  <tr><td><a href="splash-of-ink-signature-light.svg"><code>splash-of-ink-signature-light.svg</code></a></td><td>The signature on light backgrounds.</td></tr>
+  <tr><td><a href="splash-of-ink-mark-dark.svg"><code>splash-of-ink-mark-dark.svg</code></a></td><td>The S alone, light letter for dark backgrounds, see-through background.</td></tr>
+  <tr><td><a href="splash-of-ink-mark-light.svg"><code>splash-of-ink-mark-light.svg</code></a></td><td>The S alone, black letter for light backgrounds, see-through background.</td></tr>
+  <tr><td><a href="splash-of-ink-avatar.svg"><code>splash-of-ink-avatar.svg</code></a></td><td>The S in a dark circle with a purple glow, ready for Instagram, TikTok and Google.</td></tr></table></div>
+  <p class="cap">All of them are true vector files, so they print crisp at any size, from a sticker to a wall.</p>
+</div></section>
+
+<section id="s"><div class="wrap">
+  <div class="eyebrow">02 · The S</div><h2>The heart of the brand</h2>
+  <div class="grid2">
+    <div class="grid2" style="gap:12px">
+      <div class="stage dark"><img src="splash-of-ink-mark-dark.svg" alt="S on night"></div>
+      <div class="stage purple"><img src="splash-of-ink-mark-dark.svg" alt="S on purple"></div>
+      <div class="stage light"><img src="splash-of-ink-mark-light.svg" alt="S on light"></div>
+      <div class="stage dark" style="border-radius:50%;aspect-ratio:1;padding:0"><img src="splash-of-ink-avatar.svg" alt="S as an avatar" style="max-height:none;width:100%"></div>
+    </div>
+    <div>
+      <ul class="rules">
+        <li><b style="color:var(--fog)">West Coast lettering.</b> Drawn in the old English style of California Chicano tattoo and sign lettering: sharp serifs, black and gray shading, a gray drop shadow.</li>
+        <li><b style="color:var(--fog)">The drip.</b> Purple ink runs off the bottom of the letter.</li>
+        <li><b style="color:var(--fog)">The needle.</b> The spike through the bottom of the S reads like a tattoo needle, and ink drips from its point.</li>
+        <li><b style="color:var(--fog)">Open counters.</b> The spaces inside the S are see-through, so it reads as an S on any background, even purple.</li>
+      </ul>
+      <h3 style="margin-top:26px">Rules for the S</h3>
+      <ul class="rules dont">
+        <li>Always use the S from these files. Don’t retype it in a font: the blackletter font’s own S reads like a G or a T (Magic’s note, 1 October), which is why the drawn S replaced it.</li>
+        <li>Keep it upright. Don’t stretch, slant or outline it.</li>
+        <li>The drip is always purple. The letter changes between light and dark to suit the background; the drip doesn’t.</li>
+        <li>Smallest size: 28 px tall on screen, 8 mm in print. Smaller than that, the drip and the needle disappear.</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="signature"><div class="wrap">
+  <div class="eyebrow">03 · The signature</div><h2>How it fits together</h2>
+  <div class="stage dark" style="margin-bottom:22px"><img src="splash-of-ink-signature-dark.svg" alt="The signature" style="max-height:300px"></div>
+  <div class="grid2">
+    <div><ul class="rules">
+      <li><b style="color:var(--fog)">The S is the first letter.</b> <i>plash</i> starts right after it, tucked close so the eye reads one word: <i>Splash</i>.</li>
+      <li><b style="color:var(--fog)">The S is about 2.3× as tall</b> as the tall letters of <i>plash</i> (the l and the h). It reaches above them, and its drip hangs below the baseline.</li>
+      <li><b style="color:var(--fog)"><i>of Ink</i> is two thirds the size of <i>plash</i>,</b> set under its right half so it hangs off <i>Splash</i> like a signature.</li>
+      <li><b style="color:var(--fog)">Drop shadow:</b> <i>plash</i> carries a shadow down and right, about 3% of its size: dark lilac on dark, pale gray on light.</li>
+      <li><b style="color:var(--fog)">Clear space:</b> at least a quarter of the S’s height, empty, on every side.</li>
+    </ul></div>
+    <div><ul class="rules dont">
+      <li>Use the files as they are. Don’t re-space, re-letter or rearrange them.</li>
+      <li>One drip at a time. The drip lives on the S: no drips on the menu bar, borders or other text near the logo. A second drip waters down the first.</li>
+      <li>On photos, place the signature where the background is calm and dark, or use the S alone.</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<section id="type"><div class="wrap">
+  <div class="eyebrow">04 · Typography</div><h2>Four faces</h2>
+  <div class="grid2">
+    <div class="card spec"><div class="s1">plash</div><b style="color:var(--fog)">UnifrakturMaguntia</b><span class="cap" style="margin:0">Blackletter. <i>plash</i> in the logo (as outlines), and section titles on the website, with the logo’s shadow. Titles only, never paragraphs.</span></div>
+    <div class="card spec"><div class="s2">of Ink</div><b style="color:var(--fog)">Mr Dafoe</b><span class="cap" style="margin:0">Brush script. <i>of Ink</i> in the logo, as outlines. Logo only.</span></div>
+    <div class="card spec"><div class="s3">Book with Magic</div><b style="color:var(--fog)">Oswald 500–600</b><span class="cap" style="margin:0">Buttons, labels and small headings, in capitals with a little letter spacing.</span></div>
+    <div class="card spec"><div class="s4">Open 24/7 by appointment. Walk-ins daily, with the hours on the Visit page.</div><b style="color:var(--fog)">Inter</b><span class="cap" style="margin:0">Body text: plain and easy to read at any size.</span></div>
+  </div>
+  <p class="cap" style="margin-top:16px">All four are free Google Fonts under open licences, so they’re safe for the website, signs and merch.</p>
+</div></section>
+
+<section id="colour"><div class="wrap">
+  <div class="eyebrow">05 · Colour</div><h2>Purple ink, night, and light</h2>
+  __SWATCHES__
+</div></section>
+
+<section id="backgrounds"><div class="wrap">
+  <div class="eyebrow">06 · Backgrounds for the S</div><h2>Where the S sits best</h2>
+  <div class="grid3">
+    <div class="card"><div class="stage dark" style="border-radius:50%;aspect-ratio:1;padding:0;min-height:0"><img src="splash-of-ink-avatar.svg" alt="" style="max-height:none;width:100%"></div><h3 style="margin-top:14px">Night circle, purple glow</h3><p>The default for social media, and the website’s avatars.</p></div>
+    <div class="card"><div class="stage dark" style="min-height:0;aspect-ratio:1;position:relative"><svg viewBox="0 0 200 200" style="position:absolute;inset:10%" aria-hidden="true"><path fill="#8b3dff" d="M100 34c18 0 22 14 36 18s30-2 32 16-12 22-10 38 18 26 6 40-28 2-40 10-12 26-26 24-12-20-26-26-34 2-38-14 14-22 12-38-18-26-6-38 28 2 40-8 2-22 20-22z"/><circle fill="#8b3dff" cx="170" cy="40" r="6"/><circle fill="#8b3dff" cx="28" cy="150" r="5"/><circle fill="#8b3dff" cx="160" cy="168" r="4"/><rect fill="#8b3dff" x="88" y="160" width="10" height="30" rx="5"/></svg><img src="splash-of-ink-mark-dark.svg" alt="" style="position:relative;max-height:none;width:70%"></div><h3 style="margin-top:14px">Spilled ink</h3><p>A purple ink splash with drops around it. Good for stickers and merch.</p></div>
+    <div class="card"><div class="stage light" style="min-height:0;aspect-ratio:1"><img src="splash-of-ink-mark-light.svg" alt="" style="max-height:none;width:80%"></div><h3 style="margin-top:14px">Light ground</h3><p>The black S on white or light gray, for paper and receipts.</p></div>
+  </div>
+</div></section>
+
+<section id="voice"><div class="wrap">
+  <div class="eyebrow">07 · Voice</div><h2>How the shop sounds</h2>
+  <p class="quote">Good art, good people, good vibes.</p>
+  <div class="grid3" style="margin-top:18px">
+    <div class="card"><h3>Family-friendly, always</h3><p>The website is very public. No 420, smoking or drinking references anywhere.</p></div>
+    <div class="card"><h3>The artists are people</h3><p>Each one has their own page, their own style and their own prices, and the writing uses their names.</p></div>
+    <div class="card"><h3>Plain directions</h3><p>Hours, prices, how to book and how to pay, said simply and clearly, with no fine print.</p></div>
+  </div>
+</div></section>
+
+<section id="web"><div class="wrap">
+  <div class="eyebrow">08 · On the website</div><h2>The pieces in use</h2>
+  <div class="card" style="display:grid;gap:18px">
+    <div class="btns"><a class="btn" href="../prices.html">Request prices</a><a class="btn ghost" href="../artists.html">Meet the artists</a></div>
+    <div class="btns"><div class="callt"><small>Main line · Master D</small><b>(520) 651-1910</b></div><div class="callt"><small>Second line · Magic</small><b>(520) 392-3594</b></div></div>
+  </div>
+  <div class="tbl" style="margin-top:18px"><table><tr><th>Element</th><th>Style</th></tr>
+  <tr><td>Page background</td><td>Night <code>#0B0910</code></td></tr>
+  <tr><td>Menu bar</td><td>Night, with a 3 px Ink Purple line under it and a soft purple glow</td></tr>
+  <tr><td>Main buttons</td><td>Ink Purple pill, white Oswald capitals</td></tr>
+  <tr><td>Second buttons</td><td>Outlined in Ink Purple, Lilac text</td></tr>
+  <tr><td>Call buttons</td><td>Big tap-to-call tiles, main line (Master D) and second line (Magic), the same size</td></tr>
+  <tr><td>Section titles</td><td>UnifrakturMaguntia in Fog, with a dark lilac shadow</td></tr>
+  <tr><td>Artist portraits</td><td>Square, rounded corners, a thin border</td></tr>
+  <tr><td>Share images</td><td>The signature or the artist’s photo on Night, with the purple line along the top</td></tr></table></div>
+</div></section>
+
+<section id="story"><div class="wrap">
+  <div class="eyebrow">09 · The story</div><h2>Why the S is the S</h2>
+  <p>Splash of Ink has two shops in Tucson, on Fourth Avenue and on Stone Avenue, and a crew that does everything from fine line to realism, plus piercing. The look comes from the West Coast tattoo and lettering tradition the shop lives in: old English letters, black and gray shading, and one colour that pops. That colour is purple, the Ink Master purple the crew asked for.</p>
+  <p>The S does three jobs at once. It’s the first letter of the name, it’s a splash of ink (the drip), and its spike is a needle laying that ink down. On 1 October Magic pointed out that the old S in the word read like a G or a T, so the drawn S became the S of <i>Splash</i>, and the word reads clean.</p>
+</div></section>
+
+<section id="open"><div class="wrap">
+  <div class="eyebrow">10 · Open for the shop</div><h2>To decide together</h2>
+  <ol class="open">
+    <li><b style="color:var(--fog)">Colours.</b> Whether the purple, the grays and the drip feel right.</li>
+    <li><b style="color:var(--fog)">Social channels.</b> Which one or two the website should push (Instagram, TikTok or both). The main call to action becomes <i>follow us</i> there.</li>
+    <li><b style="color:var(--fog)">Merch.</b> Shirts and hats with the S, for the shelf (Annie’s idea).</li>
+    <li><b style="color:var(--fog)">Redraw it yourselves.</b> If the crew wants to hand-draw the S or the lettering, send it over and it gets turned into these files.</li>
+  </ol>
+</div></section>
+
+<footer><div class="wrap"><span>Splash of Ink · brand guidelines, draft v0.1 · 2 October 2026</span><span>Prepared with the shop by <a href="https://aztechsol.com/" target="_blank" rel="noopener">AZ Technology Solutions</a></span></div></footer>
+</body></html>'''
+(R / 'brand' / 'index.html').write_text(PAGE.replace('__SWATCHES__', swatches))
+print('brand/index.html')
