@@ -125,9 +125,20 @@ FOOT = '''<footer><div class="wrap"><span>© 2026 Splash of Ink · Fourth Avenue
 <span class="credit">Website by <a href="https://aztechsol.com/" target="_blank" rel="noopener">AZ Tech Solutions</a></span></div></footer>
 </body></html>'''
 
+SITE = 'https://az-tech-sol.github.io/splash-of-ink-draft-9b9fde/'
+def og_tags(fn, title):
+    slug = fn[len('artist-'):-5] if fn.startswith('artist-') else None
+    img = f'og-{slug}.png' if slug and (R / 'assets' / 'og' / f'og-{slug}.png').exists() else 'og-site.png'
+    desc = 'Tattoo and piercing on Fourth Avenue and at Stone & Fort Lowell, Tucson. Open 24/7 by appointment.'
+    return (f'<meta property="og:type" content="website"><meta property="og:site_name" content="Splash of Ink">'
+            f'<meta property="og:title" content="{html.escape(title)}"><meta property="og:description" content="{desc}">'
+            f'<meta property="og:url" content="{SITE}{fn}"><meta property="og:image" content="{SITE}assets/og/{img}">'
+            f'<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'
+            f'<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{SITE}assets/og/{img}">'
+            f'<meta name="description" content="{desc}">')
 def page(fn, title, body, extra=''):
     nav = ''.join(f'<a href="{h}"{" class=on" if h == fn or (fn.startswith("artist-") and h == "artists.html") else ""}>{t}</a>' for h, t in NAV)
-    (R / fn).write_text(HEAD.format(title=html.escape(title), nav=nav) + body + FOOT.replace('</body>', extra + '</body>'))
+    (R / fn).write_text(HEAD.format(title=html.escape(title), nav=nav).replace('</title>', '</title>' + og_tags(fn, title), 1) + body + FOOT.replace('</body>', extra + '</body>'))
 
 def ph(label): return f'<div class="ph">{html.escape(label)}<br>photo coming</div>'
 def portrait(a):  # a real photo when the shop has sent one (assets/artists/<slug>.jpg), else the labelled placeholder
