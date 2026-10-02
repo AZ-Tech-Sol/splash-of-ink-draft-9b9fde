@@ -13,12 +13,12 @@ ARTISTS = [
        bio='The last of the shop\u2019s original artists. There\u2019s very little Magic doesn\u2019t do, from delicate fine line to full realism, and he pierces too.',
        styles=['Fine line', 'Black and gray', 'Neo-traditional', 'American traditional', 'Color', 'Realism'],
        minimum='$100 shop minimum', book=('Book with Magic', '#', 'Booking link coming'),
-       socials=[('Instagram', '#'), ('TikTok', '#'), ('Facebook', '#')]),
+       socials=[('Instagram', 'https://www.instagram.com/splashofink_magicman/'), ('TikTok', 'https://www.tiktok.com/@josephgaspard26')]),
   dict(slug='annie', name='Annie', shop='fourth-avenue', role='Piercer · tattoo apprentice',
        bio='Annie runs piercing at the Fourth Avenue shop and is learning to tattoo as an apprentice.',
        styles=['Piercing', 'Apprentice tattoos'],
        minimum='', book=('Book with Annie', '#', 'Booking link coming'),
-       socials=[('Instagram', '#')]),
+       socials=[('Instagram', 'https://www.instagram.com/annie_splash_of_ink/'), ('TikTok', 'https://www.tiktok.com/@anniesplashofink')]),
   dict(slug='master-d', name='Master D', shop='stone-fort-lowell', role='Owner and artist',
        bio='Master D owns Splash of Ink and tattoos at the Stone and Fort Lowell shop.',
        styles=['Styles coming'],
@@ -28,7 +28,7 @@ ARTISTS = [
        bio='Anime and comic work with bold color and clean black and gray, and fine line on the way.',
        styles=['Anime', 'Comic', 'Color', 'Black and gray'],
        minimum='', book=('Book with Angel on Setmore', '#', 'Setmore link coming'),
-       socials=[('Instagram', '#'), ('TikTok', '#'), ('Facebook', '#')]),
+       socials=[('Instagram', 'https://www.instagram.com/thegreatsagetattoosandtarot/'), ('TikTok', 'https://www.tiktok.com/@greatsagetattooandtarot')]),
   dict(slug='potter', name='Potter', shop='stone-fort-lowell', role='Artist',
        bio='Potter tattoos at the Stone and Fort Lowell shop.',
        styles=['Styles coming'],
@@ -96,6 +96,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .credit{font-size:12.5px;color:var(--mute)}.credit a{color:var(--mute)}
 .shop{padding:10px 0 34px}.shop+.shop{border-top:1px solid var(--line);padding-top:40px}
 .shophead{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:end}@media (max-width:760px){.shophead{grid-template-columns:1fr}}
+.pay{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:14px}@media (max-width:760px){.pay{grid-template-columns:1fr 1fr}}.pay h3{margin:0 0 4px}.pay p{margin:0}
 .prow{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
 .askd{border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--body);padding:0;max-width:600px;width:calc(100% - 28px)}
 .askd::backdrop{background:rgba(5,3,9,.75)}.askd form{padding:26px 24px;position:relative;max-width:none}
@@ -201,7 +202,7 @@ page('artists.html', 'Artists · Splash of Ink', f'''
 # Artist pages
 for a in ARTISTS:
     samples = ''.join(f'<figure>{ph(a["name"] + " · " + s)}<figcaption>{s}</figcaption></figure>' for s in a['styles'])
-    soc = ''.join(f'<a href="{u}">{n}</a>' for n, u in a['socials'])
+    soc = ''.join(f'<a href="{u}"' + ('' if u == '#' else ' target="_blank" rel="noopener"') + f'>{n}{" (coming)" if u == "#" else ""}</a>' for n, u in a['socials'])
     minimum = f'<p><b style="color:var(--fog)">{a["minimum"]}</b></p>' if a['minimum'] else ''
     page(f'artist-{a["slug"]}.html', f'{a["name"]} · Splash of Ink', f'''
 <section><div class="wrap prof">
@@ -215,7 +216,15 @@ for a in ARTISTS:
     <div class="soc" style="margin-top:12px">{soc}</div>
   </div></div></section>
 <section class="alt"><div class="wrap"><div class="eyebrow">Best work</div><h2 style="font-size:30px">One best piece per style</h2>
-<div class="samples" style="margin-top:16px">{samples}</div></div></section>''', ask_modal())
+<div class="samples" style="margin-top:16px">{samples}</div></div></section>
+<section><div class="wrap"><div class="eyebrow">Paying</div><h2 style="font-size:30px">How to pay</h2>
+<p>All payments are due before the tattoo or piercing is done. Questions? Call <a href="tel:+15206511910">(520) 651-1910</a>.</p>
+<div class="pay">
+  <div class="card"><h3>Venmo</h3><p>(520) 651-1910</p></div>
+  <div class="card"><h3>Cash App</h3><p><a href="https://cash.app/$TattdGlassyy" target="_blank" rel="noopener">$TattdGlassyy</a></p></div>
+  <div class="card"><h3>Zelle</h3><p>(520) 900-3492<br><span class="note">Under the business, name “Zyaniece”</span></p></div>
+  <div class="card"><h3>Cash</h3><p>ATM inside the shop</p></div>
+</div></div></section>''', ask_modal())
 
 # Prices: a list of artists, each with their own request
 rows = ''.join(f'''<div class="card prow"><div><h3 style="margin:0">{a['name']}</h3><div class="note">{a['role']} · {SHOPNAME[a['shop']]}</div></div>
