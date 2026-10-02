@@ -3,7 +3,7 @@ import pathlib, html
 R = pathlib.Path(__file__).parent
 SW = [  # (group, name, hex, use, text colour on the swatch)
  ('Purple · the ink','Ink Purple','#8B3DFF','Buttons, the menu line, call buttons, links','#fff'),
- ('Purple · the ink','Drip Purple','#8323E8','The drip on the S, and nowhere else','#fff'),
+ ('Purple · the ink','Drip Purple','#8323E8','Reserved for small ink accents','#fff'),
  ('Purple · the ink','Lilac','#B98CFF','“of Ink” on dark, highlights, hover','#0b0910'),
  ('Purple · the ink','Glow','#A855F7','Soft glow behind buttons and the logo','#fff'),
  ('Night · the shop at 2 AM','Night','#0B0910','The main background','#f3eefb'),
@@ -13,7 +13,7 @@ SW = [  # (group, name, hex, use, text colour on the swatch)
  ('Light','Fog','#F3EEFB','Headings, and the letter of the S on dark','#0b0910'),
  ('Light','Body','#CFC6DE','Paragraph text on dark','#0b0910'),
  ('Light','Mute','#968BAB','Captions and small print','#0b0910'),
- ('The S’s grays','Shadow Gray','#B3B2B2','The S’s drop shadow','#0b0910'),
+ ('The S’s shadows','Shadow Purple','#3B2A55','The S’s drop shadow on the splash','#f3eefb'),
  ('The S’s grays','Shading Gray','#86878A','Shading inside the S’s strokes','#0b0910'),
 ]
 groups = {}
@@ -98,9 +98,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <section id="marks"><div class="wrap">
   <div class="eyebrow">01 · The marks</div><h2>Three pieces, three jobs</h2>
   <div class="grid3">
-    <div class="card"><div class="stage check"><img src="splash-of-ink-mark-dark.svg" alt="The brand mark"></div><h3 style="margin-top:14px">Brand mark</h3><p>The blackletter S, with ink dripping off the letter and from the point of its spike. Avatars, stickers, favicons, the shop window, merch: anywhere the name can’t fit.</p></div>
+    <div class="card"><div class="stage check"><img src="splash-of-ink-avatar.svg" alt="The brand mark"></div><h3 style="margin-top:14px">Brand mark</h3><p>The blackletter S on its own spill of purple ink. Avatars, stickers, favicons, the shop window, merch: anywhere the name can’t fit.</p></div>
     <div class="card"><div class="stage dark"><span style="font:400 64px/1 UnifrakturMaguntia,serif;color:var(--fog);text-shadow:4px 4px 0 #3b3150">plash</span><span style="font:400 44px 'Mr Dafoe',cursive;color:var(--lilac);margin-top:-14px">of Ink</span></div><h3 style="margin-top:14px">Wordmark</h3><p><i>plash</i> in blackletter and <i>of Ink</i> in script. Never on its own: it always follows the S.</p></div>
-    <div class="card"><div class="stage dark"><img src="splash-of-ink-signature-dark.svg" alt="The signature"></div><h3 style="margin-top:14px">Signature</h3><p>The brand mark as the S of <i>Splash</i>, then the wordmark. The website header, signs, flyers and cards.</p></div>
+    <div class="card"><div class="stage dark"><img src="splash-of-ink-signature-dark.svg" alt="The signature"></div><h3 style="margin-top:14px">Signature</h3><p>The S and its ink spill as the S of <i>Splash</i>, then the wordmark. The website header, signs, flyers and cards.</p></div>
   </div>
   <div class="grid2" style="margin-top:16px">
     <div><div class="stage dark"><img src="splash-of-ink-signature-dark.svg" alt="Signature on dark"></div><p class="cap">On dark: the main version, and the one the website uses.</p></div>
@@ -110,9 +110,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   <div class="tbl"><table><tr><th>File</th><th>What it’s for</th></tr>
   <tr><td><a href="splash-of-ink-signature-dark.svg"><code>splash-of-ink-signature-dark.svg</code></a></td><td>The signature on dark backgrounds. The website uses this one.</td></tr>
   <tr><td><a href="splash-of-ink-signature-light.svg"><code>splash-of-ink-signature-light.svg</code></a></td><td>The signature on light backgrounds.</td></tr>
-  <tr><td><a href="splash-of-ink-mark-dark.svg"><code>splash-of-ink-mark-dark.svg</code></a></td><td>The S alone, light letter for dark backgrounds, see-through background.</td></tr>
-  <tr><td><a href="splash-of-ink-mark-light.svg"><code>splash-of-ink-mark-light.svg</code></a></td><td>The S alone, black letter for light backgrounds, see-through background.</td></tr>
-  <tr><td><a href="splash-of-ink-avatar.svg"><code>splash-of-ink-avatar.svg</code></a></td><td><b>The brand mark as the shop chose it:</b> the clean S on a spilled-ink splash. Instagram, TikTok, Google, stickers and merch.</td></tr><tr><td><a href="splash-of-ink-mark-clean-dark.svg"><code>splash-of-ink-mark-clean-dark.svg</code></a> · <a href="splash-of-ink-mark-clean-light.svg"><code>-light</code></a></td><td>The S with no drip, see-through background, for when it sits on its own ink.</td></tr></table></div>
+  <tr><td><a href="splash-of-ink-mark-dark.svg"><code>splash-of-ink-mark-dark.svg</code></a></td><td>The S alone, light letter, no splash, see-through background.</td></tr>
+  <tr><td><a href="splash-of-ink-mark-light.svg"><code>splash-of-ink-mark-light.svg</code></a></td><td>The S alone, black letter, no splash, see-through background.</td></tr>
+  <tr><td><a href="splash-of-ink-avatar.svg"><code>splash-of-ink-avatar.svg</code></a></td><td><b>The brand mark as the shop chose it:</b> the clean S on a spilled-ink splash. Instagram, TikTok, Google, stickers and merch.</td></tr></table></div>
   <p class="cap">All of them are true vector files, so they print crisp at any size, from a sticker to a wall.</p>
 </div></section>
 
@@ -128,16 +128,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div>
       <ul class="rules">
         <li><b style="color:var(--fog)">West Coast lettering.</b> Drawn in the old English style of California Chicano tattoo and sign lettering: sharp serifs, black and gray shading, a gray drop shadow.</li>
-        <li><b style="color:var(--fog)">The drip.</b> Purple ink runs off the bottom of the letter.</li>
-        <li><b style="color:var(--fog)">The needle.</b> The spike through the bottom of the S reads like a tattoo needle, and ink drips from its point.</li>
+        <li><b style="color:var(--fog)">The splash.</b> The S sits on its own spill of Ink Purple, with drops and runs around it. The splash is the ink, so the letter itself stays clean (the shop’s pick, 2 October).</li>
         <li><b style="color:var(--fog)">Open counters.</b> The spaces inside the S are see-through, so it reads as an S on any background, even purple.</li>
       </ul>
       <h3 style="margin-top:26px">Rules for the S</h3>
       <ul class="rules dont">
         <li>Always use the S from these files. Don’t retype it in a font: the blackletter font’s own S reads like a G or a T (Magic’s note, 1 October), which is why the drawn S replaced it.</li>
         <li>Keep it upright. Don’t stretch, slant or outline it.</li>
-        <li>The drip is always purple. The letter changes between light and dark to suit the background; the drip doesn’t.</li>
-        <li>Smallest size: 28 px tall on screen, 8 mm in print. Smaller than that, the drip and the needle disappear.</li>
+        <li>The splash is always Ink Purple. The letter changes between light and dark to suit the background; the splash doesn’t.</li>
+        <li>Smallest size: 28 px tall on screen, 8 mm in print. Smaller than that, the splash’s drops disappear.</li>
       </ul>
     </div>
   </div>
@@ -149,14 +148,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   <div class="grid2">
     <div><ul class="rules">
       <li><b style="color:var(--fog)">The S is the first letter.</b> <i>plash</i> starts right after it, tucked close so the eye reads one word: <i>Splash</i>.</li>
-      <li><b style="color:var(--fog)">The S is about 2.3× as tall</b> as the tall letters of <i>plash</i> (the l and the h). It reaches above them, and its drip hangs below the baseline.</li>
+      <li><b style="color:var(--fog)">The S is about 2.3× as tall</b> as the tall letters of <i>plash</i> (the l and the h). It reaches above them, and its splash spreads behind the start of the word.</li>
       <li><b style="color:var(--fog)"><i>of Ink</i> is two thirds the size of <i>plash</i>,</b> set under its right half so it hangs off <i>Splash</i> like a signature.</li>
       <li><b style="color:var(--fog)">Drop shadow:</b> <i>plash</i> carries a shadow down and right, about 3% of its size: dark lilac on dark, pale gray on light.</li>
       <li><b style="color:var(--fog)">Clear space:</b> at least a quarter of the S’s height, empty, on every side.</li>
     </ul></div>
     <div><ul class="rules dont">
       <li>Use the files as they are. Don’t re-space, re-letter or rearrange them.</li>
-      <li>One drip at a time. The drip lives on the S: no drips on the menu bar, borders or other text near the logo. A second drip waters down the first.</li>
+      <li>One splash at a time. The splash lives behind the S: no drips or splashes on the menu bar, borders or other text near the logo. A second one waters down the first.</li>
       <li>On photos, place the signature where the background is calm and dark, or use the S alone.</li>
     </ul></div>
   </div>
@@ -217,13 +216,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <section id="story"><div class="wrap">
   <div class="eyebrow">09 · The story</div><h2>Why the S is the S</h2>
   <p>Splash of Ink has two shops in Tucson, on Fourth Avenue and on Stone Avenue, and a crew that does everything from fine line to realism, plus piercing. The look comes from the West Coast tattoo and lettering tradition the shop lives in: old English letters, black and gray shading, and one colour that pops. That colour is purple, the Ink Master purple the crew asked for.</p>
-  <p>The S does three jobs at once. It’s the first letter of the name, it’s a splash of ink (the drip), and its spike is a needle laying that ink down. On 1 October Magic pointed out that the old S in the word read like a G or a T, so the drawn S became the S of <i>Splash</i>, and the word reads clean.</p>
+  <p>The S does two jobs at once. It’s the first letter of the name, and it sits in a splash of ink: the shop’s name made visible. On 1 October Magic pointed out that the old S in the word read like a G or a T, so the drawn S became the S of <i>Splash</i>, and the word reads clean.</p>
 </div></section>
 
 <section id="open"><div class="wrap">
   <div class="eyebrow">10 · Open for the shop</div><h2>To decide together</h2>
   <ol class="open">
-    <li><b style="color:var(--fog)">Colours.</b> Whether the purple, the grays and the drip feel right.</li>
+    <li><b style="color:var(--fog)">Colours.</b> Whether the purple, the shadow and the splash feel right.</li>
     <li><b style="color:var(--fog)">Social channels.</b> Which one or two the website should push (Instagram, TikTok or both). The main call to action becomes <i>follow us</i> there.</li>
     <li><b style="color:var(--fog)">Merch.</b> Shirts and hats with the S, for the shelf (Annie’s idea).</li>
     <li><b style="color:var(--fog)">Redraw it yourselves.</b> If the crew wants to hand-draw the S or the lettering, send it over and it gets turned into these files.</li>

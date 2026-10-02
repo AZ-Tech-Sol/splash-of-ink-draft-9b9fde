@@ -51,7 +51,7 @@ h1,h2,h3{color:var(--fog);line-height:1.15;margin:0 0 .5em;letter-spacing:.01em;
 header{background:rgba(11,9,16,.92);border-bottom:3px solid var(--purple);box-shadow:0 2px 18px rgba(139,61,255,.35);position:sticky;top:0;z-index:5;backdrop-filter:blur(6px)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;flex-wrap:wrap}
 .brand{font:400 34px/1 "Pirata One",serif;color:var(--fog);text-decoration:none;letter-spacing:.02em}
-.brand img{height:46px;width:auto;display:block}
+.brand img{height:58px;width:auto;display:block;margin-block:-6px}
 .drip{height:46px;background:url(assets/brand/drip.svg) top/100% 100% no-repeat;margin-bottom:-46px;position:relative;z-index:4;pointer-events:none}
 h1.lockup{margin:0 auto 18px;max-width:640px}h1.lockup img{width:100%;height:auto;filter:drop-shadow(0 6px 30px rgba(139,61,255,.35))}
 .hero{background:radial-gradient(900px 420px at 50% -10%,rgba(139,61,255,.35),transparent 70%),radial-gradient(circle at 12% 70%,rgba(139,61,255,.18) 0 2px,transparent 3px) 0 0/38px 38px}
@@ -116,7 +116,7 @@ HEAD = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name=
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&family=UnifrakturMaguntia&family=Mr+Dafoe&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css"></head><body>
 <div class="draft">DRAFT for Splash of Ink · samples, links and hours are placeholders · forms send nothing</div>
-<header><div class="wrap"><a class="brand" href="index.html"><img src="assets/brand/lockup-dark.svg?v=34c8ea77" alt="Splash of Ink" height="46"></a>
+<header><div class="wrap"><a class="brand" href="index.html"><img src="assets/brand/lockup-dark.svg?v=951cf401" alt="Splash of Ink" height="58"></a>
 <nav>{nav}</nav></div></header>
 '''
 NAV = [('index.html', 'Home'), ('artists.html', 'Artists'), ('prices.html', 'Prices'), ('apprentice.html', 'Apprentices'), ('visit.html', 'Visit')]
@@ -198,7 +198,7 @@ HOURSCARD = '<div class="card"><h3>Hours</h3><p style="font-size:18px;color:var(
 page('index.html', 'Splash of Ink · Tattoo and piercing in Tucson', f'''
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Tattoo and piercing · two shops in Tucson</div>
-  <h1 class="lockup"><img src="assets/brand/lockup-dark.svg?v=34c8ea77" alt="Splash of Ink"></h1>
+  <h1 class="lockup"><img src="assets/brand/lockup-dark.svg?v=951cf401" alt="Splash of Ink"></h1>
   <p class="lead">Good art, good people, good vibes. Find your shop, pick your artist, and ask them for prices.</p>
   <div class="row"><a class="btn" href="#shops">Find your shop</a><a class="btn ghost" href="artists.html">Meet the artists</a></div>
   {callbar()}

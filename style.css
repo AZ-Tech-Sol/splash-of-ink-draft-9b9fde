@@ -11,7 +11,7 @@ h1,h2,h3{color:var(--fog);line-height:1.15;margin:0 0 .5em;letter-spacing:.01em;
 header{background:rgba(11,9,16,.92);border-bottom:3px solid var(--purple);box-shadow:0 2px 18px rgba(139,61,255,.35);position:sticky;top:0;z-index:5;backdrop-filter:blur(6px)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;flex-wrap:wrap}
 .brand{font:400 34px/1 "Pirata One",serif;color:var(--fog);text-decoration:none;letter-spacing:.02em}
-.brand img{height:46px;width:auto;display:block}
+.brand img{height:58px;width:auto;display:block;margin-block:-6px}
 .drip{height:46px;background:url(assets/brand/drip.svg) top/100% 100% no-repeat;margin-bottom:-46px;position:relative;z-index:4;pointer-events:none}
 h1.lockup{margin:0 auto 18px;max-width:640px}h1.lockup img{width:100%;height:auto;filter:drop-shadow(0 6px 30px rgba(139,61,255,.35))}
 .hero{background:radial-gradient(900px 420px at 50% -10%,rgba(139,61,255,.35),transparent 70%),radial-gradient(circle at 12% 70%,rgba(139,61,255,.18) 0 2px,transparent 3px) 0 0/38px 38px}

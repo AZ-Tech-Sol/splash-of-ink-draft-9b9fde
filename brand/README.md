@@ -14,9 +14,9 @@ There are three pieces, and each has a job.
 
 | Piece | What it is | Use it for |
 | --- | --- | --- |
-| **Brand mark** | The blackletter **S**, with ink dripping off the letter and from the point of its spike | Avatars, stickers, favicons, the shop window, merch, anywhere the name can't fit |
+| **Brand mark** | The blackletter **S** on its own spill of purple ink | Avatars, stickers, favicons, the shop window, merch, anywhere the name can't fit |
 | **Wordmark** | *plash* in blackletter and *of Ink* in script | Never on its own. It always follows the S |
-| **Signature** | The brand mark as the S of *Splash*, then the wordmark | The website header, signs, flyers, cards |
+| **Signature** | The S and its ink spill as the S of *Splash*, then the wordmark | The website header, signs, flyers, cards |
 
 **The signature, on dark (the main version):**
 
@@ -36,10 +36,9 @@ There are three pieces, and each has a job.
 | --- | --- |
 | `splash-of-ink-signature-dark.svg` | The signature on dark backgrounds. The website uses this one. |
 | `splash-of-ink-signature-light.svg` | The signature on light backgrounds. |
-| `splash-of-ink-mark-dark.svg` | The S on its own, light letter for dark backgrounds. See-through background. |
-| `splash-of-ink-mark-light.svg` | The S on its own, black letter for light backgrounds. See-through background. |
+| `splash-of-ink-mark-dark.svg` | The S alone, light letter, no splash, see-through background. |
+| `splash-of-ink-mark-light.svg` | The S alone, black letter, no splash, see-through background. |
 | `splash-of-ink-avatar.svg` | **The brand mark as the shop chose it (2 Oct):** the clean S on a spilled-ink splash in Ink Purple, with a deep purple shadow. Instagram, TikTok, Google, stickers and merch. |
-| `splash-of-ink-mark-clean-dark.svg` / `-light.svg` | The S with no drip, see-through background, for when the S sits on its own ink. |
 
 All of them are true vector files, so they print crisp at any size, from a sticker to a wall.
 
@@ -47,11 +46,10 @@ All of them are true vector files, so they print crisp at any size, from a stick
 
 ## The S
 
-The S is the heart of the brand. Three things make it ours:
+The S is the heart of the brand. Two things make it ours:
 
 - **West Coast lettering.** It's drawn in the old English style of California Chicano tattoo and sign lettering, with sharp serifs, black and gray shading, and a gray drop shadow.
-- **The drip.** Purple ink runs off the bottom of the letter.
-- **The needle.** The spike through the bottom of the S reads like a tattoo needle, so ink drips from its point.
+- **The splash.** The S sits on its own spill of Ink Purple, with drops and runs around it. The splash is the ink, so the letter itself stays clean (the shop's pick, 2 October).
 
 **Its counters are open.** The spaces inside the S are see-through, so the letter reads as an S on any background, even on purple.
 
@@ -59,8 +57,8 @@ The S is the heart of the brand. Three things make it ours:
 
 - Always use the S from these files. Don't retype it in a font: the blackletter font's own S reads like a G or a T (Magic's note, 1 Oct), which is why the drawn S replaced it.
 - Keep it upright. Don't stretch, slant or outline it.
-- The drip is always purple. The letter changes between light and dark to suit the background; the drip doesn't.
-- Smallest size: 28 px tall on screen, 8 mm in print. Below that, the drip and the needle disappear.
+- The splash is always Ink Purple. The letter changes between light and dark to suit the background; the splash doesn't.
+- Smallest size: 28 px tall on screen, 8 mm in print. Below that, the splash's drops disappear.
 
 ---
 
@@ -69,7 +67,7 @@ The S is the heart of the brand. Three things make it ours:
 ### How it fits together
 
 - **The S is the first letter.** *plash* starts right after the S, tucked close enough that the eye reads one word: *Splash*.
-- **The S is about 2.3 times as tall as the tall letters of *plash*** (the l and the h). It reaches above them and its drip hangs below the baseline.
+- **The S is about 2.3 times as tall as the tall letters of *plash*** (the l and the h). It reaches above them, and its splash spreads behind the start of the word.
 - ***of Ink* is two thirds the size of *plash*,** set under the right half of the word, so it hangs off *Splash* like a signature.
 - **Drop shadow:** *plash* carries a shadow offset down and right by about 3% of its size, in dark lilac on dark and pale gray on light.
 - **Clear space:** keep empty space around the signature of at least a quarter of the S's height on every side.
@@ -77,7 +75,7 @@ The S is the heart of the brand. Three things make it ours:
 ### Rules for the signature
 
 - Use the files as they are. Don't re-space, re-letter or rearrange them.
-- One drip at a time. The drip lives on the S. Don't add drips to the menu bar, borders or other text near the logo, because a second drip waters down the first.
+- One splash at a time. The splash lives behind the S. Don't add drips or splashes to the menu bar, borders or other text near the logo, because a second one waters down the first.
 - On photos, place the signature where the background is calm and dark, or use the S alone.
 
 ---
@@ -103,7 +101,7 @@ All four are free Google Fonts under open licences, so they're safe for the webs
 | Name | Hex | Use |
 | --- | --- | --- |
 | **Ink Purple** | `#8B3DFF` | The main brand colour: buttons, the menu line, the call buttons, links |
-| **Drip Purple** | `#8323E8` | The drip on the S, and nowhere else |
+| **Drip Purple** | `#8323E8` | Reserved for small ink accents |
 | **Lilac** | `#B98CFF` | *of Ink* on dark, highlights, hover states |
 | **Glow** | `#A855F7` | Soft glow behind buttons and the logo |
 
@@ -128,7 +126,7 @@ All four are free Google Fonts under open licences, so they're safe for the webs
 
 | Name | Hex | Use |
 | --- | --- | --- |
-| **Shadow Gray** | `#B3B2B2` | The S's drop shadow |
+| **Shadow Purple** | `#3B2A55` | The S's drop shadow on the splash |
 | **Shading Gray** | `#86878A` | The shading inside the S's strokes |
 
 ---
@@ -137,8 +135,8 @@ All four are free Google Fonts under open licences, so they're safe for the webs
 
 The S has a see-through background, so it can sit on anything. These are the ones that work best:
 
-- **Spilled ink (the default):** the clean S, with no drip of its own, on a splash of Ink Purple with drops and runs around it. The splash is the ink, so the letter doesn't need to drip. Social media, stickers and merch.
-- **Night circle with a purple glow:** the S with its drip, in a dark circle. The website's small avatars.
+- **Spilled ink (the default):** the S on a splash of Ink Purple with drops and runs around it. Social media, stickers, merch and the website.
+- **Night circle with a purple glow:** the S alone in a dark circle, for places where the splash would be too busy.
 - **Light ground:** the black S on white or light gray, for paper and receipts.
 
 The Brand Bench (a private tool Angel can share) lets you try colours and backgrounds on the S and save your favourite.
@@ -175,7 +173,7 @@ How the shop sounds on the website, on social media and on signs.
 
 Splash of Ink has two shops in Tucson, on Fourth Avenue and on Stone Avenue, and a crew that does everything from fine line to realism, plus piercing. The look comes from the West Coast tattoo and lettering tradition the shop lives in: old English letters, black and gray shading, and one colour that pops. The colour is purple, the Ink Master purple the crew asked for.
 
-The S does three jobs at once. It's the first letter of the name, it's a splash of ink (the drip), and its spike is a needle laying that ink down. On 1 October Magic pointed out that the old S in the word read like a G or a T. So the drawn S became the S of *Splash*, and the word reads clean.
+The S does two jobs at once. It's the first letter of the name, and it sits in a splash of ink, the shop's name made visible. On 1 October Magic pointed out that the old S in the word read like a G or a T. So the drawn S became the S of *Splash*, and the word reads clean.
 
 ---
 
@@ -183,7 +181,7 @@ The S does three jobs at once. It's the first letter of the name, it's a splash 
 
 Things to decide together:
 
-1. **Colours:** whether the purple, the grays and the drip feel right. Try them on the Brand Bench.
+1. **Colours:** whether the purple, the grays and the splash feel right. Try them on the Brand Bench.
 2. **Social channels:** which one or two the website should push (Instagram, TikTok or both). The website's main call to action becomes *follow us* there.
 3. **Merch:** shirts and hats with the S, for the shelf (Annie's idea).
 4. **Redraw it yourselves:** if the crew wants to hand-draw the S or the lettering, send it over and it gets turned into these files.
