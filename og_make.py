@@ -22,7 +22,7 @@ def shot(name, body):
 shot('site', '''<div style="position:absolute;inset:110px 0 0 0;text-align:center">
 <div class="eye">Tattoo and piercing · Tucson</div>
 <img src="../assets/brand/lockup-dark.svg" style="width:760px;margin:26px auto 0;display:block;filter:drop-shadow(0 8px 40px rgba(139,61,255,.4))"></div>
-<div class="foot">Fourth Avenue · Stone &amp; Fort Lowell · Open 24/7 by appointment</div>''')
+<div class="foot">Fourth Avenue · Stone Avenue · Open 24/7 by appointment</div>''')
 for a in ARTISTS:
     pic = R / 'assets' / 'artists' / f"{a['slug']}.jpg"
     if not pic.exists(): continue

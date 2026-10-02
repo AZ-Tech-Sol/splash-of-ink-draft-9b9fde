@@ -5,7 +5,7 @@ SHOP = 'Splash of Ink'
 
 SHOPS = [
   dict(slug='fourth-avenue', name='Fourth Avenue', addr='532 N 4th Ave<br>Tucson, AZ 85705', map='https://maps.google.com/?cid=3162480668975808258', phone=('(520) 651-1910','+15206511910'), blurb='The original shop, on Tucson\u2019s historic Fourth Avenue.'),
-  dict(slug='stone-fort-lowell', name='Stone & Fort Lowell', addr='3050 N Stone Ave<br>Tucson, AZ 85705', map='https://maps.google.com/?cid=18396497486358483027', phone=('(520) 651-1910','+15206511910'), blurb='Our second shop, on Stone just south of Fort Lowell.'),
+  dict(slug='stone-avenue', name='Stone Avenue', addr='3050 N Stone Ave<br>Tucson, AZ 85705', map='https://maps.app.goo.gl/h9L7F6SiUq7BHN4W7', phone=('(520) 651-1910','+15206511910'), blurb='Our second shop, on Stone Avenue.'),
 ]
 PHONES = [('Master D', '(520) 651-1910', '+15206511910', 'Main line'), ('Magic', '(520) 392-3594', '+15203923594', 'Second line')]
 def callbar():  # D's number first, Magic's right beside it and just as big
@@ -25,12 +25,12 @@ ARTISTS = [
        styles=['Piercing', 'Apprentice tattoos'],
        minimum='', book=('Book with Annie', '#', 'Booking link coming'),
        socials=[('Instagram', 'https://www.instagram.com/annie_splash_of_ink/'), ('TikTok', 'https://www.tiktok.com/@anniesplashofink')]),
-  dict(slug='master-d', name='Master D', shop='stone-fort-lowell', role='Owner and artist',
+  dict(slug='master-d', name='Master D', shop='stone-avenue', role='Owner and artist',
        bio='Master D owns Splash of Ink and tattoos at the Stone and Fort Lowell shop.',
        styles=['Styles coming'],
        minimum='', book=('Book with Master D', '#', 'Booking link coming'),
        socials=[('Instagram', '#')]),
-  dict(slug='angel-perez', name='Angel Perez', shop='stone-fort-lowell', role='Artist · anime, comic and color',
+  dict(slug='angel-perez', name='Angel Perez', shop='stone-avenue', role='Artist · anime, comic and color',
        bio='Anime and comic work with bold color and clean black and gray, and fine line on the way.',
        styles=['Anime', 'Comic', 'Color', 'Black and gray'],
        minimum='', book=('Book with Angel on Setmore', '#', 'Setmore link coming'),
@@ -121,7 +121,7 @@ HEAD = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name=
 <div class="drip" aria-hidden="true"></div>
 '''
 NAV = [('index.html', 'Home'), ('artists.html', 'Artists'), ('prices.html', 'Prices'), ('apprentice.html', 'Apprentices'), ('visit.html', 'Visit')]
-FOOT = '''<footer><div class="wrap"><span>© 2026 Splash of Ink · Fourth Avenue and Stone &amp; Fort Lowell, Tucson · <a href="tel:+15206511910">(520) 651-1910</a> · <a href="tel:+15203923594">(520) 392-3594</a></span>
+FOOT = '''<footer><div class="wrap"><span>© 2026 Splash of Ink · Fourth Avenue and Stone Avenue, Tucson · <a href="tel:+15206511910">(520) 651-1910</a> · <a href="tel:+15203923594">(520) 392-3594</a></span>
 <span class="credit">Website by <a href="https://aztechsol.com/" target="_blank" rel="noopener">AZ Tech Solutions</a></span></div></footer>
 </body></html>'''
 
@@ -129,7 +129,7 @@ SITE = 'https://az-tech-sol.github.io/splash-of-ink-draft-9b9fde/'
 def og_tags(fn, title):
     slug = fn[len('artist-'):-5] if fn.startswith('artist-') else None
     img = f'og-{slug}.png' if slug and (R / 'assets' / 'og' / f'og-{slug}.png').exists() else 'og-site.png'
-    desc = 'Tattoo and piercing on Fourth Avenue and at Stone & Fort Lowell, Tucson. Open 24/7 by appointment.'
+    desc = 'Tattoo and piercing on Fourth Avenue and at Stone Avenue, Tucson. Open 24/7 by appointment.'
     return (f'<meta property="og:type" content="website"><meta property="og:site_name" content="Splash of Ink">'
             f'<meta property="og:title" content="{html.escape(title)}"><meta property="og:description" content="{desc}">'
             f'<meta property="og:url" content="{SITE}{fn}"><meta property="og:image" content="{SITE}assets/og/{img}">'
@@ -261,7 +261,7 @@ page('apprentice.html', 'Apprentice applications · Splash of Ink', '''
 <form class="f card" id="af" novalidate>
   <div class="two"><label>Your name<input name="name" required></label><label>Phone<input name="phone" type="tel" required></label></div>
   <label>Email<input name="email" type="email" required></label>
-  <label>Which shop?<select name="shop"><option>Fourth Avenue</option><option>Stone &amp; Fort Lowell</option><option>Either</option></select></label>
+  <label>Which shop?<select name="shop"><option>Fourth Avenue</option><option>Stone Avenue</option><option>Either</option></select></label>
   <label>Tattooing or piercing?<select name="track"><option>Tattooing</option><option>Piercing</option><option>Both</option></select></label>
   <label>Portfolio link <small>(Instagram, a drive folder, anything)</small><input name="portfolio" type="url" placeholder="https://"></label>
   <label>Experience <small>(drawing, art school, anything you’ve done)</small><textarea name="experience" rows="3"></textarea></label>
