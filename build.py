@@ -48,7 +48,7 @@ h1,h3{font-family:Oswald,sans-serif;}
 h1,h2,h3{color:var(--fog);line-height:1.15;margin:0 0 .5em;letter-spacing:.01em;font-weight:600}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 .draft{background:var(--purple);color:#fff;text-align:center;font:600 13px/1.4 Inter,sans-serif;padding:7px 16px}
-header{background:rgba(11,9,16,.92);position:sticky;top:0;z-index:5;backdrop-filter:blur(6px)}
+header{background:rgba(11,9,16,.92);border-bottom:3px solid var(--purple);box-shadow:0 2px 18px rgba(139,61,255,.35);position:sticky;top:0;z-index:5;backdrop-filter:blur(6px)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;flex-wrap:wrap}
 .brand{font:400 34px/1 "Pirata One",serif;color:var(--fog);text-decoration:none;letter-spacing:.02em}
 .brand img{height:46px;width:auto;display:block}
@@ -118,7 +118,6 @@ HEAD = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name=
 <div class="draft">DRAFT for Splash of Ink · samples, links and hours are placeholders · forms send nothing</div>
 <header><div class="wrap"><a class="brand" href="index.html"><img src="assets/brand/lockup-dark.svg?v=22417cc6" alt="Splash of Ink" height="46"></a>
 <nav>{nav}</nav></div></header>
-<div class="drip" aria-hidden="true"></div>
 '''
 NAV = [('index.html', 'Home'), ('artists.html', 'Artists'), ('prices.html', 'Prices'), ('apprentice.html', 'Apprentices'), ('visit.html', 'Visit')]
 FOOT = '''<footer><div class="wrap"><span>© 2026 Splash of Ink · Fourth Avenue and Stone Avenue, Tucson · <a href="tel:+15206511910">(520) 651-1910</a> · <a href="tel:+15203923594">(520) 392-3594</a></span>
