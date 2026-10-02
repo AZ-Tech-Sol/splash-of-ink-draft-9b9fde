@@ -84,7 +84,7 @@ HEAD = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name=
 <nav>{nav}</nav></div></header>
 '''
 NAV = [('index.html', 'Home'), ('artists.html', 'Artists'), ('prices.html', 'Request prices'), ('apprentice.html', 'Apprentices'), ('visit.html', 'Visit')]
-FOOT = '''<footer><div class="wrap"><span>© 2026 Splash of Ink · Tucson, Arizona</span>
+FOOT = '''<footer><div class="wrap"><span>© 2026 Splash of Ink · 532 N 4th Ave, Tucson, AZ 85705 · <a href="tel:+15206511910">(520) 651-1910</a></span>
 <span class="credit">Website by <a href="https://aztechsol.com/" target="_blank" rel="noopener">AZ Tech Solutions</a></span></div></footer>
 </body></html>'''
 
@@ -102,7 +102,7 @@ def acard(a):
 # Home
 page('index.html', 'Splash of Ink · Tattoo shop in Tucson', f'''
 <section class="hero"><div class="wrap">
-  <div class="eyebrow">Tattoo shop · Tucson, Arizona</div>
+  <div class="eyebrow">Tattoo shop · Fourth Avenue, Tucson</div>
   <h1>Splash of Ink</h1>
   <p class="lead">Good art, good people, good vibes. Pick your artist, see their best work, and book straight with them.</p>
   <div class="row"><a class="btn" href="artists.html">Meet the artists</a><a class="btn ghost" href="prices.html">Request prices</a></div>
@@ -187,10 +187,10 @@ page('visit.html', 'Visit · Splash of Ink', '''
 <section class="hero" style="padding:60px 0 24px"><div class="wrap"><div class="eyebrow">Visit</div><h1 style="font-size:clamp(46px,8vw,80px)">Come say hi</h1>
 <p class="lead">Walk-ins welcome when an artist is free. Booking ahead is the surest way to get your artist.</p></div></section>
 <section style="padding-top:10px"><div class="wrap"><div class="info">
-  <div class="card"><h3>Where</h3><p>Street address<br>Tucson, AZ 857XX</p><p class="note">Address placeholder</p></div>
+  <div class="card"><h3>Where</h3><p>532 N 4th Ave<br>Tucson, AZ 85705</p><p>On Tucson's historic Fourth Avenue.</p><p><a href="https://maps.app.goo.gl/kkLf8c94uTDTxXT69" target="_blank" rel="noopener">Open in Google Maps →</a></p></div>
   <div class="card"><h3>Hours</h3><table class="hours">
-    <tr><td>Monday</td><td>hours</td></tr><tr><td>Tuesday</td><td>hours</td></tr><tr><td>Wednesday</td><td>hours</td></tr><tr><td>Thursday</td><td>hours</td></tr><tr><td>Friday</td><td>hours</td></tr><tr><td>Saturday</td><td>hours</td></tr><tr><td>Sunday</td><td>hours</td></tr></table><p class="note">Hours placeholder</p></div>
-  <div class="card"><h3>Walk-ins</h3><p>Walk-ins depend on who’s free that day. Call ahead, or book with an artist from their page.</p><p><a href="#">(520) 000-0000</a></p><p class="note">Phone placeholder</p></div>
+    <tr><td>Monday</td><td>hours</td></tr><tr><td>Tuesday</td><td>hours</td></tr><tr><td>Wednesday</td><td>hours</td></tr><tr><td>Thursday</td><td>hours</td></tr><tr><td>Friday</td><td>hours</td></tr><tr><td>Saturday</td><td>hours</td></tr><tr><td>Sunday</td><td>hours</td></tr></table><p class="note">Hours to confirm with the shop</p></div>
+  <div class="card"><h3>Walk-ins</h3><p>Walk-ins depend on who’s free that day. Call ahead, or book with an artist from their page.</p><p><a href="tel:+15206511910">(520) 651-1910</a></p></div>
 </div></div></section>''')
 
 (R / 'style.css').write_text(CSS)
