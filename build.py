@@ -3,23 +3,39 @@ import pathlib, html
 R = pathlib.Path(__file__).parent
 SHOP = 'Splash of Ink'
 
+SHOPS = [
+  dict(slug='fourth-avenue', name='Fourth Avenue', addr='532 N 4th Ave<br>Tucson, AZ 85705', map='https://maps.google.com/?cid=3162480668975808258', phone=('(520) 651-1910','+15206511910'), blurb='The original shop, on Tucson\u2019s historic Fourth Avenue.'),
+  dict(slug='stone-fort-lowell', name='Stone & Fort Lowell', addr='3050 N Stone Ave<br>Tucson, AZ 85705', map='https://maps.google.com/?cid=18396497486358483027', phone=('(520) 651-1910','+15206511910'), blurb='Our second shop, on Stone just south of Fort Lowell.'),
+]
+HOURS = 'Open 24/7 by appointment. Walk-ins daily, usually from about 10 AM until 3 to 5 AM.'
 ARTISTS = [
-  dict(slug='magic', name='Magic', role='Head artist · with the shop since day one',
-       bio='The last of the shop’s original artists. There’s very little Magic doesn’t do, from delicate fine line to full realism.',
+  dict(slug='magic', name='Magic', shop='fourth-avenue', role='Head artist · tattoo and piercing',
+       bio='The last of the shop\u2019s original artists. There\u2019s very little Magic doesn\u2019t do, from delicate fine line to full realism, and he pierces too.',
        styles=['Fine line', 'Black and gray', 'Neo-traditional', 'American traditional', 'Color', 'Realism'],
        minimum='$100 shop minimum', book=('Book with Magic', '#', 'Booking link coming'),
        socials=[('Instagram', '#'), ('TikTok', '#'), ('Facebook', '#')]),
-  dict(slug='angel-perez', name='Angel Perez', role='Artist · anime, comic and color',
+  dict(slug='annie', name='Annie', shop='fourth-avenue', role='Piercer · tattoo apprentice',
+       bio='Annie runs piercing at the Fourth Avenue shop and is learning to tattoo as an apprentice.',
+       styles=['Piercing', 'Apprentice tattoos'],
+       minimum='', book=('Book with Annie', '#', 'Booking link coming'),
+       socials=[('Instagram', '#')]),
+  dict(slug='master-d', name='Master D', shop='stone-fort-lowell', role='Owner and artist',
+       bio='Master D owns Splash of Ink and tattoos at the Stone and Fort Lowell shop.',
+       styles=['Styles coming'],
+       minimum='', book=('Book with Master D', '#', 'Booking link coming'),
+       socials=[('Instagram', '#')]),
+  dict(slug='angel-perez', name='Angel Perez', shop='stone-fort-lowell', role='Artist · anime, comic and color',
        bio='Anime and comic work with bold color and clean black and gray, and fine line on the way.',
        styles=['Anime', 'Comic', 'Color', 'Black and gray'],
        minimum='', book=('Book with Angel on Setmore', '#', 'Setmore link coming'),
        socials=[('Instagram', '#'), ('TikTok', '#'), ('Facebook', '#')]),
-  dict(slug='artist', name='Artist name', role='Placeholder for the next artist',
-       bio='A slot for another artist’s page. Their styles, best samples and booking link go here.',
-       styles=['Style one', 'Style two', 'Style three'],
-       minimum='', book=('Book with this artist', '#', 'Booking link coming'),
-       socials=[('Instagram', '#')], placeholder=True),
+  dict(slug='potter', name='Potter', shop='stone-fort-lowell', role='Artist',
+       bio='Potter tattoos at the Stone and Fort Lowell shop.',
+       styles=['Styles coming'],
+       minimum='', book=('Book with Potter', '#', 'Booking link coming'),
+       socials=[('Instagram', '#')]),
 ]
+SHOPNAME = {s['slug']: s['name'] for s in SHOPS}
 
 CSS = '''
 :root{--ink:#0b0910;--ink2:#15111d;--card:#1b1526;--line:#2e2540;--purple:#8b3dff;--purple2:#b98cff;--glow:#a855f7;--fog:#f3eefb;--body:#cfc6de;--mute:#968bab}
@@ -72,6 +88,12 @@ fieldset{border:1px solid var(--line);border-radius:10px;padding:10px 14px}legen
 footer{border-top:1px solid var(--line);padding:26px 0 30px;font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .credit{font-size:12.5px;color:var(--mute)}.credit a{color:var(--mute)}
+.shop{padding:10px 0 34px}.shop+.shop{border-top:1px solid var(--line);padding-top:40px}
+.shophead{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:end}@media (max-width:760px){.shophead{grid-template-columns:1fr}}
+.prow{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.askd{border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--body);padding:0;max-width:600px;width:calc(100% - 28px)}
+.askd::backdrop{background:rgba(5,3,9,.75)}.askd form{padding:26px 24px;position:relative;max-width:none}
+.askx{position:absolute;top:10px;right:14px;background:none;border:0;color:var(--mute);font-size:28px;cursor:pointer;line-height:1}
 '''
 
 HEAD = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -83,8 +105,8 @@ HEAD = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name=
 <header><div class="wrap"><a class="brand" href="index.html">Splash <span>of</span> Ink</a>
 <nav>{nav}</nav></div></header>
 '''
-NAV = [('index.html', 'Home'), ('artists.html', 'Artists'), ('prices.html', 'Request prices'), ('apprentice.html', 'Apprentices'), ('visit.html', 'Visit')]
-FOOT = '''<footer><div class="wrap"><span>© 2026 Splash of Ink · 532 N 4th Ave, Tucson, AZ 85705 · <a href="tel:+15206511910">(520) 651-1910</a></span>
+NAV = [('index.html', 'Home'), ('artists.html', 'Artists'), ('prices.html', 'Prices'), ('apprentice.html', 'Apprentices'), ('visit.html', 'Visit')]
+FOOT = '''<footer><div class="wrap"><span>© 2026 Splash of Ink · Fourth Avenue and Stone &amp; Fort Lowell, Tucson · <a href="tel:+15206511910">(520) 651-1910</a></span>
 <span class="credit">Website by <a href="https://aztechsol.com/" target="_blank" rel="noopener">AZ Tech Solutions</a></span></div></footer>
 </body></html>'''
 
@@ -96,33 +118,75 @@ def ph(label): return f'<div class="ph">{html.escape(label)}<br>photo coming</di
 
 def acard(a):
     return f'''<a class="card acard" href="artist-{a['slug']}.html">{ph(a['name'] + ' · portrait')}
-      <h3 style="margin:4px 0 0">{a['name']}</h3><div class="note">{a['role']}</div>
+      <h3 style="margin:4px 0 0">{a['name']}</h3><div class="note">{a['role']} · {SHOPNAME[a['shop']]}</div>
       <div class="tags">{''.join(f'<span>{s}</span>' for s in a['styles'])}</div><span class="btn ghost" style="text-align:center;margin-top:auto">See {a['name'].split()[0]}’s page</span></a>'''
 
-# Home
-page('index.html', 'Splash of Ink · Tattoo shop in Tucson', f'''
-<section class="hero"><div class="wrap">
-  <div class="eyebrow">Tattoo shop · Fourth Avenue, Tucson</div>
-  <h1>Splash of Ink</h1>
-  <p class="lead">Good art, good people, good vibes. Pick your artist, see their best work, and book straight with them.</p>
-  <div class="row"><a class="btn" href="artists.html">Meet the artists</a><a class="btn ghost" href="prices.html">Request prices</a></div>
-</div></section>
-<section class="alt"><div class="wrap">
-  <div class="eyebrow">The artists</div><h2 style="font-size:34px">Every artist has their own page</h2>
-  <p style="max-width:640px">Each page shows the styles that artist does, one best piece for each, where to follow them, and how to book with them.</p>
-  <div class="grid3" style="margin-top:22px">{''.join(acard(a) for a in ARTISTS)}</div>
-</div></section>
-<section><div class="wrap"><div class="info">
-  <div class="card"><h3>Pricing</h3><p>Price depends on size and placement: the same design costs more on ribs, stomach, neck, hands or feet. Tell us what you want and we’ll send the prices.</p><a href="prices.html">Request prices →</a></div>
-  <div class="card"><h3>Big pieces</h3><p>Larger work can be split into sessions to fit your budget. Talk it through with your artist.</p><a href="artists.html">Choose an artist →</a></div>
-  <div class="card"><h3>Apprentices</h3><p>Want to learn? Our apprentice application is always open.</p><a href="apprentice.html">Apply →</a></div>
-</div></div></section>''')
+def shop_block(s, heading='h2'):
+    arts = [a for a in ARTISTS if a['shop'] == s['slug']]
+    maplink = f'<a href="{s["map"]}" target="_blank" rel="noopener">Open in Google Maps →</a>' if s['map'] else f'<span class="note">{s.get("pending","")}</span>'
+    phone = f'<a href="tel:{s["phone"][1]}">{s["phone"][0]}</a>' if s['phone'] else '<span class="note">Phone coming</span>'
+    return f'''<div class="shop" id="{s['slug']}"><div class="shophead"><div><div class="eyebrow">Shop</div><{heading} style="font-size:34px;margin-bottom:6px">{s['name']}</{heading}><p style="margin:0">{s['blurb']}</p></div>
+      <div class="card shopinfo"><p style="margin:0 0 6px">{s['addr']}</p><p style="margin:0 0 6px">{phone}</p><p style="margin:0">{maplink}</p></div></div>
+      <div class="grid3" style="margin-top:18px">{''.join(acard(a) for a in arts)}</div></div>'''
 
-# Artists directory
+STYLES = ['Black and gray', 'Color', 'Fine line', 'Piercing']
+def ask_modal():
+    opts = ''.join(f'<option value="{a["slug"]}">{a["name"]} · {SHOPNAME[a["shop"]]}</option>' for a in ARTISTS)
+    return f'''<dialog id="ask" class="askd"><form class="f" id="askf" novalidate>
+  <button class="askx" type="button" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
+  <h2 style="font-size:28px;margin:0" id="askh">Request prices</h2>
+  <p class="note" style="margin:0">Every artist sets their own prices. Tell <b id="askwho">them</b> about your idea and they’ll send you a price range.</p>
+  <input type="hidden" name="artist" id="askartist">
+  <label id="askpick">Which artist?<select id="asksel">{opts}</select></label>
+  <div class="two"><label>Your name<input name="name" autocomplete="name" required></label><label>Phone<input name="phone" type="tel" autocomplete="tel" required></label></div>
+  <label>Email<input name="email" type="email" autocomplete="email" required></label>
+  <div class="two"><label>Placement<input name="placement" placeholder="Forearm, back, ankle…" required></label><label>Size <small>(roughly)</small><input name="size" placeholder="About 3 × 4 in"></label></div>
+  <fieldset><legend>What kind?</legend><div class="chk">{''.join(f'<label><input type="radio" name="style" value="{s}"{" checked" if n == 0 else ""}> {s}</label>' for n, s in enumerate(STYLES))}</div></fieldset>
+  <label>Tell them about it <small>(optional)</small><textarea name="notes" rows="3"></textarea></label>
+  <label>Reference image <small>(optional)</small><input name="image" type="file" accept="image/*"></label>
+  <p class="note" id="askerr" hidden></p>
+  <button class="btn" type="submit">Send to the artist</button>
+  <p class="note" style="margin:0;text-align:center">Draft: this form doesn’t send anything yet.</p>
+</form></dialog>
+<script>
+(function(){{var d=document.getElementById('ask'),f=document.getElementById('askf'),sel=document.getElementById('asksel'),hid=document.getElementById('askartist');
+var names={{{','.join(f'"{a["slug"]}":"{a["name"]}"' for a in ARTISTS)}}};
+function open(slug){{var known=slug&&names[slug];document.getElementById('askpick').style.display=known?'none':'';
+ if(known){{sel.value=slug}} hid.value=sel.value; document.getElementById('askwho').textContent=names[sel.value]||'them';
+ document.getElementById('askh').textContent=known?'Request prices from '+names[slug]:'Request prices'; d.showModal?d.showModal():d.setAttribute('open','')}}
+sel.addEventListener('change',function(){{hid.value=sel.value;document.getElementById('askwho').textContent=names[sel.value]}});
+document.addEventListener('click',function(e){{var b=e.target.closest('[data-ask]');if(!b)return;e.preventDefault();open(b.getAttribute('data-ask'))}});
+d.addEventListener('click',function(e){{if(e.target===d)d.close()}});
+var q=new URLSearchParams(location.search).get('artist'); if(q&&names[q]) open(q);
+f.addEventListener('submit',function(e){{e.preventDefault();var bad=[];['name','phone','email','placement'].forEach(function(n){{if(!f[n].value.trim())bad.push(n)}});
+ var er=document.getElementById('askerr');if(bad.length){{er.hidden=false;er.textContent='Still needed: '+bad.join(', ')+'.';return}}
+ var who=names[hid.value]||'the artist'; f.innerHTML='<h2 style="font-size:26px;margin:0">Sent to '+who+'.</h2><p>'+who+' will get back to you with a price range. (Draft: nothing was sent.)</p><button class="btn" type="button" id="askdone">Close</button>'; document.getElementById('askdone').onclick=function(){{d.close()}};}});
+}})();
+</script>'''
+
+HOURSCARD = f'<div class="card"><h3>Hours</h3><p style="font-size:18px;color:var(--fog);margin:0 0 8px">{HOURS.split(". ")[0]}.</p><p style="margin:0">{HOURS.split(". ",1)[1]}</p></div>'
+
+# Home
+page('index.html', 'Splash of Ink · Tattoo and piercing in Tucson', f'''
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Tattoo and piercing · two shops in Tucson</div>
+  <h1>Splash of Ink</h1>
+  <p class="lead">Good art, good people, good vibes. Find your shop, pick your artist, and ask them for prices.</p>
+  <div class="row"><a class="btn" href="#shops">Find your shop</a><a class="btn ghost" href="artists.html">Meet the artists</a></div>
+  <p class="note" style="margin-top:18px">{HOURS}</p>
+</div></section>
+<section class="alt" id="shops"><div class="wrap">{''.join(shop_block(s) for s in SHOPS)}</div></section>
+<section><div class="wrap"><div class="info">
+  <div class="card"><h3>Pricing</h3><p>Every artist sets their own prices, and price depends on size and placement. Ask the artist you want and they’ll send a range.</p><a href="prices.html">Request prices →</a></div>
+  <div class="card"><h3>Piercing</h3><p>Magic and Annie pierce at the Fourth Avenue shop.</p><a href="artist-annie.html">See Annie’s page →</a></div>
+  <div class="card"><h3>Apprentices</h3><p>Want to learn? Our apprentice application is always open.</p><a href="apprentice.html">Apply →</a></div>
+</div></div></section>''', ask_modal())
+
+# Artists directory, by shop
 page('artists.html', 'Artists · Splash of Ink', f'''
 <section class="hero" style="padding:60px 0 30px"><div class="wrap"><div class="eyebrow">Artists</div><h1 style="font-size:clamp(46px,8vw,80px)">Pick your artist</h1>
-<p class="lead">Choose the artist whose style fits your idea. They’ll confirm your booking.</p></div></section>
-<section style="padding-top:10px"><div class="wrap"><div class="grid3">{''.join(acard(a) for a in ARTISTS)}</div></div></section>''')
+<p class="lead">Each artist works for themselves under the Splash of Ink roof, with their own style and their own prices.</p></div></section>
+<section style="padding-top:10px"><div class="wrap">{''.join(shop_block(s, 'h2') for s in SHOPS)}</div></section>''')
 
 # Artist pages
 for a in ARTISTS:
@@ -132,66 +196,48 @@ for a in ARTISTS:
     page(f'artist-{a["slug"]}.html', f'{a["name"]} · Splash of Ink', f'''
 <section><div class="wrap prof">
   <div>{ph(a['name'] + ' · portrait')}</div>
-  <div><div class="eyebrow"><a href="artists.html" style="text-decoration:none">Artists</a> › {a['name']}</div>
+  <div><div class="eyebrow"><a href="artists.html" style="text-decoration:none">Artists</a> › <a href="index.html#{a['shop']}" style="text-decoration:none">{SHOPNAME[a['shop']]}</a></div>
     <h1 style="font-size:52px">{a['name']}</h1><p class="note" style="margin-top:-8px">{a['role']}</p>
     <p>{a['bio']}</p>{minimum}
     <div class="tags" style="margin:12px 0 18px">{''.join(f'<span>{s}</span>' for s in a['styles'])}</div>
-    <div class="row" style="justify-content:flex-start"><a class="btn" href="{a['book'][1]}">{a['book'][0]}</a><a class="btn ghost" href="prices.html?artist={a['slug']}">Request prices</a></div>
+    <div class="row" style="justify-content:flex-start"><a class="btn" href="#" data-ask="{a['slug']}">Request prices from {a['name'].split()[0]}</a><a class="btn ghost" href="{a['book'][1]}">{a['book'][0]}</a></div>
     <p class="note">{a['book'][2]}. Booking and payment happen in the artist’s booking tool, not on this site.</p>
     <div class="soc" style="margin-top:12px">{soc}</div>
   </div></div></section>
 <section class="alt"><div class="wrap"><div class="eyebrow">Best work</div><h2 style="font-size:30px">One best piece per style</h2>
-<div class="samples" style="margin-top:16px">{samples}</div></div></section>''')
+<div class="samples" style="margin-top:16px">{samples}</div></div></section>''', ask_modal())
 
-# Request prices
-opts = ''.join(f'<option value="{a["slug"]}">{a["name"]}</option>' for a in ARTISTS) + '<option value="any">Any artist</option>'
+# Prices: a list of artists, each with their own request
+rows = ''.join(f'''<div class="card prow"><div><h3 style="margin:0">{a['name']}</h3><div class="note">{a['role']} · {SHOPNAME[a['shop']]}</div></div>
+  <div class="row" style="justify-content:flex-end"><a class="btn ghost" href="artist-{a['slug']}.html">Their page</a><a class="btn" href="#" data-ask="{a['slug']}">Request prices</a></div></div>''' for a in ARTISTS)
 page('prices.html', 'Request prices · Splash of Ink', f'''
-<section class="hero" style="padding:60px 0 24px"><div class="wrap"><div class="eyebrow">Request prices</div><h1 style="font-size:clamp(46px,8vw,80px)">Tell us your idea</h1>
-<p class="lead">Price depends on size and placement. Send the details and we’ll get back to you with prices.</p></div></section>
-<section style="padding-top:10px"><div class="wrap">
-<form class="f card" id="pf" novalidate>
-  <div class="two"><label>Your name<input name="name" autocomplete="name" required></label><label>Phone<input name="phone" type="tel" autocomplete="tel" required></label></div>
-  <label>Email<input name="email" type="email" autocomplete="email" required></label>
-  <div class="two"><label>Which artist?<select name="artist" id="artist">{opts}</select></label><label>Placement<input name="placement" placeholder="Forearm, back, ankle…" required></label></div>
-  <label>Size <small>(roughly, in inches)</small><input name="size" placeholder="About 3 × 4 in"></label>
-  <fieldset><legend>Style</legend><div class="chk"><label><input type="radio" name="style" value="black-gray" checked> Black and gray</label><label><input type="radio" name="style" value="color"> Color</label><label><input type="radio" name="style" value="fine-line"> Fine line</label></div></fieldset>
-  <label>Tell us about it <small>(optional)</small><textarea name="notes" rows="4"></textarea></label>
-  <label>Reference image <small>(optional)</small><input name="image" type="file" accept="image/*"></label>
-  <p class="err note" id="perr" hidden></p>
-  <button class="btn" type="submit">Request prices</button>
-  <p class="note">Draft: this form doesn’t send anything yet.</p>
-</form></div></section>''', '''<script>
-(function(){var q=new URLSearchParams(location.search).get('artist');if(q){var s=document.getElementById('artist');if([].some.call(s.options,function(o){return o.value===q}))s.value=q;}
-var f=document.getElementById('pf');f.addEventListener('submit',function(e){e.preventDefault();var bad=[];['name','phone','email','placement'].forEach(function(n){if(!f[n].value.trim())bad.push(n)});
-var er=document.getElementById('perr');if(bad.length){er.hidden=false;er.textContent='Still needed: '+bad.join(', ')+'.';return}
-f.outerHTML='<div class="done"><h3>Thanks, we’ve got it.</h3><p>We’ll be in touch with prices. (Draft: nothing was sent.)</p></div>';});})();
-</script>''')
+<section class="hero" style="padding:60px 0 24px"><div class="wrap"><div class="eyebrow">Request prices</div><h1 style="font-size:clamp(46px,8vw,80px)">Ask your artist</h1>
+<p class="lead">Each artist sets their own prices, and price depends on size and placement. Pick the artist you want and they’ll send you a range.</p></div></section>
+<section style="padding-top:10px"><div class="wrap" style="display:grid;gap:12px">{rows}</div></section>''', ask_modal())
 
 # Apprentice
 page('apprentice.html', 'Apprentice applications · Splash of Ink', '''
 <section class="hero" style="padding:60px 0 24px"><div class="wrap"><div class="eyebrow">Apprentices · always open</div><h1 style="font-size:clamp(46px,8vw,80px)">Learn with us</h1>
-<p class="lead">We’re always looking for people who love to draw and want to learn the craft. Applications stay open all year.</p></div></section>
+<p class="lead">We’re always looking for people who love to draw and want to learn tattooing or piercing. Applications stay open all year.</p></div></section>
 <section style="padding-top:10px"><div class="wrap">
 <form class="f card" id="af" novalidate>
   <div class="two"><label>Your name<input name="name" required></label><label>Phone<input name="phone" type="tel" required></label></div>
   <label>Email<input name="email" type="email" required></label>
+  <label>Which shop?<select name="shop"><option>Fourth Avenue</option><option>Stone &amp; Fort Lowell</option><option>Either</option></select></label>
+  <label>Tattooing or piercing?<select name="track"><option>Tattooing</option><option>Piercing</option><option>Both</option></select></label>
   <label>Portfolio link <small>(Instagram, a drive folder, anything)</small><input name="portfolio" type="url" placeholder="https://"></label>
-  <label>Experience <small>(drawing, art school, any tattooing)</small><textarea name="experience" rows="3"></textarea></label>
+  <label>Experience <small>(drawing, art school, anything you’ve done)</small><textarea name="experience" rows="3"></textarea></label>
   <label>Why Splash of Ink?<textarea name="why" rows="3"></textarea></label>
   <button class="btn" type="submit">Send my application</button>
   <p class="note">Draft: this form doesn’t send anything yet.</p>
 </form></div></section>''', '''<script>document.getElementById('af').addEventListener('submit',function(e){e.preventDefault();this.outerHTML='<div class="done"><h3>Thanks for applying.</h3><p>We’ll look at your work and reach out. (Draft: nothing was sent.)</p></div>';});</script>''')
 
 # Visit
-page('visit.html', 'Visit · Splash of Ink', '''
+shopcards = ''.join(f'''<div class="card"><h3>{s['name']}</h3><p>{s['addr']}</p><p>{f'<a href="tel:{s["phone"][1]}">{s["phone"][0]}</a>' if s['phone'] else '<span class="note">Phone coming</span>'}</p><p>{f'<a href="{s["map"]}" target="_blank" rel="noopener">Open in Google Maps →</a>' if s['map'] else f'<span class="note">{s.get("pending","")}</span>'}</p></div>''' for s in SHOPS)
+page('visit.html', 'Visit · Splash of Ink', f'''
 <section class="hero" style="padding:60px 0 24px"><div class="wrap"><div class="eyebrow">Visit</div><h1 style="font-size:clamp(46px,8vw,80px)">Come say hi</h1>
-<p class="lead">Walk-ins welcome when an artist is free. Booking ahead is the surest way to get your artist.</p></div></section>
-<section style="padding-top:10px"><div class="wrap"><div class="info">
-  <div class="card"><h3>Where</h3><p>532 N 4th Ave<br>Tucson, AZ 85705</p><p>On Tucson's historic Fourth Avenue.</p><p><a href="https://maps.app.goo.gl/kkLf8c94uTDTxXT69" target="_blank" rel="noopener">Open in Google Maps →</a></p></div>
-  <div class="card"><h3>Hours</h3><table class="hours">
-    <tr><td>Monday</td><td>hours</td></tr><tr><td>Tuesday</td><td>hours</td></tr><tr><td>Wednesday</td><td>hours</td></tr><tr><td>Thursday</td><td>hours</td></tr><tr><td>Friday</td><td>hours</td></tr><tr><td>Saturday</td><td>hours</td></tr><tr><td>Sunday</td><td>hours</td></tr></table><p class="note">Hours to confirm with the shop</p></div>
-  <div class="card"><h3>Walk-ins</h3><p>Walk-ins depend on who’s free that day. Call ahead, or book with an artist from their page.</p><p><a href="tel:+15206511910">(520) 651-1910</a></p></div>
-</div></div></section>''')
+<p class="lead">There’s always someone close enough to open the door. Book ahead to get the artist you want.</p></div></section>
+<section style="padding-top:10px"><div class="wrap"><div class="info">{shopcards}{HOURSCARD}</div></div></section>''')
 
 (R / 'style.css').write_text(CSS)
 (R / '.nojekyll').write_text('')

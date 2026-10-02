@@ -5,27 +5,45 @@
 <link rel="stylesheet" href="style.css"></head><body>
 <div class="draft">DRAFT for Splash of Ink · samples, links and hours are placeholders · forms send nothing</div>
 <header><div class="wrap"><a class="brand" href="index.html">Splash <span>of</span> Ink</a>
-<nav><a href="index.html">Home</a><a href="artists.html">Artists</a><a href="prices.html" class=on>Request prices</a><a href="apprentice.html">Apprentices</a><a href="visit.html">Visit</a></nav></div></header>
+<nav><a href="index.html">Home</a><a href="artists.html">Artists</a><a href="prices.html" class=on>Prices</a><a href="apprentice.html">Apprentices</a><a href="visit.html">Visit</a></nav></div></header>
 
-<section class="hero" style="padding:60px 0 24px"><div class="wrap"><div class="eyebrow">Request prices</div><h1 style="font-size:clamp(46px,8vw,80px)">Tell us your idea</h1>
-<p class="lead">Price depends on size and placement. Send the details and we’ll get back to you with prices.</p></div></section>
-<section style="padding-top:10px"><div class="wrap">
-<form class="f card" id="pf" novalidate>
+<section class="hero" style="padding:60px 0 24px"><div class="wrap"><div class="eyebrow">Request prices</div><h1 style="font-size:clamp(46px,8vw,80px)">Ask your artist</h1>
+<p class="lead">Each artist sets their own prices, and price depends on size and placement. Pick the artist you want and they’ll send you a range.</p></div></section>
+<section style="padding-top:10px"><div class="wrap" style="display:grid;gap:12px"><div class="card prow"><div><h3 style="margin:0">Magic</h3><div class="note">Head artist · tattoo and piercing · Fourth Avenue</div></div>
+  <div class="row" style="justify-content:flex-end"><a class="btn ghost" href="artist-magic.html">Their page</a><a class="btn" href="#" data-ask="magic">Request prices</a></div></div><div class="card prow"><div><h3 style="margin:0">Annie</h3><div class="note">Piercer · tattoo apprentice · Fourth Avenue</div></div>
+  <div class="row" style="justify-content:flex-end"><a class="btn ghost" href="artist-annie.html">Their page</a><a class="btn" href="#" data-ask="annie">Request prices</a></div></div><div class="card prow"><div><h3 style="margin:0">Master D</h3><div class="note">Owner and artist · Stone & Fort Lowell</div></div>
+  <div class="row" style="justify-content:flex-end"><a class="btn ghost" href="artist-master-d.html">Their page</a><a class="btn" href="#" data-ask="master-d">Request prices</a></div></div><div class="card prow"><div><h3 style="margin:0">Angel Perez</h3><div class="note">Artist · anime, comic and color · Stone & Fort Lowell</div></div>
+  <div class="row" style="justify-content:flex-end"><a class="btn ghost" href="artist-angel-perez.html">Their page</a><a class="btn" href="#" data-ask="angel-perez">Request prices</a></div></div><div class="card prow"><div><h3 style="margin:0">Potter</h3><div class="note">Artist · Stone & Fort Lowell</div></div>
+  <div class="row" style="justify-content:flex-end"><a class="btn ghost" href="artist-potter.html">Their page</a><a class="btn" href="#" data-ask="potter">Request prices</a></div></div></div></section><footer><div class="wrap"><span>© 2026 Splash of Ink · Fourth Avenue and Stone &amp; Fort Lowell, Tucson · <a href="tel:+15206511910">(520) 651-1910</a></span>
+<span class="credit">Website by <a href="https://aztechsol.com/" target="_blank" rel="noopener">AZ Tech Solutions</a></span></div></footer>
+<dialog id="ask" class="askd"><form class="f" id="askf" novalidate>
+  <button class="askx" type="button" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
+  <h2 style="font-size:28px;margin:0" id="askh">Request prices</h2>
+  <p class="note" style="margin:0">Every artist sets their own prices. Tell <b id="askwho">them</b> about your idea and they’ll send you a price range.</p>
+  <input type="hidden" name="artist" id="askartist">
+  <label id="askpick">Which artist?<select id="asksel"><option value="magic">Magic · Fourth Avenue</option><option value="annie">Annie · Fourth Avenue</option><option value="master-d">Master D · Stone & Fort Lowell</option><option value="angel-perez">Angel Perez · Stone & Fort Lowell</option><option value="potter">Potter · Stone & Fort Lowell</option></select></label>
   <div class="two"><label>Your name<input name="name" autocomplete="name" required></label><label>Phone<input name="phone" type="tel" autocomplete="tel" required></label></div>
   <label>Email<input name="email" type="email" autocomplete="email" required></label>
-  <div class="two"><label>Which artist?<select name="artist" id="artist"><option value="magic">Magic</option><option value="angel-perez">Angel Perez</option><option value="artist">Artist name</option><option value="any">Any artist</option></select></label><label>Placement<input name="placement" placeholder="Forearm, back, ankle…" required></label></div>
-  <label>Size <small>(roughly, in inches)</small><input name="size" placeholder="About 3 × 4 in"></label>
-  <fieldset><legend>Style</legend><div class="chk"><label><input type="radio" name="style" value="black-gray" checked> Black and gray</label><label><input type="radio" name="style" value="color"> Color</label><label><input type="radio" name="style" value="fine-line"> Fine line</label></div></fieldset>
-  <label>Tell us about it <small>(optional)</small><textarea name="notes" rows="4"></textarea></label>
+  <div class="two"><label>Placement<input name="placement" placeholder="Forearm, back, ankle…" required></label><label>Size <small>(roughly)</small><input name="size" placeholder="About 3 × 4 in"></label></div>
+  <fieldset><legend>What kind?</legend><div class="chk"><label><input type="radio" name="style" value="Black and gray" checked> Black and gray</label><label><input type="radio" name="style" value="Color"> Color</label><label><input type="radio" name="style" value="Fine line"> Fine line</label><label><input type="radio" name="style" value="Piercing"> Piercing</label></div></fieldset>
+  <label>Tell them about it <small>(optional)</small><textarea name="notes" rows="3"></textarea></label>
   <label>Reference image <small>(optional)</small><input name="image" type="file" accept="image/*"></label>
-  <p class="err note" id="perr" hidden></p>
-  <button class="btn" type="submit">Request prices</button>
-  <p class="note">Draft: this form doesn’t send anything yet.</p>
-</form></div></section><footer><div class="wrap"><span>© 2026 Splash of Ink · 532 N 4th Ave, Tucson, AZ 85705 · <a href="tel:+15206511910">(520) 651-1910</a></span>
-<span class="credit">Website by <a href="https://aztechsol.com/" target="_blank" rel="noopener">AZ Tech Solutions</a></span></div></footer>
+  <p class="note" id="askerr" hidden></p>
+  <button class="btn" type="submit">Send to the artist</button>
+  <p class="note" style="margin:0;text-align:center">Draft: this form doesn’t send anything yet.</p>
+</form></dialog>
 <script>
-(function(){var q=new URLSearchParams(location.search).get('artist');if(q){var s=document.getElementById('artist');if([].some.call(s.options,function(o){return o.value===q}))s.value=q;}
-var f=document.getElementById('pf');f.addEventListener('submit',function(e){e.preventDefault();var bad=[];['name','phone','email','placement'].forEach(function(n){if(!f[n].value.trim())bad.push(n)});
-var er=document.getElementById('perr');if(bad.length){er.hidden=false;er.textContent='Still needed: '+bad.join(', ')+'.';return}
-f.outerHTML='<div class="done"><h3>Thanks, we’ve got it.</h3><p>We’ll be in touch with prices. (Draft: nothing was sent.)</p></div>';});})();
+(function(){var d=document.getElementById('ask'),f=document.getElementById('askf'),sel=document.getElementById('asksel'),hid=document.getElementById('askartist');
+var names={"magic":"Magic","annie":"Annie","master-d":"Master D","angel-perez":"Angel Perez","potter":"Potter"};
+function open(slug){var known=slug&&names[slug];document.getElementById('askpick').style.display=known?'none':'';
+ if(known){sel.value=slug} hid.value=sel.value; document.getElementById('askwho').textContent=names[sel.value]||'them';
+ document.getElementById('askh').textContent=known?'Request prices from '+names[slug]:'Request prices'; d.showModal?d.showModal():d.setAttribute('open','')}
+sel.addEventListener('change',function(){hid.value=sel.value;document.getElementById('askwho').textContent=names[sel.value]});
+document.addEventListener('click',function(e){var b=e.target.closest('[data-ask]');if(!b)return;e.preventDefault();open(b.getAttribute('data-ask'))});
+d.addEventListener('click',function(e){if(e.target===d)d.close()});
+var q=new URLSearchParams(location.search).get('artist'); if(q&&names[q]) open(q);
+f.addEventListener('submit',function(e){e.preventDefault();var bad=[];['name','phone','email','placement'].forEach(function(n){if(!f[n].value.trim())bad.push(n)});
+ var er=document.getElementById('askerr');if(bad.length){er.hidden=false;er.textContent='Still needed: '+bad.join(', ')+'.';return}
+ var who=names[hid.value]||'the artist'; f.innerHTML='<h2 style="font-size:26px;margin:0">Sent to '+who+'.</h2><p>'+who+' will get back to you with a price range. (Draft: nothing was sent.)</p><button class="btn" type="button" id="askdone">Close</button>'; document.getElementById('askdone').onclick=function(){d.close()};});
+})();
 </script></body></html>

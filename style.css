@@ -49,3 +49,9 @@ fieldset{border:1px solid var(--line);border-radius:10px;padding:10px 14px}legen
 footer{border-top:1px solid var(--line);padding:26px 0 30px;font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .credit{font-size:12.5px;color:var(--mute)}.credit a{color:var(--mute)}
+.shop{padding:10px 0 34px}.shop+.shop{border-top:1px solid var(--line);padding-top:40px}
+.shophead{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:end}@media (max-width:760px){.shophead{grid-template-columns:1fr}}
+.prow{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.askd{border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--body);padding:0;max-width:600px;width:calc(100% - 28px)}
+.askd::backdrop{background:rgba(5,3,9,.75)}.askd form{padding:26px 24px;position:relative;max-width:none}
+.askx{position:absolute;top:10px;right:14px;background:none;border:0;color:var(--mute);font-size:28px;cursor:pointer;line-height:1}
