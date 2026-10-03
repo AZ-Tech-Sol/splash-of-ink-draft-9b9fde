@@ -20,7 +20,7 @@ def avatar(a, size=52):
     src = f"assets/artists/{a['slug']}.jpg" if f.exists() else 'assets/brand/mark-dark.svg'
     return f'<img class="bubble" src="{src}" alt="" width="{size}" height="{size}" loading="lazy">'
 def pricing_section():
-    rows = ''.join(f'''<div class="prow2">{avatar(a)}<div class="pmeta"><b>{a['name']}</b><span>{a['role']} · {SHOPNAME[a['shop']]}</span></div>
+    rows = ''.join(f'''<div class="prow2"><a href="artist-{a['slug']}.html" aria-label="{a['name']}'s page">{avatar(a)}</a><div class="pmeta"><a class="pname" href="artist-{a['slug']}.html"><b>{a['name']}</b></a><span>{a['role']} · {SHOPNAME[a['shop']]}</span></div>
       <div class="pmin">{a['minimum'] or '<span class="note">Minimum coming</span>'}</div>
       <a class="btn" href="#" data-ask="{a['slug']}">Get {short(a)}’s price</a></div>''' for a in sorted(ARTISTS, key=lambda a: a['slug'] != 'master-d'))  # the owner first
     sizes = ''.join(f'<div class="tier"><img src="assets/icons/{i}.svg" alt="" width="56" height="56"><div class="tname">{n}</div><div class="tprice">{r}</div><div class="tfit">{d}</div></div>' for n, d, r, i in SIZES)
@@ -176,7 +176,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .prow2{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
 @media (max-width:640px){.prow2{grid-template-columns:auto minmax(0,1fr)}.prow2 .pmin{grid-column:2}.prow2 .btn{grid-column:1 / -1;text-align:center}}
 .bubble{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--purple);display:block;background:#0b0910}
-.pmeta{display:grid}.pmeta b{color:var(--fog);font:600 17px Oswald,sans-serif;letter-spacing:.03em}.pmeta span{font-size:13px;color:var(--mute)}
+.pmeta{display:grid}.pname{text-decoration:none}.pname:hover b{color:var(--purple2);text-decoration:underline}.prow2>a .bubble{transition:box-shadow .2s}.prow2>a:hover .bubble{box-shadow:0 0 0 3px var(--purple2)}.pmeta b{color:var(--fog);font:600 17px Oswald,sans-serif;letter-spacing:.03em}.pmeta span{font-size:13px;color:var(--mute)}
 .pmin{font-weight:600;color:var(--fog);font-size:14px}
 .wfilt{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.wfilt button{font:600 13px Oswald,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--purple2);background:transparent;border:1px solid var(--line);border-radius:99px;padding:7px 14px;cursor:pointer}.wfilt button small{color:var(--mute);font-weight:500;margin-left:4px}.wfilt button[aria-pressed="true"]{background:var(--purple);border-color:var(--purple);color:#fff}.wfilt button[aria-pressed="true"] small{color:#e9dcff}
 .works{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}.works.strip{grid-template-columns:repeat(4,minmax(0,1fr))}
