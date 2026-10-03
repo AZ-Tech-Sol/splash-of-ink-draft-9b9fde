@@ -162,7 +162,7 @@ How the shop sounds on the website, on social media and on signs.
 | Menu bar | Night, with a 3 px Ink Purple line under it and a soft purple glow |
 | Main buttons | Ink Purple pill, white Oswald capitals |
 | Second buttons | Outlined in Ink Purple, Lilac text |
-| Call buttons | Big tap-to-call tiles: the main line (Master D) and the second line (Magic), the same size |
+| Call buttons | Big tap-to-call tiles: Stone Shop · Master D and 4th Shop · Magic, the same size |
 | Section titles | UnifrakturMaguntia in Fog, with a dark lilac shadow |
 | Artist portraits | Square, with rounded corners and a thin border |
 | Share images | The signature or the artist's photo on Night, with the purple line along the top |

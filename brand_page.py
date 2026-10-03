@@ -200,14 +200,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   <div class="eyebrow">08 · On the website</div><h2>The pieces in use</h2>
   <div class="card" style="display:grid;gap:18px">
     <div class="btns"><a class="btn" href="../prices.html">Request prices</a><a class="btn ghost" href="../artists.html">Meet the artists</a></div>
-    <div class="btns"><div class="callt"><small>Main line · Master D</small><b>(520) 651-1910</b></div><div class="callt"><small>Second line · Magic</small><b>(520) 392-3594</b></div></div>
+    <div class="btns"><div class="callt"><small>Stone Shop · Master D</small><b>(520) 651-1910</b></div><div class="callt"><small>4th Shop · Magic</small><b>(520) 392-3594</b></div></div>
   </div>
   <div class="tbl" style="margin-top:18px"><table><tr><th>Element</th><th>Style</th></tr>
   <tr><td>Page background</td><td>Night <code>#0B0910</code></td></tr>
   <tr><td>Menu bar</td><td>Night, with a 3 px Ink Purple line under it and a soft purple glow</td></tr>
   <tr><td>Main buttons</td><td>Ink Purple pill, white Oswald capitals</td></tr>
   <tr><td>Second buttons</td><td>Outlined in Ink Purple, Lilac text</td></tr>
-  <tr><td>Call buttons</td><td>Big tap-to-call tiles, main line (Master D) and second line (Magic), the same size</td></tr>
+  <tr><td>Call buttons</td><td>Big tap-to-call tiles, Stone Shop · Master D and 4th Shop · Magic, the same size</td></tr>
   <tr><td>Section titles</td><td>UnifrakturMaguntia in Fog, with a dark lilac shadow</td></tr>
   <tr><td>Artist portraits</td><td>Square, rounded corners, a thin border</td></tr>
   <tr><td>Share images</td><td>The signature or the artist’s photo on Night, with the purple line along the top</td></tr></table></div>
