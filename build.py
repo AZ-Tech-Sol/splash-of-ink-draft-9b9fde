@@ -7,7 +7,7 @@ SHOPS = [
   dict(slug='fourth-avenue', name='Fourth Avenue', addr='532 N 4th Ave<br>Tucson, AZ 85705', map='https://maps.google.com/?cid=3162480668975808258', phone=('(520) 651-1910','+15206511910'), blurb='The original shop, on Tucson\u2019s historic Fourth Avenue.'),
   dict(slug='stone-avenue', name='Stone Avenue', addr='3050 N Stone Ave<br>Tucson, AZ 85705', map='https://maps.app.goo.gl/h9L7F6SiUq7BHN4W7', phone=('(520) 651-1910','+15206511910'), blurb='Our second shop, on Stone Avenue.'),
 ]
-PHONES = [('Master D', '(520) 651-1910', '+15206511910', 'Main line'), ('Magic', '(520) 392-3594', '+15203923594', 'Second line')]
+PHONES = [('Master D', '(520) 651-1910', '+15206511910', 'Stone Shop'), ('Magic', '(520) 392-3594', '+15203923594', '4th Shop')]
 def callbar():  # D's number first, Magic's right beside it and just as big
     return '<div class="callbar">' + ''.join(f'<a class="call{" alt" if n else ""}" href="tel:{e}"><span class="cl">{lab} · {who}</span><span class="cn">{num}</span></a>' for n, (who, num, e, lab) in enumerate(PHONES)) + '</div>'
 def phones_inline():
@@ -137,7 +137,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .pn{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;align-items:start;padding:4px 0}.pn .ico{width:44px!important;height:44px!important;margin:0!important}
 .chart{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:20px;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
 .tier{text-align:center;padding:26px 16px 24px;border-left:1px solid var(--line);display:flex;flex-direction:column;align-items:center}.tier:first-child{border-left:0}
-.tier img{width:56px;height:56px;margin-bottom:12px}.tname{font:600 14px Oswald,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--lilac,#b98cff)}
+.tier img{width:84px;height:84px;margin-bottom:10px}.tname{font:600 14px Oswald,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--lilac,#b98cff)}
 .tprice{font:600 34px Oswald,sans-serif;color:var(--fog);margin:4px 0 6px;letter-spacing:.01em}.tfit{font-size:14px;color:var(--mute);max-width:190px}
 @media (max-width:860px){.chart{grid-template-columns:repeat(2,minmax(0,1fr))}.tier:nth-child(3){border-left:0}.tier:nth-child(n+3){border-top:1px solid var(--line)}}
 @media (max-width:600px){.chart{grid-template-columns:1fr}.tier{border-left:0}.tier+.tier{border-top:1px solid var(--line)}}
