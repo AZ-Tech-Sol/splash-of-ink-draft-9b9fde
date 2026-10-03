@@ -65,9 +65,14 @@ ARTISTS = [
 SHOPNAME = {s['slug']: s['name'] for s in SHOPS}
 import json as _json
 WORK = _json.load(open(R / 'work.json')) if (R / 'work.json').exists() else {}   # hosted photos, picked from each artist's own Instagram
-VIDEOS = {  # Instagram posts embedded, not hosted
-  'magic': ['Ddj8-fhSU8x', 'DchgPdsCTmr', 'Db_nu0dySrR', 'DZ1tZxAC2jP'],
-  'angel-perez': ['DeAeS83jNRl', 'Dd-Wc1diYcv', 'Dd1tPkhTYAm', 'Ddj-hUfhzwb'],
+VIDEOS = {  # Instagram posts embedded, not hosted (Angel picked Magic's, 2026-10-02)
+  'magic': ['reel/Da6655ETUCR', 'p/DdA3bkrCJY3', 'p/DdS9Unxi6So'],
+  'angel-perez': ['p/DeAeS83jNRl', 'p/Dd-Wc1diYcv', 'p/Dd1tPkhTYAm', 'p/Ddj-hUfhzwb'],
+}
+TIKTOK = {  # (handle, id, kind) embedded with TikTok's own code
+  'magic': [('josephgaspard26', '7655531781596122399', 'photo'), ('josephgaspard26', '7656232638323117343', 'video'),
+            ('josephgaspard26', '7655834813122874655', 'photo'), ('josephgaspard26', '7655831686009064735', 'photo'),
+            ('josephgaspard26', '7672576982168751373', 'photo'), ('josephgaspard26', '7670982383419641119', 'photo')],
 }
 GROUPS = [('all', 'All'), ('bg', 'Black and gray'), ('color', 'Color'), ('fineline', 'Fine line'), ('florals', 'Florals'), ('animals', 'Animals'), ('butterflies', 'Butterflies')]
 def filters(slug):
@@ -81,7 +86,9 @@ def gallery(slug, n=None):
     items = WORK.get(slug, [])[:n]
     return ''.join(f'<a class="wk" data-tags="{w.get("tags", "")}" href="{w["post"]}" target="_blank" rel="noopener"><img src="{w["file"]}" alt="Work by {next(a["name"] for a in ARTISTS if a["slug"] == slug)}" loading="lazy"></a>' for w in items)
 def videos(slug):
-    return ''.join(f'<div class="vid"><iframe src="https://www.instagram.com/p/{c}/embed/" loading="lazy" allowtransparency="true" allowfullscreen scrolling="no" title="Video on Instagram"></iframe></div>' for c in VIDEOS.get(slug, []))
+    return ''.join(f'<div class="vid"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/{c}/" data-instgrm-version="14" style="background:#fff;border:0;margin:0;max-width:540px;min-width:280px;width:100%"><a href="https://www.instagram.com/{c}/" target="_blank" rel="noopener">View this post on Instagram</a></blockquote></div>' for c in VIDEOS.get(slug, []))
+def tiktoks(slug):
+    return ''.join(f'<div class="vid tt"><blockquote class="tiktok-embed" cite="https://www.tiktok.com/@{h}/{k}/{i}" data-video-id="{i}" style="max-width:605px;min-width:280px;margin:0"><section><a target="_blank" rel="noopener" href="https://www.tiktok.com/@{h}/{k}/{i}">View on TikTok</a></section></blockquote></div>' for h, i, k in TIKTOK.get(slug, []))
 
 CSS = '''
 :root{--ink:#0b0910;--ink2:#15111d;--card:#1b1526;--line:#2e2540;--purple:#8b3dff;--purple2:#b98cff;--glow:#a855f7;--fog:#f3eefb;--body:#cfc6de;--mute:#968bab}
@@ -171,7 +178,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .wk{display:block;aspect-ratio:1;overflow:hidden;border-radius:12px;border:1px solid var(--line);background:var(--card)}.wk img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}.wk:hover img{transform:scale(1.04)}.wk[hidden]{display:none}
 @media (max-width:760px){.works,.works.strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .vids{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}@media (max-width:760px){.vids{grid-template-columns:1fr}}
-.vid{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff;max-width:420px;width:100%;justify-self:center}.vid iframe{width:100%;height:640px;border:0;display:block}
+.vids{grid-template-columns:repeat(3,minmax(0,1fr))!important}@media (max-width:1000px){.vids{grid-template-columns:repeat(2,minmax(0,1fr))!important}}@media (max-width:640px){.vids{grid-template-columns:1fr!important}}
+.vid{max-width:420px;width:100%;justify-self:center}.vid .instagram-media{border-radius:12px!important}
 .prow{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
 .askd{border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--body);padding:0;max-width:600px;width:calc(100% - 28px)}
 .askd::backdrop{background:rgba(5,3,9,.75)}.askd form{padding:26px 24px;position:relative;max-width:none}
@@ -296,9 +304,10 @@ for a in ARTISTS:
             return f'''<section class="alt"><div class="wrap"><div class="eyebrow">Best work</div><h2 style="font-size:30px">One best piece per style</h2>
 <div class="samples" style="margin-top:16px">{samples}</div></div></section>'''
         eb, h = WORKTITLE.get(a['slug'], ('Work', 'Recent work'))
-        v = videos(a['slug'])
-        vs = f'''<section><div class="wrap"><div class="eyebrow">Watch</div><h2 style="font-size:30px">In the chair</h2>
-<div class="vids">{v}</div></div></section>''' if v else ''
+        v, tk = videos(a['slug']), tiktoks(a['slug'])
+        vs = (f'''<section><div class="wrap"><div class="eyebrow">Watch</div><h2 style="font-size:30px">In the chair</h2>
+<div class="vids">{v}</div></div></section><script async src="https://www.instagram.com/embed.js"></script>''' if v else '') + (f'''<section class="alt"><div class="wrap"><div class="eyebrow">On TikTok</div><h2 style="font-size:30px">More from {a['name']}</h2>
+<div class="vids">{tk}</div></div></section><script async src="https://www.tiktok.com/embed.js"></script>''' if tk else '')
         return f'''<section class="alt"><div class="wrap"><div class="eyebrow">{eb}</div><h2 style="font-size:30px">{h}</h2>
 {filters(a['slug'])}<div class="works">{gallery(a['slug'])}</div><p class="note" style="margin-top:10px">Tap any piece to see it on Instagram.</p></div></section>{vs}{FILTERJS if filters(a['slug']) else ''}'''
     samples = ''.join(f'<figure>{ph(a["name"] + " · " + s)}<figcaption>{s}</figcaption></figure>' for s in a['styles'])
