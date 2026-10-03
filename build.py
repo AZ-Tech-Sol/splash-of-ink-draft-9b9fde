@@ -74,7 +74,11 @@ TIKTOK = {  # (handle, id, kind) embedded with TikTok's own code
             ('josephgaspard26', '7655834813122874655', 'photo'), ('josephgaspard26', '7655831686009064735', 'photo'),
             ('josephgaspard26', '7672576982168751373', 'photo'), ('josephgaspard26', '7670982383419641119', 'photo')],
 }
-GROUPS = [('all', 'All'), ('bg', 'Black and gray'), ('color', 'Color'), ('fineline', 'Fine line'), ('florals', 'Florals'), ('animals', 'Animals'), ('butterflies', 'Butterflies')]
+GROUPS = [('all', 'All'), ('bg', 'Black and gray'), ('color', 'Color'), ('fineline', 'Fine line'), ('florals', 'Florals'), ('animals', 'Animals'), ('butterflies', 'Butterflies'), ('anime', 'Anime and cartoon'), ('ornamental', 'Ornamental')]
+WORKSETS = {  # each artist page's galleries, in order: (WORK key, eyebrow, title)
+  'magic': [('magic', 'His work', 'Recent tattoos')],
+  'angel-perez': [('angel-perez-tattoos', 'His work', 'Recent tattoos'), ('angel-perez', 'His art', 'Paintings and designs')],
+}
 def filters(slug):
     items = WORK.get(slug, [])
     if not any(w.get('tags') for w in items): return ''
@@ -82,9 +86,10 @@ def filters(slug):
     return '<div class="wfilt" role="group" aria-label="Filter the work">' + ''.join(f'<button type="button" data-f="{k}" aria-pressed="{"true" if k == "all" else "false"}">{lab} <small>{n(k)}</small></button>' for k, lab in GROUPS if n(k)) + '</div>'
 FILTERJS = '''<script>document.querySelectorAll('.wfilt').forEach(g=>{const box=g.nextElementSibling;g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));const f=b.dataset.f;box.querySelectorAll('.wk').forEach(a=>{a.hidden=!(f==='all'||(a.dataset.tags||'').split(' ').includes(f))});});});</script>'''
 WORKTITLE = {'magic': ('His work', 'Recent tattoos'), 'angel-perez': ('His art', 'Paintings and designs')}
-def gallery(slug, n=None):
-    items = WORK.get(slug, [])[:n]
-    return ''.join(f'<a class="wk" data-tags="{w.get("tags", "")}" href="{w["post"]}" target="_blank" rel="noopener"><img src="{w["file"]}" alt="Work by {next(a["name"] for a in ARTISTS if a["slug"] == slug)}" loading="lazy"></a>' for w in items)
+def gallery(key, n=None):
+    items = WORK.get(key, [])[:n]
+    who = next((a['name'] for a in ARTISTS if key.startswith(a['slug'])), 'Splash of Ink')
+    return ''.join(f'<a class="wk" data-tags="{w.get("tags", "")}" href="{w["post"]}" target="_blank" rel="noopener"><img src="{w["file"]}" alt="Work by {who}" loading="lazy"></a>' for w in items)
 def videos(slug):
     return ''.join(f'<div class="vid"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/{c}/" data-instgrm-version="14" style="background:#fff;border:0;margin:0;max-width:540px;min-width:280px;width:100%"><a href="https://www.instagram.com/{c}/" target="_blank" rel="noopener">View this post on Instagram</a></blockquote></div>' for c in VIDEOS.get(slug, []))
 def tiktoks(slug):
@@ -99,7 +104,7 @@ h2{font-family:UnifrakturMaguntia,serif!important;font-weight:400!important;lett
 h1,h3{font-family:Oswald,sans-serif;}
 h1,h2,h3{color:var(--fog);line-height:1.15;margin:0 0 .5em;letter-spacing:.01em;font-weight:600}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-.draft{background:var(--purple);color:#fff;text-align:center;font:600 13px/1.4 Inter,sans-serif;padding:7px 16px}
+.draft{background:var(--purple);color:#fff;text-align:center;font:600 13px/1.4 Inter,sans-serif;padding:7px 16px}.draft .azt{display:inline-block;vertical-align:middle;margin-right:12px;background:#fff;border-radius:99px;padding:3px 10px}.draft .azt img{height:16px;width:auto;display:block}
 header{background:rgba(11,9,16,.92);border-bottom:3px solid var(--purple);box-shadow:0 2px 18px rgba(139,61,255,.35);position:sticky;top:0;z-index:5;backdrop-filter:blur(6px)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;flex-wrap:wrap}
 .brand{font:400 34px/1 "Pirata One",serif;color:var(--fog);text-decoration:none;letter-spacing:.02em}
@@ -191,7 +196,7 @@ HEAD = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name=
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&family=UnifrakturMaguntia&family=Mr+Dafoe&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css"></head><body>
-<div class="draft">DRAFT for Splash of Ink · samples, links and hours are placeholders · forms send nothing</div>
+<div class="draft"><a class="azt" href="https://aztechsol.com/websites/" target="_blank" rel="noopener" aria-label="AZ Tech Sol websites"><img src="assets/aztechsol-signature.svg" alt="AZ Tech Sol" height="18"></a>DRAFT for Splash of Ink · samples, links and hours are placeholders · forms send nothing</div>
 <header><div class="wrap"><a class="brand" href="index.html"><img src="assets/brand/lockup-dark.svg?v=0828fc1d" alt="Splash of Ink" height="58"></a>
 <nav>{nav}</nav></div></header>
 '''
@@ -281,7 +286,7 @@ page('index.html', 'Splash of Ink · Tattoo and piercing in Tucson', f'''
   <p class="note" style="margin-top:14px">{HOURS}</p>
 </div></section>
 <section class="alt" id="work"><div class="wrap"><div class="eyebrow">Recent work</div><h2 style="font-size:40px">Fresh from the chair</h2>
-  <div class="works strip">{gallery('magic', 6)}{gallery('angel-perez', 2)}</div>
+  <div class="works strip">{gallery('magic', 6)}{gallery('angel-perez-tattoos', 2)}</div>
   <p class="note" style="margin-top:10px">More on <a href="artist-magic.html">Magic’s</a> and <a href="artist-angel-perez.html">Angel’s</a> pages.</p></div></section>
 {pricing_section()}
 <section><div class="wrap"><div class="info">
@@ -303,13 +308,14 @@ for a in ARTISTS:
         if not WORK.get(a['slug']):
             return f'''<section class="alt"><div class="wrap"><div class="eyebrow">Best work</div><h2 style="font-size:30px">One best piece per style</h2>
 <div class="samples" style="margin-top:16px">{samples}</div></div></section>'''
-        eb, h = WORKTITLE.get(a['slug'], ('Work', 'Recent work'))
+        sets = WORKSETS.get(a['slug'], [(a['slug'], 'Work', 'Recent work')])
         v, tk = videos(a['slug']), tiktoks(a['slug'])
         vs = (f'''<section><div class="wrap"><div class="eyebrow">Watch</div><h2 style="font-size:30px">In the chair</h2>
 <div class="vids">{v}</div></div></section><script async src="https://www.instagram.com/embed.js"></script>''' if v else '') + (f'''<section class="alt"><div class="wrap"><div class="eyebrow">On TikTok</div><h2 style="font-size:30px">More from {a['name']}</h2>
 <div class="vids">{tk}</div></div></section><script async src="https://www.tiktok.com/embed.js"></script>''' if tk else '')
-        return f'''<section class="alt"><div class="wrap"><div class="eyebrow">{eb}</div><h2 style="font-size:30px">{h}</h2>
-{filters(a['slug'])}<div class="works">{gallery(a['slug'])}</div><p class="note" style="margin-top:10px">Tap any piece to see it on Instagram.</p></div></section>{vs}{FILTERJS if filters(a['slug']) else ''}'''
+        secs = ''.join(f'''<section class="alt"><div class="wrap"><div class="eyebrow">{eb}</div><h2 style="font-size:30px">{h}</h2>
+{filters(key)}<div class="works">{gallery(key)}</div><p class="note" style="margin-top:10px">Tap any piece to see it on Instagram.</p></div></section>''' for key, eb, h in sets if WORK.get(key))
+        return secs + vs + (FILTERJS if any(filters(k) for k, _, _ in sets) else '')
     samples = ''.join(f'<figure>{ph(a["name"] + " · " + s)}<figcaption>{s}</figcaption></figure>' for s in a['styles'])
     soc = ''.join(f'<a href="{u}"' + ('' if u == '#' else ' target="_blank" rel="noopener"') + f'>{n}{" (coming)" if u == "#" else ""}</a>' for n, u in a['socials'])
     minimum = f'<p><b style="color:var(--fog)">{a["minimum"]}</b></p>' if a['minimum'] else ''
