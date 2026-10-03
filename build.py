@@ -12,7 +12,7 @@ def callbar():  # D's number first, Magic's right beside it and just as big
     return '<div class="callbar">' + ''.join(f'<a class="call{" alt" if n else ""}" href="tel:{e}"><span class="cl">{lab} · {who}</span><span class="cn">{num}</span></a>' for n, (who, num, e, lab) in enumerate(PHONES)) + '</div>'
 def phones_inline():
     return ' · '.join(f'<a href="tel:{e}">{num}</a> ({who})' for who, num, e, _ in PHONES)
-SIZES = [('Small', 'up to about palm size', 'size-small'), ('Medium', 'about the size of your hand', 'size-medium'), ('Large', 'bigger than your hand, or a full piece', 'size-large')]
+SIZES = [('Small', 'fits inside your palm', '$150–200', 'size-small'), ('Medium', 'your palm, edge to edge', '$225–300', 'size-medium'), ('Large', 'your palm and most of your fingers', '$325–400', 'size-large'), ('Extra large', 'your whole hand, fingertips to wrist', '$425–500', 'size-xl')]  # the shop's pricing guide, sized against a hand
 HARD_SPOTS = 'ribs, stomach, neck, hands and feet'
 def short(a): return a['name'] if a['name'].startswith('Master') else a['name'].split()[0]
 def avatar(a, size=52):
@@ -23,11 +23,12 @@ def pricing_section():
     rows = ''.join(f'''<div class="prow2">{avatar(a)}<div class="pmeta"><b>{a['name']}</b><span>{a['role']} · {SHOPNAME[a['shop']]}</span></div>
       <div class="pmin">{a['minimum'] or '<span class="note">Minimum coming</span>'}</div>
       <a class="btn" href="#" data-ask="{a['slug']}">Get {short(a)}’s price</a></div>''' for a in ARTISTS)
-    sizes = ''.join(f'<div class="card size"><img class="ico" src="assets/icons/{i}.svg" alt="" width="48" height="48"><h3>{n}</h3><p>{d}</p><p class="range">Range coming</p></div>' for n, d, i in SIZES)
+    sizes = ''.join(f'<div class="card size"><img class="ico" src="assets/icons/{i}.svg" alt="" width="48" height="48"><h3>{n}</h3><p>{d}</p><p class="range">{r}</p></div>' for n, d, r, i in SIZES)
     return f'''<section id="pricing"><div class="wrap">
   <div class="eyebrow">Pricing</div><h2 style="font-size:40px">What a tattoo costs</h2>
-  <p style="max-width:680px">Every artist at Splash of Ink sets their own prices. Your price depends on three things: the size of the piece, where it goes on your body, and how much detail it has. Tell your artist about your idea and they’ll send you a price range.</p>
-  <div class="grid3 sizes">{sizes}</div>
+  <p style="max-width:680px">Every artist at Splash of Ink sets their own prices. Your price depends on three things: the size of the piece, where it goes on your body, and how much detail it has. Here’s the shop’s pricing guide, and your artist will send you an exact range for your idea.</p>
+  <div class="sizes4">{sizes}</div>
+  <p class="note" style="margin-top:10px">Sizes are measured against your hand. Prices can vary higher or lower depending on detail and placement, and small pieces start at the artist’s minimum.</p>
   <div class="pnotes">
     <div class="card"><img class="ico" src="assets/icons/placement.svg" alt="" width="48" height="48"><h3>Placement</h3><p>The same design costs more on the {HARD_SPOTS}. Those spots take longer and need a steadier hand.</p></div>
     <div class="card"><img class="ico" src="assets/icons/sessions.svg" alt="" width="48" height="48"><h3>Big pieces</h3><p>Larger work can be split into sessions to fit your budget. Your artist will plan it with you.</p></div>
@@ -130,7 +131,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .call:hover{box-shadow:0 0 24px rgba(168,85,247,.45)}
 .pay{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:14px}@media (max-width:760px){.pay{grid-template-columns:1fr 1fr}}.pay h3{margin:0 0 4px}.pay p{margin:0}
 .artistline{margin:14px 0 0;font-size:15px}.artistline a{font-weight:600}
-.sizes{margin-top:18px}.ico{width:60px;height:60px;display:block;margin-bottom:10px}@media (max-width:860px){.ico{margin-inline:auto}}.size h3{margin:0 0 4px}.size p{margin:0}.size .range{margin-top:8px;font:600 22px Oswald,sans-serif;color:var(--purple2)}
+.sizes{margin-top:18px}.sizes4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:18px}@media (max-width:980px){.sizes4{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:520px){.sizes4{grid-template-columns:1fr}}.ico{width:60px;height:60px;display:block;margin-bottom:10px}@media (max-width:860px){.ico{margin-inline:auto}}.size{display:flex;flex-direction:column}.size .range{margin-top:auto!important;padding-top:8px}.size h3{margin:0 0 4px}.size p{margin:0}.size .range{margin-top:8px;font:600 22px Oswald,sans-serif;color:var(--purple2)}
 .pnotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}@media (max-width:860px){.pnotes{grid-template-columns:1fr}}
 .pnotes h3{margin:0 0 6px}.pnotes p{margin:0}
 .plist{display:grid;gap:10px}
