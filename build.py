@@ -69,10 +69,17 @@ VIDEOS = {  # Instagram posts embedded, not hosted
   'magic': ['Ddj8-fhSU8x', 'DchgPdsCTmr', 'Db_nu0dySrR', 'DZ1tZxAC2jP'],
   'angel-perez': ['DeAeS83jNRl', 'Dd-Wc1diYcv', 'Dd1tPkhTYAm', 'Ddj-hUfhzwb'],
 }
+GROUPS = [('all', 'All'), ('bg', 'Black and gray'), ('color', 'Color'), ('fineline', 'Fine line'), ('florals', 'Florals'), ('animals', 'Animals'), ('butterflies', 'Butterflies')]
+def filters(slug):
+    items = WORK.get(slug, [])
+    if not any(w.get('tags') for w in items): return ''
+    n = lambda k: len(items) if k == 'all' else sum(k in w.get('tags', '').split() for w in items)
+    return '<div class="wfilt" role="group" aria-label="Filter the work">' + ''.join(f'<button type="button" data-f="{k}" aria-pressed="{"true" if k == "all" else "false"}">{lab} <small>{n(k)}</small></button>' for k, lab in GROUPS if n(k)) + '</div>'
+FILTERJS = '''<script>document.querySelectorAll('.wfilt').forEach(g=>{const box=g.nextElementSibling;g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));const f=b.dataset.f;box.querySelectorAll('.wk').forEach(a=>{a.hidden=!(f==='all'||(a.dataset.tags||'').split(' ').includes(f))});});});</script>'''
 WORKTITLE = {'magic': ('His work', 'Recent tattoos'), 'angel-perez': ('His art', 'Paintings and designs')}
 def gallery(slug, n=None):
     items = WORK.get(slug, [])[:n]
-    return ''.join(f'<a class="wk" href="{w["post"]}" target="_blank" rel="noopener"><img src="{w["file"]}" alt="Work by {next(a["name"] for a in ARTISTS if a["slug"] == slug)}" loading="lazy"></a>' for w in items)
+    return ''.join(f'<a class="wk" data-tags="{w.get("tags", "")}" href="{w["post"]}" target="_blank" rel="noopener"><img src="{w["file"]}" alt="Work by {next(a["name"] for a in ARTISTS if a["slug"] == slug)}" loading="lazy"></a>' for w in items)
 def videos(slug):
     return ''.join(f'<div class="vid"><iframe src="https://www.instagram.com/p/{c}/embed/" loading="lazy" allowtransparency="true" allowfullscreen scrolling="no" title="Video on Instagram"></iframe></div>' for c in VIDEOS.get(slug, []))
 
@@ -159,8 +166,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .bubble{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--purple);display:block;background:#0b0910}
 .pmeta{display:grid}.pmeta b{color:var(--fog);font:600 17px Oswald,sans-serif;letter-spacing:.03em}.pmeta span{font-size:13px;color:var(--mute)}
 .pmin{font-weight:600;color:var(--fog);font-size:14px}
+.wfilt{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.wfilt button{font:600 13px Oswald,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--purple2);background:transparent;border:1px solid var(--line);border-radius:99px;padding:7px 14px;cursor:pointer}.wfilt button small{color:var(--mute);font-weight:500;margin-left:4px}.wfilt button[aria-pressed="true"]{background:var(--purple);border-color:var(--purple);color:#fff}.wfilt button[aria-pressed="true"] small{color:#e9dcff}
 .works{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}.works.strip{grid-template-columns:repeat(4,minmax(0,1fr))}
-.wk{display:block;aspect-ratio:1;overflow:hidden;border-radius:12px;border:1px solid var(--line);background:var(--card)}.wk img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}.wk:hover img{transform:scale(1.04)}
+.wk{display:block;aspect-ratio:1;overflow:hidden;border-radius:12px;border:1px solid var(--line);background:var(--card)}.wk img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}.wk:hover img{transform:scale(1.04)}.wk[hidden]{display:none}
 @media (max-width:760px){.works,.works.strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .vids{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}@media (max-width:760px){.vids{grid-template-columns:1fr}}
 .vid{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff;max-width:420px;width:100%;justify-self:center}.vid iframe{width:100%;height:640px;border:0;display:block}
@@ -292,7 +300,7 @@ for a in ARTISTS:
         vs = f'''<section><div class="wrap"><div class="eyebrow">Watch</div><h2 style="font-size:30px">In the chair</h2>
 <div class="vids">{v}</div></div></section>''' if v else ''
         return f'''<section class="alt"><div class="wrap"><div class="eyebrow">{eb}</div><h2 style="font-size:30px">{h}</h2>
-<div class="works">{gallery(a['slug'])}</div><p class="note" style="margin-top:10px">Tap any piece to see it on Instagram.</p></div></section>{vs}'''
+{filters(a['slug'])}<div class="works">{gallery(a['slug'])}</div><p class="note" style="margin-top:10px">Tap any piece to see it on Instagram.</p></div></section>{vs}{FILTERJS if filters(a['slug']) else ''}'''
     samples = ''.join(f'<figure>{ph(a["name"] + " · " + s)}<figcaption>{s}</figcaption></figure>' for s in a['styles'])
     soc = ''.join(f'<a href="{u}"' + ('' if u == '#' else ' target="_blank" rel="noopener"') + f'>{n}{" (coming)" if u == "#" else ""}</a>' for n, u in a['socials'])
     minimum = f'<p><b style="color:var(--fog)">{a["minimum"]}</b></p>' if a['minimum'] else ''
