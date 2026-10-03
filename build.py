@@ -59,10 +59,22 @@ ARTISTS = [
   dict(slug='angel-perez', name='Angel Perez', shop='stone-avenue', role='Artist · anime, comic and color',
        bio='Anime and comic work with bold color and clean black and gray, and fine line on the way.',
        styles=['Anime', 'Comic', 'Color', 'Black and gray'],
-       minimum='', book=('Book with Angel on Setmore', '#', 'Setmore link coming'),
+       minimum='', book=('Book with Angel on Setmore', 'https://thegreatsage.setmore.com', 'Books on Setmore'),
        socials=[('Instagram', 'https://www.instagram.com/thegreatsagetattoosandtarot/'), ('TikTok', 'https://www.tiktok.com/@greatsagetattooandtarot')]),
 ]
 SHOPNAME = {s['slug']: s['name'] for s in SHOPS}
+import json as _json
+WORK = _json.load(open(R / 'work.json')) if (R / 'work.json').exists() else {}   # hosted photos, picked from each artist's own Instagram
+VIDEOS = {  # Instagram posts embedded, not hosted
+  'magic': ['Ddj8-fhSU8x', 'DchgPdsCTmr', 'Db_nu0dySrR', 'DZ1tZxAC2jP'],
+  'angel-perez': ['DeAeS83jNRl', 'Dd-Wc1diYcv', 'Dd1tPkhTYAm', 'Ddj-hUfhzwb'],
+}
+WORKTITLE = {'magic': ('His work', 'Recent tattoos'), 'angel-perez': ('His art', 'Paintings and designs')}
+def gallery(slug, n=None):
+    items = WORK.get(slug, [])[:n]
+    return ''.join(f'<a class="wk" href="{w["post"]}" target="_blank" rel="noopener"><img src="{w["file"]}" alt="Work by {next(a["name"] for a in ARTISTS if a["slug"] == slug)}" loading="lazy"></a>' for w in items)
+def videos(slug):
+    return ''.join(f'<div class="vid"><iframe src="https://www.instagram.com/p/{c}/embed/" loading="lazy" allowtransparency="true" allowfullscreen scrolling="no" title="Video on Instagram"></iframe></div>' for c in VIDEOS.get(slug, []))
 
 CSS = '''
 :root{--ink:#0b0910;--ink2:#15111d;--card:#1b1526;--line:#2e2540;--purple:#8b3dff;--purple2:#b98cff;--glow:#a855f7;--fog:#f3eefb;--body:#cfc6de;--mute:#968bab}
@@ -147,6 +159,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .bubble{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--purple);display:block;background:#0b0910}
 .pmeta{display:grid}.pmeta b{color:var(--fog);font:600 17px Oswald,sans-serif;letter-spacing:.03em}.pmeta span{font-size:13px;color:var(--mute)}
 .pmin{font-weight:600;color:var(--fog);font-size:14px}
+.works{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}.works.strip{grid-template-columns:repeat(4,minmax(0,1fr))}
+.wk{display:block;aspect-ratio:1;overflow:hidden;border-radius:12px;border:1px solid var(--line);background:var(--card)}.wk img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}.wk:hover img{transform:scale(1.04)}
+@media (max-width:760px){.works,.works.strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.vids{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}@media (max-width:760px){.vids{grid-template-columns:1fr}}
+.vid{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff;max-width:420px;width:100%;justify-self:center}.vid iframe{width:100%;height:640px;border:0;display:block}
 .prow{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
 .askd{border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--body);padding:0;max-width:600px;width:calc(100% - 28px)}
 .askd::backdrop{background:rgba(5,3,9,.75)}.askd form{padding:26px 24px;position:relative;max-width:none}
@@ -247,6 +264,9 @@ page('index.html', 'Splash of Ink · Tattoo and piercing in Tucson', f'''
   {callbar()}
   <p class="note" style="margin-top:14px">{HOURS}</p>
 </div></section>
+<section class="alt" id="work"><div class="wrap"><div class="eyebrow">Recent work</div><h2 style="font-size:40px">Fresh from the chair</h2>
+  <div class="works strip">{gallery('magic', 6)}{gallery('angel-perez', 2)}</div>
+  <p class="note" style="margin-top:10px">More on <a href="artist-magic.html">Magic’s</a> and <a href="artist-angel-perez.html">Angel’s</a> pages.</p></div></section>
 {pricing_section()}
 <section><div class="wrap"><div class="info">
   <div class="card"><h3>Pricing</h3><p>Every artist sets their own prices, and price depends on size and placement. Ask the artist you want and they’ll send a range.</p><a href="#pricing">See pricing →</a></div>
@@ -263,6 +283,16 @@ page('artists.html', 'Artists · Splash of Ink', f'''
 
 # Artist pages
 for a in ARTISTS:
+    def work_sections(a, samples):
+        if not WORK.get(a['slug']):
+            return f'''<section class="alt"><div class="wrap"><div class="eyebrow">Best work</div><h2 style="font-size:30px">One best piece per style</h2>
+<div class="samples" style="margin-top:16px">{samples}</div></div></section>'''
+        eb, h = WORKTITLE.get(a['slug'], ('Work', 'Recent work'))
+        v = videos(a['slug'])
+        vs = f'''<section><div class="wrap"><div class="eyebrow">Watch</div><h2 style="font-size:30px">In the chair</h2>
+<div class="vids">{v}</div></div></section>''' if v else ''
+        return f'''<section class="alt"><div class="wrap"><div class="eyebrow">{eb}</div><h2 style="font-size:30px">{h}</h2>
+<div class="works">{gallery(a['slug'])}</div><p class="note" style="margin-top:10px">Tap any piece to see it on Instagram.</p></div></section>{vs}'''
     samples = ''.join(f'<figure>{ph(a["name"] + " · " + s)}<figcaption>{s}</figcaption></figure>' for s in a['styles'])
     soc = ''.join(f'<a href="{u}"' + ('' if u == '#' else ' target="_blank" rel="noopener"') + f'>{n}{" (coming)" if u == "#" else ""}</a>' for n, u in a['socials'])
     minimum = f'<p><b style="color:var(--fog)">{a["minimum"]}</b></p>' if a['minimum'] else ''
@@ -277,8 +307,7 @@ for a in ARTISTS:
     <p class="note">{a['book'][2]}. How to pay is at the bottom of this page.</p>
     <div class="soc" style="margin-top:12px">{soc}</div>
   </div></div></section>
-<section class="alt"><div class="wrap"><div class="eyebrow">Best work</div><h2 style="font-size:30px">One best piece per style</h2>
-<div class="samples" style="margin-top:16px">{samples}</div></div></section>
+{work_sections(a, samples)}
 <section><div class="wrap"><div class="eyebrow">Paying</div><h2 style="font-size:30px">How to pay</h2>
 <p>All payments are due before the tattoo or piercing is done. Questions? Call Master D at <a href="tel:+15206511910">(520) 651-1910</a> or Magic at <a href="tel:+15203923594">(520) 392-3594</a>.</p>
 <div class="pay">
