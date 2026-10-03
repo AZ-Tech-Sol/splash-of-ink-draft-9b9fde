@@ -23,16 +23,16 @@ def pricing_section():
     rows = ''.join(f'''<div class="prow2">{avatar(a)}<div class="pmeta"><b>{a['name']}</b><span>{a['role']} · {SHOPNAME[a['shop']]}</span></div>
       <div class="pmin">{a['minimum'] or '<span class="note">Minimum coming</span>'}</div>
       <a class="btn" href="#" data-ask="{a['slug']}">Get {short(a)}’s price</a></div>''' for a in ARTISTS)
-    sizes = ''.join(f'<div class="card size"><img class="ico" src="assets/icons/{i}.svg" alt="" width="48" height="48"><h3>{n}</h3><p>{d}</p><p class="range">{r}</p></div>' for n, d, r, i in SIZES)
+    sizes = ''.join(f'<div class="tier"><img src="assets/icons/{i}.svg" alt="" width="56" height="56"><div class="tname">{n}</div><div class="tprice">{r}</div><div class="tfit">{d}</div></div>' for n, d, r, i in SIZES)
     return f'''<section id="pricing"><div class="wrap">
   <div class="eyebrow">Pricing</div><h2 style="font-size:40px">What a tattoo costs</h2>
   <p style="max-width:680px">Every artist at Splash of Ink sets their own prices. Your price depends on three things: the size of the piece, where it goes on your body, and how much detail it has. Here’s the shop’s pricing guide, and your artist will send you an exact range for your idea.</p>
-  <div class="sizes4">{sizes}</div>
+  <div class="chart">{sizes}</div>
   <p class="note" style="margin-top:10px">Sizes are measured against your hand. Prices can vary higher or lower depending on detail and placement, and small pieces start at the artist’s minimum.</p>
   <div class="pnotes">
-    <div class="card"><img class="ico" src="assets/icons/placement.svg" alt="" width="48" height="48"><h3>Placement</h3><p>The same design costs more on the {HARD_SPOTS}. Those spots take longer and need a steadier hand.</p></div>
-    <div class="card"><img class="ico" src="assets/icons/sessions.svg" alt="" width="48" height="48"><h3>Big pieces</h3><p>Larger work can be split into sessions to fit your budget. Your artist will plan it with you.</p></div>
-    <div class="card"><img class="ico" src="assets/icons/credit.svg" alt="" width="48" height="48"><h3>Credit for coming back</h3><p>Spend over $150 and you build a $100 tattoo credit, to use that day or on your next visit.</p></div>
+    <div class="pn"><img class="ico" src="assets/icons/placement.svg" alt="" width="48" height="48"><div><h3>Placement</h3><p>The same design costs more on the {HARD_SPOTS}. Those spots take longer and need a steadier hand.</p></div></div>
+    <div class="pn"><img class="ico" src="assets/icons/sessions.svg" alt="" width="48" height="48"><div><h3>Big pieces</h3><p>Larger work can be split into sessions to fit your budget. Your artist will plan it with you.</p></div></div>
+    <div class="pn"><img class="ico" src="assets/icons/credit.svg" alt="" width="48" height="48"><div><h3>Credit for coming back</h3><p>Spend over $150 and you build a $100 tattoo credit, to use that day or on your next visit.</p></div></div>
   </div>
   <h3 style="margin:30px 0 12px">Get your artist’s price</h3>
   <div class="plist">{rows}</div>
@@ -132,8 +132,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .pay{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:14px}@media (max-width:760px){.pay{grid-template-columns:1fr 1fr}}.pay h3{margin:0 0 4px}.pay p{margin:0}
 .artistline{margin:14px 0 0;font-size:15px}.artistline a{font-weight:600}
 .sizes{margin-top:18px}.sizes4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:18px}@media (max-width:980px){.sizes4{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:520px){.sizes4{grid-template-columns:1fr}}.ico{width:60px;height:60px;display:block;margin-bottom:10px}@media (max-width:860px){.ico{margin-inline:auto}}.size{display:flex;flex-direction:column}.size .range{margin-top:auto!important;padding-top:8px}.size h3{margin:0 0 4px}.size p{margin:0}.size .range{margin-top:8px;font:600 22px Oswald,sans-serif;color:var(--purple2)}
-.pnotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}@media (max-width:860px){.pnotes{grid-template-columns:1fr}}
-.pnotes h3{margin:0 0 6px}.pnotes p{margin:0}
+.pnotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:26px}@media (max-width:860px){.pnotes{grid-template-columns:1fr;gap:18px}}
+.pnotes h3{margin:0 0 4px;font-size:17px}.pnotes p{margin:0;font-size:14.5px}
+.pn{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;align-items:start;padding:4px 0}.pn .ico{width:44px!important;height:44px!important;margin:0!important}
+.chart{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:20px;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.tier{text-align:center;padding:26px 16px 24px;border-left:1px solid var(--line);display:flex;flex-direction:column;align-items:center}.tier:first-child{border-left:0}
+.tier img{width:56px;height:56px;margin-bottom:12px}.tname{font:600 14px Oswald,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--lilac,#b98cff)}
+.tprice{font:600 34px Oswald,sans-serif;color:var(--fog);margin:4px 0 6px;letter-spacing:.01em}.tfit{font-size:14px;color:var(--mute);max-width:190px}
+@media (max-width:860px){.chart{grid-template-columns:repeat(2,minmax(0,1fr))}.tier:nth-child(3){border-left:0}.tier:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:600px){.chart{grid-template-columns:1fr}.tier{border-left:0}.tier+.tier{border-top:1px solid var(--line)}}
 .plist{display:grid;gap:10px}
 .prow2{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
 @media (max-width:640px){.prow2{grid-template-columns:auto minmax(0,1fr)}.prow2 .pmin{grid-column:2}.prow2 .btn{grid-column:1 / -1;text-align:center}}
