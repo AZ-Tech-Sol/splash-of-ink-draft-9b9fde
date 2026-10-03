@@ -22,7 +22,7 @@ def avatar(a, size=52):
 def pricing_section():
     rows = ''.join(f'''<div class="prow2">{avatar(a)}<div class="pmeta"><b>{a['name']}</b><span>{a['role']} · {SHOPNAME[a['shop']]}</span></div>
       <div class="pmin">{a['minimum'] or '<span class="note">Minimum coming</span>'}</div>
-      <a class="btn" href="#" data-ask="{a['slug']}">Get {short(a)}’s price</a></div>''' for a in ARTISTS)
+      <a class="btn" href="#" data-ask="{a['slug']}">Get {short(a)}’s price</a></div>''' for a in sorted(ARTISTS, key=lambda a: a['slug'] != 'master-d'))  # the owner first
     sizes = ''.join(f'<div class="tier"><img src="assets/icons/{i}.svg" alt="" width="56" height="56"><div class="tname">{n}</div><div class="tprice">{r}</div><div class="tfit">{d}</div></div>' for n, d, r, i in SIZES)
     return f'''<section id="pricing"><div class="wrap">
   <div class="eyebrow">Pricing</div><h2 style="font-size:40px">What a tattoo costs</h2>
