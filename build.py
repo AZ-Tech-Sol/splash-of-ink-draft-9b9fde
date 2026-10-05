@@ -12,6 +12,7 @@ def callbar():  # D's number first, Magic's right beside it and just as big
     return '<div class="callbar">' + ''.join(f'<a class="call{" alt" if n else ""}" href="tel:{e}"><span class="cl">{lab} · {who}</span><span class="cn">{num}</span></a>' for n, (who, num, e, lab) in enumerate(PHONES)) + '</div>'
 def phones_inline():
     return ' · '.join(f'<a href="tel:{e}">{num}</a> ({who})' for who, num, e, _ in PHONES)
+APPRENTICE_PRICES = {}   # size -> price range, once Magic sets them (2026-10-04: only the $80 minimum is known)
 SIZES = [('Small', 'fits inside your palm', '$150–200', 'size-small'), ('Medium', 'your palm, edge to edge', '$225–300', 'size-medium'), ('Large', 'your palm and most of your fingers', '$325–400', 'size-large'), ('Extra large', 'your whole hand, fingertips to wrist', '$425–500', 'size-xl')]  # the shop's pricing guide, sized against a hand
 HARD_SPOTS = 'ribs, stomach, neck, hands and feet'
 def short(a): return a['name'] if a['name'].startswith('Master') else a['name'].split()[0]
@@ -22,7 +23,7 @@ def avatar(a, size=52):
 def pricing_section():
     rows = ''.join(f'''<div class="prow2"><a href="artist-{a['slug']}.html" aria-label="{a['name']}'s page">{avatar(a)}</a><div class="pmeta"><a class="pname" href="artist-{a['slug']}.html"><b>{a['name']}</b></a><span>{a['role']} · {SHOPNAME[a['shop']]}</span></div>
       <div class="pmin">{a['minimum'] or '<span class="note">Minimum coming</span>'}</div>
-      <a class="btn" href="#" data-ask="{a['slug']}">Get {short(a)}’s price</a></div>''' for a in sorted(ARTISTS, key=lambda a: a['slug'] != 'master-d'))  # the owner first
+      <a class="btn" href="#" data-ask="{a['slug']}">{'Get apprentice pricing' if a.get('apprentice') else f"Get {short(a)}’s price"}</a></div>''' for a in sorted(ARTISTS, key=lambda a: a['slug'] != 'master-d'))  # the owner first
     sizes = ''.join(f'<div class="tier"><img src="assets/icons/{i}.svg" alt="" width="56" height="56"><div class="tname">{n}</div><div class="tprice">{r}</div><div class="tfit">{d}</div></div>' for n, d, r, i in SIZES)
     return f'''<section id="pricing"><div class="wrap">
   <div class="eyebrow">Pricing</div><h2 style="font-size:40px">What a tattoo costs</h2>
@@ -61,6 +62,18 @@ ARTISTS = [
        styles=['Anime', 'Comic', 'Color', 'Black and gray'],
        minimum='', book=('Book with Angel on Setmore', 'https://thegreatsage.setmore.com', 'Books on Setmore'),
        socials=[('Instagram', 'https://www.instagram.com/thegreatsagetattoosandtarot/'), ('TikTok', 'https://www.tiktok.com/@greatsagetattooandtarot')]),
+  # One page per shop for whoever is apprenticing there right now, so the price is right without anyone being named.
+  # An NFC tag at the station opens it (…/artist-apprentice-<shop>.html?utm_source=nfc&utm_content=apprentice).
+  dict(slug='apprentice-fourth', name='Apprentice', shop='fourth-avenue', role='Apprentice pricing', apprentice=True,
+       bio='Splash of Ink trains new artists. Whoever is apprenticing at the Fourth Avenue shop right now works at apprentice prices, below the main artists, while they learn under the shop\u2019s artists.',
+       styles=['Flash', 'Small pieces', 'Line work'],
+       minimum='Apprentice minimum $80', book=('Ask at the counter', 'tel:+15203923594', 'Walk in, or call the shop'),
+       socials=[]),
+  dict(slug='apprentice-stone', name='Apprentice', shop='stone-avenue', role='Apprentice pricing', apprentice=True,
+       bio='Splash of Ink trains new artists. Whoever is apprenticing at the Stone Avenue shop right now works at apprentice prices, below the main artists, while they learn under the shop\u2019s artists.',
+       styles=['Flash', 'Small pieces', 'Line work'],
+       minimum='Apprentice minimum $80', book=('Ask at the counter', 'tel:+15206511910', 'Walk in, or call the shop'),
+       socials=[]),
 ]
 SHOPNAME = {s['slug']: s['name'] for s in SHOPS}
 import json as _json
@@ -195,7 +208,13 @@ HEAD = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name=
 <meta name="robots" content="noindex, nofollow"><title>{title}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&family=UnifrakturMaguntia&family=Mr+Dafoe&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css"></head><body>
+<link rel="stylesheet" href="style.css"><script>
+/* Self-hosted Umami. ?notme=1 stops counting this browser, ?countme=1 undoes it. A visit carrying utm_source=nfc
+   (an NFC tag at the shop, like the apprentice tag) is also sent as a tag-tap event, named by utm_content. */
+(function(){{try{{var q=new URLSearchParams(location.search);if(q.has('notme'))localStorage.setItem('umami.disabled','1');if(q.has('countme'))localStorage.removeItem('umami.disabled')}}catch(x){{}}
+var s=document.createElement('script');s.defer=true;s.src='https://stats.aztechsol.com/script.js';s.setAttribute('data-website-id','fde5defc-56bc-49e8-99fb-353d32269204');s.setAttribute('data-domains','splashofink.aztechsol.com');
+s.onload=function(){{try{{var q=new URLSearchParams(location.search);if(q.get('utm_source')==='nfc'&&window.umami)umami.track('tag-tap',{{tag:q.get('utm_content')||'shop',page:location.pathname}})}}catch(x){{}}}};document.head.appendChild(s)}})();
+</script></head><body>
 <div class="draft"><a class="azt" href="https://aztechsol.com/websites/" target="_blank" rel="noopener" aria-label="AZ Tech Sol websites"><img src="assets/aztechsol-signature.svg" alt="AZ Tech Sol" height="18"></a>DRAFT for Splash of Ink · samples, links and hours are placeholders · forms send nothing</div>
 <header><div class="wrap"><a class="brand" href="index.html"><img src="assets/brand/lockup-dark.svg?v=0828fc1d" alt="Splash of Ink" height="58"></a>
 <nav>{nav}</nav></div></header>
@@ -305,6 +324,12 @@ page('artists.html', 'Artists · Splash of Ink', f'''
 # Artist pages
 for a in ARTISTS:
     def work_sections(a, samples):
+        if a.get('apprentice'):
+            rows = ''.join(f'<div class="tier"><img src="assets/icons/{i}.svg" alt="" width="84" height="84"><div class="tname">{n}</div><div class="tprice">{APPRENTICE_PRICES.get(n, "To confirm")}</div><div class="tfit">{d}</div></div>' for n, d, r, i in SIZES)
+            return f'''<section class="alt"><div class="wrap"><div class="eyebrow">Apprentice pricing</div><h2 style="font-size:30px">What it costs with the apprentice</h2>
+<p style="max-width:680px">Apprentice prices are lower than the shop's main artists. The minimum is <b style="color:var(--fog)">$80</b>, and the final price still depends on size, placement and detail.</p>
+<div class="chart">{rows}</div>
+<p class="note" style="margin-top:10px">Sizes are measured against your hand, like the shop's main pricing guide. Questions? Ask at the counter.</p></div></section>'''
         if not WORK.get(a['slug']):
             return f'''<section class="alt"><div class="wrap"><div class="eyebrow">Best work</div><h2 style="font-size:30px">One best piece per style</h2>
 <div class="samples" style="margin-top:16px">{samples}</div></div></section>'''
@@ -326,7 +351,7 @@ for a in ARTISTS:
     <h1 style="font-size:52px">{a['name']}</h1><p class="note" style="margin-top:-8px">{a['role']}</p>
     <p>{a['bio']}</p>{minimum}
     <div class="tags" style="margin:12px 0 18px">{''.join(f'<span>{s}</span>' for s in a['styles'])}</div>
-    <div class="row" style="justify-content:flex-start"><a class="btn" href="#" data-ask="{a['slug']}">Request prices from {a['name'].split()[0]}</a><a class="btn ghost" href="{a['book'][1]}">{a['book'][0]}</a></div>
+    <div class="row" style="justify-content:flex-start"><a class="btn" href="#" data-ask="{a['slug']}">{'Request apprentice pricing' if a.get('apprentice') else 'Request prices from ' + a['name'].split()[0]}</a><a class="btn ghost" href="{a['book'][1]}">{a['book'][0]}</a></div>
     <p class="note">{a['book'][2]}. How to pay is at the bottom of this page.</p>
     <div class="soc" style="margin-top:12px">{soc}</div>
   </div></div></section>
