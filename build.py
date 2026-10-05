@@ -117,7 +117,7 @@ h2{font-family:UnifrakturMaguntia,serif!important;font-weight:400!important;lett
 h1,h3{font-family:Oswald,sans-serif;}
 h1,h2,h3{color:var(--fog);line-height:1.15;margin:0 0 .5em;letter-spacing:.01em;font-weight:600}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-.draft{background:var(--purple);color:#fff;text-align:center;font:600 13px/1.4 Inter,sans-serif;padding:7px 16px}.draft .azt{display:inline-block;vertical-align:middle;margin-right:12px;background:#fff;border-radius:99px;padding:3px 10px}.draft .azt img{height:16px;width:auto;display:block}
+.draft{background:#120a22;color:#e9def7;text-align:center;font:500 13px/1.4 Inter,sans-serif;letter-spacing:.03em;padding:8px 16px;border-bottom:1px solid rgba(255,255,255,.08)}.draft .azt{display:inline-flex;align-items:center;gap:8px;color:#e9def7;text-decoration:none}.draft .azt img{width:20px;height:20px;display:block}.draft .azt b{color:var(--purple2)}.draft .azt:hover b{text-decoration:underline}
 header{background:rgba(11,9,16,.92);border-bottom:3px solid var(--purple);box-shadow:0 2px 18px rgba(139,61,255,.35);position:sticky;top:0;z-index:5;backdrop-filter:blur(6px)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;flex-wrap:wrap}
 .brand{font:400 34px/1 "Pirata One",serif;color:var(--fog);text-decoration:none;letter-spacing:.02em}
@@ -215,7 +215,7 @@ HEAD = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name=
 var s=document.createElement('script');s.defer=true;s.src='https://stats.aztechsol.com/script.js';s.setAttribute('data-website-id','fde5defc-56bc-49e8-99fb-353d32269204');s.setAttribute('data-domains','splashofink.aztechsol.com');
 s.onload=function(){{try{{var q=new URLSearchParams(location.search);if(q.get('utm_source')==='nfc'&&window.umami)umami.track('tag-tap',{{tag:q.get('utm_content')||'shop',page:location.pathname}})}}catch(x){{}}}};document.head.appendChild(s)}})();
 </script></head><body>
-<div class="draft"><a class="azt" href="https://aztechsol.com/websites/" target="_blank" rel="noopener" aria-label="AZ Tech Sol websites"><img src="assets/aztechsol-signature.svg" alt="AZ Tech Sol" height="18"></a>DRAFT for Splash of Ink · samples, links and hours are placeholders · forms send nothing</div>
+<div class="draft"><a class="azt" href="https://aztechsol.com/websites/" target="_blank" rel="noopener"><img src="assets/aztech-brandmark.svg" alt="" width="20" height="20"><span>Like this site? <b>Get your own</b> &rarr;</span></a></div>
 <header><div class="wrap"><a class="brand" href="index.html"><img src="assets/brand/lockup-dark.svg?v=0828fc1d" alt="Splash of Ink" height="58"></a>
 <nav>{nav}</nav></div></header>
 '''
