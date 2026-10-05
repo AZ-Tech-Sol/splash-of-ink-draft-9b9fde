@@ -12,12 +12,6 @@ def callbar():  # D's number first, Magic's right beside it and just as big
     return '<div class="callbar">' + ''.join(f'<a class="call{" alt" if n else ""}" href="tel:{e}"><span class="cl">{lab} · {who}</span><span class="cn">{num}</span></a>' for n, (who, num, e, lab) in enumerate(PHONES)) + '</div>'
 def phones_inline():
     return ' · '.join(f'<a href="tel:{e}">{num}</a> ({who})' for who, num, e, _ in PHONES)
-# Each artist's own price per size, from the artist (Magic, 2026-10-01: "we use all the same sizing structure, but with different minimums").
-# Until an artist's numbers are in, their page shows the shop's guide range for that size, marked as the shop's guide.
-# Apprentices never fall back to the shop range: theirs is lower, so an unknown size says "To confirm".
-ARTIST_PRICES = {
-  # 'magic': {'Small': '$150–175', 'Medium': '…', 'Large': '…', 'Extra large': '…'},
-}
 SIZES = [('Small', 'fits inside your palm', '$150–200', 'size-small'), ('Medium', 'your palm, edge to edge', '$225–300', 'size-medium'), ('Large', 'your palm and most of your fingers', '$325–400', 'size-large'), ('Extra large', 'your whole hand, fingertips to wrist', '$425–500', 'size-xl')]  # the shop's pricing guide, sized against a hand
 HARD_SPOTS = 'ribs, stomach, neck, hands and feet'
 def short(a): return a['name'] if a['name'].startswith('Master') else a['name'].split()[0]
@@ -187,7 +181,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .chart{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:20px;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
 .tier{text-align:center;padding:26px 16px 24px;border-left:1px solid var(--line);display:flex;flex-direction:column;align-items:center}.tier:first-child{border-left:0}
 .tier img{width:84px;height:84px;margin-bottom:10px}.tname{font:600 14px Oswald,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--lilac,#b98cff)}
-.tprice{font:600 34px Oswald,sans-serif;color:var(--fog);margin:4px 0 6px;letter-spacing:.01em}.tprice.guide{color:var(--mute);font-size:28px}.tprice .gl{display:block;font:500 11px/1.4 Inter,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}.tfit{font-size:14px;color:var(--mute);max-width:190px}
+.tprice{font:600 34px Oswald,sans-serif;color:var(--fog);margin:4px 0 6px;letter-spacing:.01em}.tfit{font-size:14px;color:var(--mute);max-width:190px}
 @media (max-width:860px){.chart{grid-template-columns:repeat(2,minmax(0,1fr))}.tier:nth-child(3){border-left:0}.tier:nth-child(n+3){border-top:1px solid var(--line)}}
 @media (max-width:600px){.chart{grid-template-columns:1fr}.tier{border-left:0}.tier+.tier{border-top:1px solid var(--line)}}
 .plist{display:grid;gap:10px}
@@ -263,6 +257,7 @@ def shop_block(s, heading='h2', compact=False):
       {('<p class="artistline">Artists: ' + ' · '.join(f'<a href="artist-{a["slug"]}.html">{a["name"]}</a>' for a in arts) + '</p>') if compact else ('<div class="grid3" style="margin-top:18px">' + ''.join(acard(a) for a in arts) + '</div>')}</div>'''
 
 STYLES = ['Black and gray', 'Color', 'Fine line', 'Piercing']
+SIZEOPTS = ''.join(f'<option value="{n} ({d})">{n}: {d}</option>' for n, d, r, i in SIZES)   # the reply kit has one ready answer per size
 def ask_modal():
     import json as _j
     opts = ''.join(f'<option value="{a["slug"]}">{a["name"]} · {SHOPNAME[a["shop"]]}</option>' for a in ARTISTS)
@@ -280,7 +275,7 @@ def ask_modal():
   <input type="hidden" name="artist" id="askartist">
   <label id="askpick">Which artist?<select id="asksel">{opts}</select></label>
   <div class="two"><label>Your name<input name="name" autocomplete="name" required></label><label>Phone<input name="phone" type="tel" autocomplete="tel" required></label></div>
-  <div class="two"><label>Placement<input name="placement" placeholder="Forearm, back, ankle…" required></label><label>Size <small>(roughly)</small><input name="size" placeholder="Palm size, about 3 × 4 in…"></label></div>
+  <div class="two"><label>Placement<input name="placement" placeholder="Forearm, back, ankle…" required></label><label>Size<select name="size"><option value="">Not sure yet</option>{SIZEOPTS}</select></label></div>
   <fieldset><legend>What kind?</legend><div class="chk">{''.join(f'<label><input type="radio" name="style" value="{s}"{" checked" if n == 0 else ""}> {s}</label>' for n, s in enumerate(STYLES))}</div></fieldset>
   <label>Tell them about it <small>(optional)</small><textarea name="notes" rows="3"></textarea></label>
   <p class="note" id="askerr" hidden></p>
@@ -380,22 +375,18 @@ for a in ARTISTS:
         return secs + vs + (FILTERJS if any(filters(k) for k, _, _ in sets) else '')
     samples = ''.join(f'<figure>{ph(a["name"] + " · " + s)}<figcaption>{s}</figcaption></figure>' for s in a['styles'])
     def artist_pricing(a):
-        own = ARTIST_PRICES.get(a['slug'], {}); ap = a.get('apprentice'); who = 'the apprentice' if ap else short(a)
-        def cell(n, r):
-            if n in own: return f'<div class="tprice">{own[n]}</div>'
-            if ap: return '<div class="tprice guide">To confirm</div>'
-            return f'<div class="tprice guide">{r}<span class="gl">shop guide</span></div>'
-        rows = ''.join(f'<div class="tier"><img src="assets/icons/{i}.svg" alt="" width="84" height="84"><div class="tname">{n}</div>{cell(n, r)}<div class="tfit">{d}</div></div>' for n, d, r, i in SIZES)
-        mins = a['minimum'] or 'Minimum coming soon'
-        if ap: lead = 'Apprentice prices are lower than the shop’s main artists. The minimum is <b style="color:var(--fog)">$80</b>, and the final price still depends on size, placement and detail.'
-        elif len(own) == len(SIZES): lead = f'These are {who}’s own prices, sized against your hand. <b style="color:var(--fog)">{mins}</b>.'
-        else: lead = f'<b style="color:var(--fog)">{mins}.</b> Until {who}’s own numbers are posted, each size shows the shop’s guide range. Ask for your idea and {who} will send you an exact price.'
-        btn = 'Request apprentice pricing' if ap else f'Get {short(a)}’s price'
-        return f'''<section class="alt"><div class="wrap"><div class="eyebrow">Pricing</div><h2 style="font-size:30px">What it costs with {who}</h2>
+        # Prices stay behind the request (Angel, 2026-10-05): the page asks, the artist answers from a ready reply.
+        ap = a.get('apprentice'); who = 'the apprentice' if ap else short(a)
+        lead = ('Apprentice prices are lower than the shop\u2019s main artists. ' if ap else '') + f'Every tattoo is priced by its size, where it goes, and how much detail it has, so {who} prices each idea personally.'
+        steps = ''.join(f'<div class="pn"><img class="ico" src="assets/icons/{ic}.svg" alt="" width="48" height="48"><div><h3>{h}</h3><p>{tx}</p></div></div>' for ic, h, tx in [
+            ('size-medium', '1 · Tell us the idea', 'Where it goes, about how big against your hand, and the style. Thirty seconds.'),
+            ('placement', '2 · Send it as a text', 'We write the message for you. You tap send, and add a photo of your idea if you have one.'),
+            ('credit', '3 · Get your price', f'{"The shop" if ap else short(a)} texts back your price range and when you can come in.')])
+        btn = 'Request apprentice pricing' if ap else f'Get {short(a)}\u2019s price'
+        return f'''<section class="alt"><div class="wrap"><div class="eyebrow">Pricing</div><h2 style="font-size:30px">Get your price from {who}</h2>
 <p style="max-width:680px">{lead}</p>
-<div class="chart">{rows}</div>
-<p class="note" style="margin-top:10px">Sizes are measured against your hand. The same design costs more on the {HARD_SPOTS}. Spend over $150 and you build a $100 tattoo credit.</p>
-<div class="row" style="justify-content:flex-start;margin-top:14px"><a class="btn" href="#" data-ask="{a['slug']}">{btn}</a></div></div></section>'''
+<div class="pnotes">{steps}</div>
+<div class="row" style="justify-content:flex-start;margin-top:18px"><a class="btn" href="#" data-ask="{a['slug']}">{btn}</a></div></div></section>'''
     soc = ''.join(f'<a href="{u}"' + ('' if u == '#' else ' target="_blank" rel="noopener"') + f'>{n}{" (coming)" if u == "#" else ""}</a>' for n, u in a['socials'])
     minimum = f'<p><b style="color:var(--fog)">{a["minimum"]}</b></p>' if a['minimum'] else ''
     page(f'artist-{a["slug"]}.html', f'{a["name"]} · Splash of Ink', f'''
