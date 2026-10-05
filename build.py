@@ -257,7 +257,7 @@ def shop_block(s, heading='h2', compact=False):
       {('<p class="artistline">Artists: ' + ' · '.join(f'<a href="artist-{a["slug"]}.html">{a["name"]}</a>' for a in arts) + '</p>') if compact else ('<div class="grid3" style="margin-top:18px">' + ''.join(acard(a) for a in arts) + '</div>')}</div>'''
 
 STYLES = ['Black and gray', 'Color', 'Fine line', 'Piercing']
-SIZEOPTS = ''.join(f'<option value="{n} ({d})">{n}: {d}</option>' for n, d, r, i in SIZES)   # the reply kit has one ready answer per size
+SIZEOPTS = ''.join(f'<option value="{n} ({d})">{n}: {d}</option>' for n, d, r, i in SIZES) + '<option value="Bigger than extra large (full sleeve, full back, or several pieces)">Bigger: full sleeve, full back, or several pieces</option>'   # the reply kit has one ready answer per size
 def ask_modal():
     import json as _j
     opts = ''.join(f'<option value="{a["slug"]}">{a["name"]} · {SHOPNAME[a["shop"]]}</option>' for a in ARTISTS)
