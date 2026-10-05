@@ -117,7 +117,7 @@ h2{font-family:UnifrakturMaguntia,serif!important;font-weight:400!important;lett
 h1,h3{font-family:Oswald,sans-serif;}
 h1,h2,h3{color:var(--fog);line-height:1.15;margin:0 0 .5em;letter-spacing:.01em;font-weight:600}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-.draft{background:#120a22;color:#e9def7;text-align:center;font:500 13px/1.4 Inter,sans-serif;letter-spacing:.03em;padding:8px 16px;border-bottom:1px solid rgba(255,255,255,.08)}.draft .azt{display:inline-flex;align-items:center;gap:8px;color:#e9def7;text-decoration:none}.draft .azt img{width:20px;height:20px;display:block}.draft .azt b{color:var(--purple2)}.draft .azt:hover b{text-decoration:underline}
+.draft{background:#120a22;color:#e9def7;text-align:center;font:500 13px/1.4 Inter,sans-serif;letter-spacing:.03em;padding:8px 16px;border-bottom:1px solid rgba(255,255,255,.08)}.draft .azt{display:inline-flex;align-items:center;gap:8px;color:#e9def7;text-decoration:none;background:none;border-radius:0;padding:0}.draft .azt img{width:20px;height:20px;display:block}.draft .azt b{color:var(--purple2)}.draft .azt:hover b{text-decoration:underline}
 header{background:rgba(11,9,16,.92);border-bottom:3px solid var(--purple);box-shadow:0 2px 18px rgba(139,61,255,.35);position:sticky;top:0;z-index:5;backdrop-filter:blur(6px)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;flex-wrap:wrap}
 .brand{font:400 34px/1 "Pirata One",serif;color:var(--fog);text-decoration:none;letter-spacing:.02em}
@@ -208,7 +208,7 @@ HEAD = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name=
 <meta name="robots" content="noindex, nofollow"><title>{title}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&family=UnifrakturMaguntia&family=Mr+Dafoe&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css"><script>
+<link rel="stylesheet" href="style.css?v={cssv}"><script>
 /* Self-hosted Umami. ?notme=1 stops counting this browser, ?countme=1 undoes it. A visit carrying utm_source=nfc
    (an NFC tag at the shop, like the apprentice tag) is also sent as a tag-tap event, named by utm_content. */
 (function(){{try{{var q=new URLSearchParams(location.search);if(q.has('notme'))localStorage.setItem('umami.disabled','1');if(q.has('countme'))localStorage.removeItem('umami.disabled')}}catch(x){{}}
@@ -237,7 +237,7 @@ def og_tags(fn, title):
             f'<meta name="description" content="{desc}">')
 def page(fn, title, body, extra=''):
     nav = ''.join(f'<a href="{h}"{" class=on" if h == fn or (fn.startswith("artist-") and h == "artists.html") else ""}>{t}</a>' for h, t in NAV)
-    (R / fn).write_text(HEAD.format(title=html.escape(title), nav=nav).replace('</title>', '</title>' + og_tags(fn, title), 1) + body + FOOT.replace('</body>', extra + '</body>'))
+    (R / fn).write_text(HEAD.format(title=html.escape(title), nav=nav, cssv=__import__('hashlib').md5(CSS.encode()).hexdigest()[:8]).replace('</title>', '</title>' + og_tags(fn, title), 1) + body + FOOT.replace('</body>', extra + '</body>'))
 
 def ph(label): return f'<div class="ph">{html.escape(label)}<br>photo coming</div>'
 def portrait(a):  # a real photo when the shop has sent one (assets/artists/<slug>.jpg), else the labelled placeholder
