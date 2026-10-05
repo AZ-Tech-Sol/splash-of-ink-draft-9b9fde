@@ -12,7 +12,12 @@ def callbar():  # D's number first, Magic's right beside it and just as big
     return '<div class="callbar">' + ''.join(f'<a class="call{" alt" if n else ""}" href="tel:{e}"><span class="cl">{lab} · {who}</span><span class="cn">{num}</span></a>' for n, (who, num, e, lab) in enumerate(PHONES)) + '</div>'
 def phones_inline():
     return ' · '.join(f'<a href="tel:{e}">{num}</a> ({who})' for who, num, e, _ in PHONES)
-APPRENTICE_PRICES = {}   # size -> price range, once Magic sets them (2026-10-04: only the $80 minimum is known)
+# Each artist's own price per size, from the artist (Magic, 2026-10-01: "we use all the same sizing structure, but with different minimums").
+# Until an artist's numbers are in, their page shows the shop's guide range for that size, marked as the shop's guide.
+# Apprentices never fall back to the shop range: theirs is lower, so an unknown size says "To confirm".
+ARTIST_PRICES = {
+  # 'magic': {'Small': '$150–175', 'Medium': '…', 'Large': '…', 'Extra large': '…'},
+}
 SIZES = [('Small', 'fits inside your palm', '$150–200', 'size-small'), ('Medium', 'your palm, edge to edge', '$225–300', 'size-medium'), ('Large', 'your palm and most of your fingers', '$325–400', 'size-large'), ('Extra large', 'your whole hand, fingertips to wrist', '$425–500', 'size-xl')]  # the shop's pricing guide, sized against a hand
 HARD_SPOTS = 'ribs, stomach, neck, hands and feet'
 def short(a): return a['name'] if a['name'].startswith('Master') else a['name'].split()[0]
@@ -182,7 +187,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .chart{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:20px;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
 .tier{text-align:center;padding:26px 16px 24px;border-left:1px solid var(--line);display:flex;flex-direction:column;align-items:center}.tier:first-child{border-left:0}
 .tier img{width:84px;height:84px;margin-bottom:10px}.tname{font:600 14px Oswald,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--lilac,#b98cff)}
-.tprice{font:600 34px Oswald,sans-serif;color:var(--fog);margin:4px 0 6px;letter-spacing:.01em}.tfit{font-size:14px;color:var(--mute);max-width:190px}
+.tprice{font:600 34px Oswald,sans-serif;color:var(--fog);margin:4px 0 6px;letter-spacing:.01em}.tprice.guide{color:var(--mute);font-size:28px}.tprice .gl{display:block;font:500 11px/1.4 Inter,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}.tfit{font-size:14px;color:var(--mute);max-width:190px}
 @media (max-width:860px){.chart{grid-template-columns:repeat(2,minmax(0,1fr))}.tier:nth-child(3){border-left:0}.tier:nth-child(n+3){border-top:1px solid var(--line)}}
 @media (max-width:600px){.chart{grid-template-columns:1fr}.tier{border-left:0}.tier+.tier{border-top:1px solid var(--line)}}
 .plist{display:grid;gap:10px}
@@ -361,11 +366,7 @@ page('artists.html', 'Artists · Splash of Ink', f'''
 for a in ARTISTS:
     def work_sections(a, samples):
         if a.get('apprentice'):
-            rows = ''.join(f'<div class="tier"><img src="assets/icons/{i}.svg" alt="" width="84" height="84"><div class="tname">{n}</div><div class="tprice">{APPRENTICE_PRICES.get(n, "To confirm")}</div><div class="tfit">{d}</div></div>' for n, d, r, i in SIZES)
-            return f'''<section class="alt"><div class="wrap"><div class="eyebrow">Apprentice pricing</div><h2 style="font-size:30px">What it costs with the apprentice</h2>
-<p style="max-width:680px">Apprentice prices are lower than the shop's main artists. The minimum is <b style="color:var(--fog)">$80</b>, and the final price still depends on size, placement and detail.</p>
-<div class="chart">{rows}</div>
-<p class="note" style="margin-top:10px">Sizes are measured against your hand, like the shop's main pricing guide. Questions? Ask at the counter.</p></div></section>'''
+            return ''
         if not WORK.get(a['slug']):
             return f'''<section class="alt"><div class="wrap"><div class="eyebrow">Best work</div><h2 style="font-size:30px">One best piece per style</h2>
 <div class="samples" style="margin-top:16px">{samples}</div></div></section>'''
@@ -378,6 +379,23 @@ for a in ARTISTS:
 {filters(key)}<div class="works">{gallery(key)}</div><p class="note" style="margin-top:10px">Tap any piece to see it on Instagram.</p></div></section>''' for key, eb, h in sets if WORK.get(key))
         return secs + vs + (FILTERJS if any(filters(k) for k, _, _ in sets) else '')
     samples = ''.join(f'<figure>{ph(a["name"] + " · " + s)}<figcaption>{s}</figcaption></figure>' for s in a['styles'])
+    def artist_pricing(a):
+        own = ARTIST_PRICES.get(a['slug'], {}); ap = a.get('apprentice'); who = 'the apprentice' if ap else short(a)
+        def cell(n, r):
+            if n in own: return f'<div class="tprice">{own[n]}</div>'
+            if ap: return '<div class="tprice guide">To confirm</div>'
+            return f'<div class="tprice guide">{r}<span class="gl">shop guide</span></div>'
+        rows = ''.join(f'<div class="tier"><img src="assets/icons/{i}.svg" alt="" width="84" height="84"><div class="tname">{n}</div>{cell(n, r)}<div class="tfit">{d}</div></div>' for n, d, r, i in SIZES)
+        mins = a['minimum'] or 'Minimum coming soon'
+        if ap: lead = 'Apprentice prices are lower than the shop’s main artists. The minimum is <b style="color:var(--fog)">$80</b>, and the final price still depends on size, placement and detail.'
+        elif len(own) == len(SIZES): lead = f'These are {who}’s own prices, sized against your hand. <b style="color:var(--fog)">{mins}</b>.'
+        else: lead = f'<b style="color:var(--fog)">{mins}.</b> Until {who}’s own numbers are posted, each size shows the shop’s guide range. Ask for your idea and {who} will send you an exact price.'
+        btn = 'Request apprentice pricing' if ap else f'Get {short(a)}’s price'
+        return f'''<section class="alt"><div class="wrap"><div class="eyebrow">Pricing</div><h2 style="font-size:30px">What it costs with {who}</h2>
+<p style="max-width:680px">{lead}</p>
+<div class="chart">{rows}</div>
+<p class="note" style="margin-top:10px">Sizes are measured against your hand. The same design costs more on the {HARD_SPOTS}. Spend over $150 and you build a $100 tattoo credit.</p>
+<div class="row" style="justify-content:flex-start;margin-top:14px"><a class="btn" href="#" data-ask="{a['slug']}">{btn}</a></div></div></section>'''
     soc = ''.join(f'<a href="{u}"' + ('' if u == '#' else ' target="_blank" rel="noopener"') + f'>{n}{" (coming)" if u == "#" else ""}</a>' for n, u in a['socials'])
     minimum = f'<p><b style="color:var(--fog)">{a["minimum"]}</b></p>' if a['minimum'] else ''
     page(f'artist-{a["slug"]}.html', f'{a["name"]} · Splash of Ink', f'''
@@ -391,6 +409,7 @@ for a in ARTISTS:
     <p class="note">{a['book'][2]}. How to pay is at the bottom of this page.</p>
     <div class="soc" style="margin-top:12px">{soc}</div>
   </div></div></section>
+{artist_pricing(a)}
 {work_sections(a, samples)}
 <section><div class="wrap"><div class="eyebrow">Paying</div><h2 style="font-size:30px">How to pay</h2>
 <p>All payments are due before the tattoo or piercing is done. Questions? Call Master D at <a href="tel:+15206511910">(520) 651-1910</a> or Magic at <a href="tel:+15203923594">(520) 392-3594</a>.</p>
