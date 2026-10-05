@@ -38,32 +38,59 @@ s.onload=function(){try{var q=new URLSearchParams(location.search);if(q.get('utm
 <span class="credit">Website by <a href="https://aztechsol.com/" target="_blank" rel="noopener">AZ Tech Solutions</a></span></div></footer>
 <dialog id="ask" class="askd"><form class="f" id="askf" novalidate>
   <button class="askx" type="button" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
+  <div id="askform">
   <h2 style="font-size:28px;margin:0" id="askh">Request prices</h2>
-  <p class="note" style="margin:0">Every artist sets their own prices. Tell <b id="askwho">them</b> about your idea and they’ll send you a price range.</p>
+  <p class="note" style="margin:0">Every artist sets their own prices. Tell <b id="askwho">them</b> about your idea, and we’ll write it up as a text you can send the shop.</p>
   <input type="hidden" name="artist" id="askartist">
   <label id="askpick">Which artist?<select id="asksel"><option value="magic">Magic · Fourth Avenue</option><option value="annie">Annie · Fourth Avenue</option><option value="master-d">Master D · Stone Avenue</option><option value="angel-perez">Angel Perez · Stone Avenue</option><option value="apprentice-fourth">Apprentice · Fourth Avenue</option><option value="apprentice-stone">Apprentice · Stone Avenue</option></select></label>
   <div class="two"><label>Your name<input name="name" autocomplete="name" required></label><label>Phone<input name="phone" type="tel" autocomplete="tel" required></label></div>
-  <label>Email<input name="email" type="email" autocomplete="email" required></label>
-  <div class="two"><label>Placement<input name="placement" placeholder="Forearm, back, ankle…" required></label><label>Size <small>(roughly)</small><input name="size" placeholder="About 3 × 4 in"></label></div>
+  <div class="two"><label>Placement<input name="placement" placeholder="Forearm, back, ankle…" required></label><label>Size <small>(roughly)</small><input name="size" placeholder="Palm size, about 3 × 4 in…"></label></div>
   <fieldset><legend>What kind?</legend><div class="chk"><label><input type="radio" name="style" value="Black and gray" checked> Black and gray</label><label><input type="radio" name="style" value="Color"> Color</label><label><input type="radio" name="style" value="Fine line"> Fine line</label><label><input type="radio" name="style" value="Piercing"> Piercing</label></div></fieldset>
   <label>Tell them about it <small>(optional)</small><textarea name="notes" rows="3"></textarea></label>
-  <label>Reference image <small>(optional)</small><input name="image" type="file" accept="image/*"></label>
   <p class="note" id="askerr" hidden></p>
-  <button class="btn" type="submit">Send to the artist</button>
-  <p class="note" style="margin:0;text-align:center">Draft: this form doesn’t send anything yet.</p>
+  <button class="btn" type="submit">Get my message ready</button>
+  <p class="note" style="margin:0;text-align:center">Have a reference picture? You can add it to the text once it opens.</p>
+  </div>
+  <div id="askready" hidden>
+    <h2 style="font-size:26px;margin:0">Your message is ready.</h2>
+    <p class="note" style="margin:4px 0 10px">Send it to the shop and <b id="askwho2">your artist</b> will get back to you with a price range.</p>
+    <textarea id="askmsg" rows="7" readonly aria-label="Your message"></textarea>
+    <a class="btn" id="asktext" href="#" style="display:block;text-align:center;margin-top:12px">Text the shop</a>
+    <p class="note" style="margin:6px 0 0;text-align:center">Opens a group text to Master D and Magic with your message typed in. Add your reference picture, then send.</p>
+    <p class="note" style="margin:10px 0 0;text-align:center">Group text not working? <a id="asktd" href="#">Text Master D only</a> · <a id="asktm" href="#">Text Magic only</a></p>
+    <div id="askigwrap"><a class="btn ghost" id="askig" href="#" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:14px">Copy &amp; message <span id="askign">them</span> on Instagram</a>
+    <p class="note" style="margin:6px 0 0;text-align:center">The message is copied: in the chat, tap the box, choose Paste, and send.</p></div>
+    <p class="note" style="margin:12px 0 0;text-align:center"><a href="#" id="askedit">Change something</a> · <a href="#" id="askclose">Close</a></p>
+  </div>
 </form></dialog>
-<script>
+<script>var ASK={"names": {"magic": "Magic", "annie": "Annie", "master-d": "Master D", "angel-perez": "Angel Perez", "apprentice-fourth": "Apprentice \u00b7 Fourth Avenue", "apprentice-stone": "Apprentice \u00b7 Stone Avenue"}, "ig": {"magic": "splashofink_magicman", "annie": "annie_splash_of_ink", "angel-perez": "thegreatsagetattoosandtarot"}, "shop": ["+15206511910", "+15203923594"]};</script><script>
+/* The price request is written up as a message and shown first. Primary: a group text to the shop (Master D + Magic)
+   with the message typed in. Backups: text one of them. Secondary: the artist's own Instagram. Nothing opens on its own. */
 (function(){var d=document.getElementById('ask'),f=document.getElementById('askf'),sel=document.getElementById('asksel'),hid=document.getElementById('askartist');
-var names={"magic":"Magic","annie":"Annie","master-d":"Master D","angel-perez":"Angel Perez","apprentice-fourth":"Apprentice","apprentice-stone":"Apprentice"};
-function open(slug){var known=slug&&names[slug];document.getElementById('askpick').style.display=known?'none':'';
- if(known){sel.value=slug} hid.value=sel.value; document.getElementById('askwho').textContent=names[sel.value]||'them';
- document.getElementById('askh').textContent=known?'Request prices from '+names[slug]:'Request prices'; d.showModal?d.showModal():d.setAttribute('open','')}
-sel.addEventListener('change',function(){hid.value=sel.value;document.getElementById('askwho').textContent=names[sel.value]});
+var $=function(i){return document.getElementById(i)},msg='',ios=/iPhone|iPad|iPod/.test(navigator.userAgent);
+var track=function(n,x){try{if(window.umami)umami.track(n,x)}catch(e){}};
+var sms=function(nums,body){var b=encodeURIComponent(body);if(nums.length>1)return ios?'sms://open?addresses='+nums.join(',')+'&body='+b:'sms:'+nums.join(',')+'?body='+b;return ios?'sms:'+nums[0]+'&body='+b:'sms:'+nums[0]+'?body='+b};
+function show(ready){$('askform').hidden=ready;$('askready').hidden=!ready}
+function open(slug){var known=slug&&ASK.names[slug];$('askpick').style.display=known?'none':'';if(known)sel.value=slug;hid.value=sel.value;
+ $('askwho').textContent=ASK.names[sel.value]||'them';$('askh').textContent=known?'Request prices from '+ASK.names[slug]:'Request prices';show(false);$('askerr').hidden=true;d.showModal?d.showModal():d.setAttribute('open','')}
+sel.addEventListener('change',function(){hid.value=sel.value;$('askwho').textContent=ASK.names[sel.value]});
 document.addEventListener('click',function(e){var b=e.target.closest('[data-ask]');if(!b)return;e.preventDefault();open(b.getAttribute('data-ask'))});
 d.addEventListener('click',function(e){if(e.target===d)d.close()});
-var q=new URLSearchParams(location.search).get('artist'); if(q&&names[q]) open(q);
-f.addEventListener('submit',function(e){e.preventDefault();var bad=[];['name','phone','email','placement'].forEach(function(n){if(!f[n].value.trim())bad.push(n)});
- var er=document.getElementById('askerr');if(bad.length){er.hidden=false;er.textContent='Still needed: '+bad.join(', ')+'.';return}
- var who=names[hid.value]||'the artist'; f.innerHTML='<h2 style="font-size:26px;margin:0">Sent to '+who+'.</h2><p>'+who+' will get back to you with a price range. (Draft: nothing was sent.)</p><button class="btn" type="button" id="askdone">Close</button>'; document.getElementById('askdone').onclick=function(){d.close()};});
+var q=new URLSearchParams(location.search).get('artist');if(q&&ASK.names[q])open(q);
+f.addEventListener('submit',function(e){e.preventDefault();var bad=[];['name','phone','placement'].forEach(function(n){if(!f[n].value.trim())bad.push(n)});
+ var er=$('askerr');if(bad.length){er.hidden=false;er.textContent='Still needed: '+bad.join(', ')+'.';return}er.hidden=true;
+ var who=ASK.names[hid.value]||'any artist',v=function(n){return (f[n].value||'').trim()},st=(f.querySelector('input[name=style]:checked')||{}).value;
+ var L=['Hi Splash of Ink! I would like a price for a tattoo.','Artist: '+who,'Name: '+v('name'),'Phone: '+v('phone'),'Placement: '+v('placement')];
+ if(v('size'))L.push('Size: '+v('size'));if(st)L.push('Style: '+st);if(v('notes'))L.push('Idea: '+v('notes'));msg=L.join('\n');
+ $('askmsg').value=msg;$('askwho2').textContent=who;
+ $('asktext').href=sms(ASK.shop,msg);$('asktd').href=sms([ASK.shop[0]],msg);$('asktm').href=sms([ASK.shop[1]],msg);
+ var ig=ASK.ig[hid.value];$('askigwrap').hidden=!ig;if(ig){$('askig').href='https://ig.me/m/'+ig;$('askign').textContent=who.split(' ')[0]}
+ show(true);track('price-ready',{artist:hid.value})});
+$('asktext').addEventListener('click',function(){track('price-sent',{via:'text-shop',artist:hid.value})});
+$('asktd').addEventListener('click',function(){track('price-sent',{via:'text-master-d',artist:hid.value})});
+$('asktm').addEventListener('click',function(){track('price-sent',{via:'text-magic',artist:hid.value})});
+$('askig').addEventListener('click',function(){try{navigator.clipboard&&navigator.clipboard.writeText(msg)}catch(e){};track('price-sent',{via:'instagram',artist:hid.value})});
+$('askedit').addEventListener('click',function(e){e.preventDefault();show(false)});
+$('askclose').addEventListener('click',function(e){e.preventDefault();d.close()});
 })();
 </script></body></html>
