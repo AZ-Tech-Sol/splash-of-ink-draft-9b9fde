@@ -205,7 +205,7 @@ FOOT = '''<footer><div class="wrap"><span>© 2026 Splash of Ink · Fourth Avenue
 <span class="credit">Website by <a href="https://aztechsol.com/" target="_blank" rel="noopener">AZ Tech Solutions</a></span></div></footer>
 </body></html>'''
 
-SITE = 'https://az-tech-sol.github.io/splash-of-ink-draft-9b9fde/'
+SITE = 'https://splashofink.aztechsol.com/'
 def og_tags(fn, title):
     slug = fn[len('artist-'):-5] if fn.startswith('artist-') else None
     img = f'og-{slug}.png' if slug and (R / 'assets' / 'og' / f'og-{slug}.png').exists() else 'og-site.png'

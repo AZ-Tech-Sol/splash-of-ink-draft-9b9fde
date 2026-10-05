@@ -4,7 +4,7 @@
 
 Prepared by AZ Technology Solutions with the shop, from the conversations of 1 October 2026.
 
-**See it as a page:** https://az-tech-sol.github.io/splash-of-ink-draft-9b9fde/brand/
+**See it as a page:** https://splashofink.aztechsol.com/brand/
 
 ---
 
