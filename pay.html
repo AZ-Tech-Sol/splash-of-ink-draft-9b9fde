@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>Pay · Splash of Ink</title><meta property="og:type" content="website"><meta property="og:site_name" content="Splash of Ink"><meta property="og:title" content="Pay · Splash of Ink"><meta property="og:description" content="Tattoo and piercing on Fourth Avenue and at Stone Avenue, Tucson. Open 24/7 by appointment."><meta property="og:url" content="https://splashofink.aztechsol.com/pay.html"><meta property="og:image" content="https://splashofink.aztechsol.com/assets/og/og-site.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://splashofink.aztechsol.com/assets/og/og-site.png"><meta name="description" content="Tattoo and piercing on Fourth Avenue and at Stone Avenue, Tucson. Open 24/7 by appointment.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&family=UnifrakturMaguntia&family=Mr+Dafoe&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=5a9beb7d"><script>
+/* Self-hosted Umami. ?notme=1 stops counting this browser, ?countme=1 undoes it. A visit carrying utm_source=nfc
+   (an NFC tag at the shop, like the apprentice tag) is also sent as a tag-tap event, named by utm_content. */
+(function(){try{var q=new URLSearchParams(location.search);if(q.has('notme'))localStorage.setItem('umami.disabled','1');if(q.has('countme'))localStorage.removeItem('umami.disabled')}catch(x){}
+var s=document.createElement('script');s.defer=true;s.src='https://stats.aztechsol.com/script.js';s.setAttribute('data-website-id','fde5defc-56bc-49e8-99fb-353d32269204');s.setAttribute('data-domains','splashofink.aztechsol.com');
+s.onload=function(){try{var q=new URLSearchParams(location.search);if(q.get('utm_source')==='nfc'&&window.umami)umami.track('tag-tap',{tag:q.get('utm_content')||'shop',page:location.pathname})}catch(x){}};document.head.appendChild(s)})();
+</script></head><body>
+<div class="draft"><a class="azt" href="https://aztechsol.com/websites/" target="_blank" rel="noopener"><img src="assets/aztech-brandmark.svg" alt="" width="20" height="20"><span>Like this site? <b>Get your own</b> &rarr;</span></a></div>
+<header><div class="wrap"><a class="brand" href="index.html"><img src="assets/brand/lockup-dark.svg?v=0828fc1d" alt="Splash of Ink" height="58"></a>
+<nav><a href="index.html">Home</a><a href="artists.html">Artists</a><a href="prices.html">Prices</a><a href="apprentice.html">Apprentices</a><a href="visit.html">Visit</a><a href="pay.html" class=on>Pay</a></nav></div></header>
+
+<section class="hero" style="padding:60px 0 24px"><div class="wrap"><div class="eyebrow">Paying</div><h1 style="font-size:clamp(46px,8vw,80px)">Pay the shop</h1>
+<p class="lead">All payments are due before the tattoo or piercing is done. Tap the one you use.</p>
+<div class="callbar" style="flex-direction:column;align-items:center">
+  <a class="call" href="https://venmo.com/?txn=pay&recipients=5206511910" target="_blank" rel="noopener" data-pay="venmo"><span class="cl">Venmo</span><span class="cn">(520) 651-1910</span></a>
+  <a class="call alt" href="https://cash.app/$TattdGlassyy" target="_blank" rel="noopener" data-pay="cashapp"><span class="cl">Cash App</span><span class="cn">$TattdGlassyy</span></a>
+  <button class="call" type="button" id="zelle" data-pay="zelle" style="cursor:pointer;font:inherit"><span class="cl">Zelle · tap to copy the number</span><span class="cn">(520) 900-3492</span><span class="cl" style="text-transform:none;letter-spacing:0;font-family:Inter,sans-serif;font-weight:500">Under the business, name “Zyaniece”</span></button>
+</div>
+<p class="note" style="margin-top:18px">Zelle has no app link: open your bank’s app, choose Zelle, and send to that number. Your bank will show the name “Zyaniece” before you confirm.</p>
+<p class="note">Cash works too: there’s an ATM inside the shop. Questions? Call Master D at <a href="tel:+15206511910">(520) 651-1910</a> or Magic at <a href="tel:+15203923594">(520) 392-3594</a>.</p>
+</div></section><footer><div class="wrap"><span>© 2026 Splash of Ink · Fourth Avenue and Stone Avenue, Tucson · <a href="tel:+15206511910">(520) 651-1910</a> · <a href="tel:+15203923594">(520) 392-3594</a></span>
+<span class="credit">Website by <a href="https://aztechsol.com/" target="_blank" rel="noopener">AZ Tech Solutions</a></span></div></footer>
+<script>
+(function(){{var z=document.getElementById('zelle');var cn=z.querySelector('.cn');var orig=cn.textContent;
+z.addEventListener('click',function(){{var n='{PAY['zelle']['copy']}';function done(){{cn.textContent='Copied ✓';setTimeout(function(){{cn.textContent=orig}},1800)}}
+if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(n).then(done,function(){{window.prompt('Zelle number',n)}});else window.prompt('Zelle number',n)}});
+document.querySelectorAll('[data-pay]').forEach(function(el){{el.addEventListener('click',function(){{try{{window.umami&&umami.track('pay',{{method:el.getAttribute('data-pay')}})}}catch(x){{}}}})}});}})();
+</script></body></html>

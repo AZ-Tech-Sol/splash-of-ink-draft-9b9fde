@@ -218,7 +218,21 @@ s.onload=function(){{try{{var q=new URLSearchParams(location.search);if(q.get('u
 <header><div class="wrap"><a class="brand" href="index.html"><img src="assets/brand/lockup-dark.svg?v=0828fc1d" alt="Splash of Ink" height="58"></a>
 <nav>{nav}</nav></div></header>
 '''
-NAV = [('index.html', 'Home'), ('artists.html', 'Artists'), ('prices.html', 'Prices'), ('apprentice.html', 'Apprentices'), ('visit.html', 'Visit')]
+NAV = [('index.html', 'Home'), ('artists.html', 'Artists'), ('prices.html', 'Prices'), ('apprentice.html', 'Apprentices'), ('visit.html', 'Visit'), ('pay.html', 'Pay')]
+# Paying: the handles from the sign on the shop wall (photo, 2026-10-06). Zelle is a different number from the shop phone,
+# and is enrolled under the business with the name "Zyaniece"; the payer's bank app shows that name before they confirm.
+PAY = {
+    'venmo':  {'label': 'Venmo',    'show': '(520) 651-1910', 'href': 'https://venmo.com/?txn=pay&recipients=5206511910'},
+    'cashapp':{'label': 'Cash App', 'show': '$TattdGlassyy',  'href': 'https://cash.app/$TattdGlassyy'},
+    'zelle':  {'label': 'Zelle',    'show': '(520) 900-3492', 'name': 'Zyaniece', 'copy': '5209003492'},
+}
+PAYCARDS = f'''<div class="pay">
+  <div class="card"><h3>Venmo</h3><p><a href="{PAY['venmo']['href']}" target="_blank" rel="noopener">{PAY['venmo']['show']}</a></p></div>
+  <div class="card"><h3>Cash App</h3><p><a href="{PAY['cashapp']['href']}" target="_blank" rel="noopener">{PAY['cashapp']['show']}</a></p></div>
+  <div class="card"><h3>Zelle</h3><p>{PAY['zelle']['show']}<br><span class="note">under the business, name “{PAY['zelle']['name']}”</span></p></div>
+  <div class="card"><h3>Cash</h3><p>ATM inside the shop</p></div>
+</div>'''
+
 FOOT = '''<footer><div class="wrap"><span>© 2026 Splash of Ink · Fourth Avenue and Stone Avenue, Tucson · <a href="tel:+15206511910">(520) 651-1910</a> · <a href="tel:+15203923594">(520) 392-3594</a></span>
 <span class="credit">Website by <a href="https://aztechsol.com/" target="_blank" rel="noopener">AZ Tech Solutions</a></span></div></footer>
 </body></html>'''
@@ -404,12 +418,8 @@ for a in ARTISTS:
 {work_sections(a, samples)}
 <section><div class="wrap"><div class="eyebrow">Paying</div><h2 style="font-size:30px">How to pay</h2>
 <p>All payments are due before the tattoo or piercing is done. Questions? Call Master D at <a href="tel:+15206511910">(520) 651-1910</a> or Magic at <a href="tel:+15203923594">(520) 392-3594</a>.</p>
-<div class="pay">
-  <div class="card"><h3>Venmo</h3><p>(520) 651-1910</p></div>
-  <div class="card"><h3>Cash App</h3><p><a href="https://cash.app/$TattdGlassyy" target="_blank" rel="noopener">$TattdGlassyy</a></p></div>
-  <div class="card"><h3>Zelle</h3><p>(520) 651-1910</p></div>
-  <div class="card"><h3>Cash</h3><p>ATM inside the shop</p></div>
-</div></div></section>''', ask_modal())
+{PAYCARDS}
+<p class="note" style="margin-top:14px"><a href="pay.html">Open the pay page</a> for one-tap buttons.</p></div></section>''', ask_modal())
 
 # Prices: a list of artists, each with their own request
 rows = ''.join(f'''<div class="card prow"><div><h3 style="margin:0">{a['name']}</h3><div class="note">{a['role']} · {SHOPNAME[a['shop']]}</div></div>
@@ -435,6 +445,23 @@ page('apprentice.html', 'Apprentice applications · Splash of Ink', '''
   <button class="btn" type="submit">Send my application</button>
   <p class="note">Draft: this form doesn’t send anything yet.</p>
 </form></div></section>''', '''<script>document.getElementById('af').addEventListener('submit',function(e){e.preventDefault();this.outerHTML='<div class="done"><h3>Thanks for applying.</h3><p>We’ll look at your work and reach out. (Draft: nothing was sent.)</p></div>';});</script>''')
+
+page('pay.html', 'Pay · Splash of Ink', f'''
+<section class="hero" style="padding:60px 0 24px"><div class="wrap"><div class="eyebrow">Paying</div><h1 style="font-size:clamp(46px,8vw,80px)">Pay the shop</h1>
+<p class="lead">All payments are due before the tattoo or piercing is done. Tap the one you use.</p>
+<div class="callbar" style="flex-direction:column;align-items:center">
+  <a class="call" href="{PAY['venmo']['href']}" target="_blank" rel="noopener" data-pay="venmo"><span class="cl">Venmo</span><span class="cn">{PAY['venmo']['show']}</span></a>
+  <a class="call alt" href="{PAY['cashapp']['href']}" target="_blank" rel="noopener" data-pay="cashapp"><span class="cl">Cash App</span><span class="cn">{PAY['cashapp']['show']}</span></a>
+  <button class="call" type="button" id="zelle" data-pay="zelle" style="cursor:pointer;font:inherit"><span class="cl">Zelle · tap to copy the number</span><span class="cn">{PAY['zelle']['show']}</span><span class="cl" style="text-transform:none;letter-spacing:0;font-family:Inter,sans-serif;font-weight:500">Under the business, name “{PAY['zelle']['name']}”</span></button>
+</div>
+<p class="note" style="margin-top:18px">Zelle has no app link: open your bank’s app, choose Zelle, and send to that number. Your bank will show the name “{PAY['zelle']['name']}” before you confirm.</p>
+<p class="note">Cash works too: there’s an ATM inside the shop. Questions? Call Master D at <a href="tel:+15206511910">(520) 651-1910</a> or Magic at <a href="tel:+15203923594">(520) 392-3594</a>.</p>
+</div></section>''', '''<script>
+(function(){{var z=document.getElementById('zelle');var cn=z.querySelector('.cn');var orig=cn.textContent;
+z.addEventListener('click',function(){{var n='{PAY['zelle']['copy']}';function done(){{cn.textContent='Copied ✓';setTimeout(function(){{cn.textContent=orig}},1800)}}
+if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(n).then(done,function(){{window.prompt('Zelle number',n)}});else window.prompt('Zelle number',n)}});
+document.querySelectorAll('[data-pay]').forEach(function(el){{el.addEventListener('click',function(){{try{{window.umami&&umami.track('pay',{{method:el.getAttribute('data-pay')}})}}catch(x){{}}}})}});}})();
+</script>''')
 
 # Visit
 shopcards = ''.join(f'''<div class="card"><h3>{s['name']}</h3><p>{s['addr']}</p><p>{phones_inline()}</p><p>{f'<a href="{s["map"]}" target="_blank" rel="noopener">Open in Google Maps →</a>' if s['map'] else f'<span class="note">{s.get("pending","")}</span>'}</p></div>''' for s in SHOPS)
